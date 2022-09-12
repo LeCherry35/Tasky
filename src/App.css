@@ -21,4 +21,8 @@
     margin: 15px 0;
     font-size: 35px;
   }
+  .todos__single {
+    width: 60% !important;
+  }
+
 }
