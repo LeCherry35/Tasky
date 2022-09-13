@@ -6,7 +6,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgb(151, 96, 203);font-family: 'Bebas Neue', cursive;
+  background-color: rgb(151, 96, 203);
+  font-family: 'Bebas Neue', cursive;
 }
 .heading {
   font-size: 10vh;
@@ -21,8 +22,10 @@
     margin: 15px 0;
     font-size: 35px;
   }
-  .todos__single {
-    width: 60% !important;
+  .container {
+    flex-direction: column;
   }
-
+  .todos {
+    width: 100% !important;
+  }
 }
