@@ -73,9 +73,9 @@
     justify-content: space-between;
     min-height: 45px;
 }
-.todo:hover {
+/* .todo:hover {
     transform: scale(1.1);
-}
+} */
 .todo__textarea {
     width: 60%;
 }
@@ -102,4 +102,16 @@
     outline: none;
     border: none;
     background: inherit;
+}
+.dragactive {
+    /* background-color: red !important; */
+    /* transform: scale(1.05); */
+    /* width: 60% !important; */
+    color: red;
+}
+.dragcompleted {
+    /* background-color: red !important; */
+    /* transform: scale(1.05); */
+    /* width: 60% !important; */
+    color: red;
 }

@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import { useState } from 'react'
 import { Todo } from '../model'
 import { AiFillEdit, AiFillDelete } from 'react-icons/ai'
-import { MdDone, MdDownloadDone } from 'react-icons/md'
+import { MdDone, MdDownloadDone, MdOutlineCancel } from 'react-icons/md'
 import TextareaAutosize from 'react-textarea-autosize';
 import './styles.css'
 import { Draggable } from 'react-beautiful-dnd'
@@ -12,15 +12,18 @@ interface Props {
   todo: Todo;
   todos: Todo[];
   setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+  othTodos: Todo[];
+  setOthTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
 }
-const SingleTodo: React.FC<Props> = ({index, todo, todos, setTodos}) => {
-
+const SingleTodo: React.FC<Props> = ({index, todo, todos, setTodos, othTodos, setOthTodos}) => {
   const [edit, setEdit] = useState<boolean>(false)
   const [editTodo, setEditTodo] = useState<string>(todo.todo)
-  console.log(edit);
+  console.log(edit)
   
   const handleDone = (id:number) => {
-    setTodos(todos.map(todo => todo.id === id ? { ...todo, isDone: !todo.isDone} : todo))
+    todo.isDone = true
+    setOthTodos([...othTodos, todo])
+    setTodos(todos.filter(todo => todo.id !== id))
   }
   const handleDelete = (id:number) => {
     setTodos(todos.filter(todo => todo.id !== id))
@@ -64,14 +67,18 @@ const SingleTodo: React.FC<Props> = ({index, todo, todos, setTodos}) => {
           <div className='todo__icons'>
             
             {edit ? (
-              <button className="icon" type='submit'> <MdDownloadDone style={{color: 'red'}}/></button>
-            ) : (
+              <>
+                <button className="icon" type='submit'> <MdDownloadDone style={{color: 'red'}}/></button>
+                <button className="icon" style={{color: 'red'}} onClick={(e) =>{
+                  e.preventDefault()
+                  if (!todo.isDone){
+                    setEdit(!edit)
+                  }
+                }}><MdOutlineCancel/></button>
+              </>
+            ) : todo.isDone ? (
               <></>
-            )}
-            {todo.isDone ? (
-              <></>
             ) : (
-
               <button className="icon" style={edit ? {color: 'red'} : {}} onClick={(e) =>{
                 e.preventDefault()
                 if (!todo.isDone){
@@ -81,17 +88,26 @@ const SingleTodo: React.FC<Props> = ({index, todo, todos, setTodos}) => {
                 <AiFillEdit/>
               </button>
             )}
-            <button className="icon" onClick={() =>handleDelete(todo.id)}>
-              <AiFillDelete/>
-            </button>
+            {edit ? (
+              <></>
+            ) : (
+              <button className="icon" onClick={() =>handleDelete(todo.id)}>
+                <AiFillDelete/>
+              </button>
+
+            )}
+            {(todo.isDone || edit) ? (
+              <></>
+            ) : (
             <button className="icon" onClick={(e) => {
               e.preventDefault()
-              if(!edit)  {
+              
                 handleDone(todo.id)
-              }
+              
             }} >
               <MdDone/>
             </button>
+            )}
           </div>
         
         </form>
