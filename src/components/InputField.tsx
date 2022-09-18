@@ -15,9 +15,11 @@ const InputField: React.FC<Props> = ({todo, setTodo, handleAdd}) => {
   return (
     <form 
       className="input" 
-      onSubmit={(e) => {
-        handleAdd(e)
-        inputRef.current?.blur()
+      onKeyDown={(e) => {
+        if(e.code === 'Enter') {
+          handleAdd(e)
+          inputRef.current?.blur()
+        }
       }}
     >
       
@@ -34,6 +36,11 @@ const InputField: React.FC<Props> = ({todo, setTodo, handleAdd}) => {
         ref={submitRef} 
         className={todo ? "input__submit input__submit_red " : "input__submit"}
         type='submit' 
+        onClick={(e) => {
+          handleAdd(e)
+          inputRef.current?.blur()
+        }}
+        
       >Go</button>
     </form>
   )

@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import { useState } from 'react'
 import { Todo } from '../model'
 import { AiFillEdit, AiFillDelete } from 'react-icons/ai'
-import { MdDone, MdDownloadDone, MdOutlineCancel } from 'react-icons/md'
+import { MdDone, MdDownloadDone, MdOutlineCancel, MdOutlineArrowBackIos } from 'react-icons/md'
 import TextareaAutosize from 'react-textarea-autosize';
 import './styles.css'
 import { Draggable } from 'react-beautiful-dnd'
@@ -18,10 +18,9 @@ interface Props {
 const SingleTodo: React.FC<Props> = ({index, todo, todos, setTodos, othTodos, setOthTodos}) => {
   const [edit, setEdit] = useState<boolean>(false)
   const [editTodo, setEditTodo] = useState<string>(todo.todo)
-  console.log(edit)
   
   const handleDone = (id:number) => {
-    todo.isDone = true
+    todo.isDone = !todo.isDone
     setOthTodos([...othTodos, todo])
     setTodos(todos.filter(todo => todo.id !== id))
   }
@@ -47,13 +46,24 @@ const SingleTodo: React.FC<Props> = ({index, todo, todos, setTodos, othTodos, se
     <Draggable draggableId={todo.id.toString()} index={index}>
       {(provided) => (
 
-        <form className='todo' onSubmit={e => handleEdit(e,todo.id)} {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+        <form className='todo' {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
           <div className='todo__textarea'>
             {edit ? (
               <TextareaAutosize
                 ref={inputRef}
                 value={editTodo} 
-                onChange={e => setEditTodo(e.target.value)} 
+                onChange={e => setEditTodo(e.target.value)}
+                onKeyDown={(e) => {
+                  switch (e.code) {
+                    case 'Enter': 
+                      handleEdit(e,todo.id)
+                      inputRef.current?.blur()
+                      break
+                    case 'Escape':
+                      setEdit(!edit)
+                      break
+                  }
+                }} 
                 className='todo__textarea--text'
               />
               
@@ -68,16 +78,19 @@ const SingleTodo: React.FC<Props> = ({index, todo, todos, setTodos, othTodos, se
             
             {edit ? (
               <>
-                <button className="icon" type='submit'> <MdDownloadDone style={{color: 'red'}}/></button>
+                <button className="icon" type='submit' onClick={e => handleEdit(e,todo.id)} > <MdDownloadDone style={{color: 'red'}}/></button>
                 <button className="icon" style={{color: 'red'}} onClick={(e) =>{
                   e.preventDefault()
-                  if (!todo.isDone){
-                    setEdit(!edit)
-                  }
+                  setEdit(!edit)
                 }}><MdOutlineCancel/></button>
               </>
             ) : todo.isDone ? (
-              <></>
+              <button className='icon' onClick={(e) => {
+                e.preventDefault()
+                  handleDone(todo.id)
+              }}>
+                <MdOutlineArrowBackIos/>
+              </button>
             ) : (
               <button className="icon" style={edit ? {color: 'red'} : {}} onClick={(e) =>{
                 e.preventDefault()

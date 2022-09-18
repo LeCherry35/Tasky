@@ -24,8 +24,10 @@
   }
   .container {
     flex-direction: column;
+    align-items: center !important;
   }
   .todos {
     width: 100% !important;
+    flex-basis: 0px !important;
   }
 }

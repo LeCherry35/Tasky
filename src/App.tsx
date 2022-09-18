@@ -36,7 +36,6 @@ const App: React.FC = () => {
       add = completed[source.index]
       completed.splice(source.index, 1)
     }
-    console.log(add);
     
     if (destination.droppableId === 'TodosList') {
       add.isDone = false
