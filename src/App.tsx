@@ -5,12 +5,20 @@ import './App.css';
 import InputField from './components/InputField';
 import TodoList from './components/TodoList';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd'
+import ClearButton from './components/ClearButton';
 
 const App: React.FC = () => {
 
+  const initTodosJSON: string | null = localStorage.getItem('todos')
+  const initTodos: Todo[] = initTodosJSON ? JSON.parse(initTodosJSON) : []
+  const initCompletedTodosJSON: string | null = localStorage.getItem('completedTodos')
+  const initCompletedTodos: Todo[] = initCompletedTodosJSON ? JSON.parse(initCompletedTodosJSON) : []
+
+
+ 
   const [todo, setTodo] = useState<string>('')
-  const [todos, setTodos] = useState<Todo[]>([])
-  const [completedTodos, setCompletedTodos] = useState<Todo[]>([])
+  const [todos, setTodos] = useState<Todo[]>(initTodos)
+  const [completedTodos, setCompletedTodos] = useState<Todo[]>(initCompletedTodos)
 
   const handleAdd = (e: React.FormEvent) => {
     e.preventDefault()
@@ -53,6 +61,9 @@ const App: React.FC = () => {
         <span className="heading">Tasky</span>
         <InputField todo={todo} setTodo={setTodo} handleAdd={handleAdd}/>
         <TodoList todos={todos} setTodos={setTodos} completedTodos={completedTodos} setCompletedTodos={setCompletedTodos}/>
+        { todos.length !== 0 || completedTodos.length !== 0 
+          ? <ClearButton setTodos={setTodos} setCompletedTodos={setCompletedTodos}/>
+          : <></>}
       </div>
 
     </DragDropContext>

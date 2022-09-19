@@ -15,10 +15,16 @@ interface Props {
   othTodos: Todo[];
   setOthTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
 }
+
 const SingleTodo: React.FC<Props> = ({index, todo, todos, setTodos, othTodos, setOthTodos}) => {
   const [edit, setEdit] = useState<boolean>(false)
   const [editTodo, setEditTodo] = useState<string>(todo.todo)
   
+  const saveInLocalStorage = (tds: Todo[], oTds: Todo[]) => {
+    localStorage.setItem(!todo.isDone ? 'todos' : 'completedTodos', JSON.stringify(tds))
+    localStorage.setItem(todo.isDone ? 'todos' : 'completedTodos', JSON.stringify(oTds))
+  }
+
   const handleDone = (id:number) => {
     todo.isDone = !todo.isDone
     setOthTodos([...othTodos, todo])
@@ -37,11 +43,22 @@ const SingleTodo: React.FC<Props> = ({index, todo, todos, setTodos, othTodos, se
     setEdit(false)
   }
 
+  
+
   const inputRef = useRef<HTMLTextAreaElement>(null)
 
   useEffect(() => {
     inputRef.current?.focus()
   }, [edit])
+
+  useEffect(() => {
+    saveInLocalStorage(todos, othTodos)
+    // const lst: string | null = localStorage.getItem('todos')
+    // lst ? console.log('t', JSON.parse(lst)) : console.log('empty');
+    // const lsct: string | null = localStorage.getItem('completedTodos')
+    // lsct ? console.log('c',JSON.parse(lsct)) : console.log('empty');
+  }, [todos, othTodos])
+
   return (
     <Draggable draggableId={todo.id.toString()} index={index}>
       {(provided) => (

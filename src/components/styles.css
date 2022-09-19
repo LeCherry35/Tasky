@@ -117,3 +117,27 @@
 .dragcompleted {
     color: red;
 }
+.clear-button {
+    font-family: inherit;
+    font-size: 51px;
+    padding: 8px 20px;
+    border: none;
+    color: white;
+    background-color: inherit;
+    z-index: 2;
+    background-color: rgb(85, 85, 85);
+    transition: 0.5s;
+    position: fixed;
+    right: -120px;
+    top: 100px;
+    height: 67px;
+    transform: rotate(-90deg);
+}
+
+.clear-button:hover {
+    background-color: rgb(190, 6, 6);
+    right: -74px;
+}
+.clear-button:active {
+    transform: scale(0.8) rotate(-90deg);
+}

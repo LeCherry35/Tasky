@@ -19,6 +19,7 @@ const TodoList: React.FC<Props> = ({todos, setTodos, completedTodos, setComplete
   const toggleRemoved = () => {
     setIsHidden(!isHidden)
   }
+
   useEffect(() => {
     if(todos.length === 0 && completedTodos.length !== 0) {
       setIsHidden(false)
