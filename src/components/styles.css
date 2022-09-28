@@ -19,6 +19,8 @@
     border-radius: 0;
     z-index: 2;
 }
+
+
 .input__box:focus {
     box-shadow: 0 0 10px 1000px rgba(0, 0, 0, 0.5);
     outline: none;
@@ -32,14 +34,11 @@
     color: white;
     background-color: inherit;
     z-index: 2;
-    background-color: rgb(85, 85, 85);
+    /* background-color: rgb(85, 85, 85); */
+    background-color: red !important;
     transition: 0.5s;
     height: 100%;
 }
-.input__submit_red {
-    background-color: red !important;
-}
-
 .input__submit:hover {
     background-color: rgb(190, 6, 6);
 }
@@ -54,6 +53,7 @@
     justify-content: center;
     width: 70%;
 }
+
 .todos {
     position: relative;
     display: none;
@@ -65,6 +65,7 @@
     background-color: rgb(118, 75, 158);
     margin: 10px;
 }
+
 .todos__heading {
     text-align: center;
     font-size: 50px;

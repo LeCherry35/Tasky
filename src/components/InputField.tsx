@@ -32,16 +32,19 @@ const InputField: React.FC<Props> = ({todo, setTodo, handleAdd}) => {
           setTodo(e.target.value)
         }}
       />
-      <button 
-        ref={submitRef} 
-        className={todo ? "input__submit input__submit_red " : "input__submit"}
-        type='submit' 
-        onClick={(e) => {
-          handleAdd(e)
-          inputRef.current?.blur()
-        }}
-        
-      >Go</button>
+      {todo 
+        ? <button 
+          ref={submitRef} 
+          className='input__submit'
+          type='submit' 
+          onClick={(e) => {
+            handleAdd(e)
+            inputRef.current?.blur()
+          }}
+          
+        >Add</button>
+        : <></>
+      }
     </form>
   )
 }
