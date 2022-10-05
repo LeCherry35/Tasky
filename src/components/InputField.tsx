@@ -1,15 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useDispatch } from "react-redux"
 import './styles.css'
 import { useRef } from 'react'
 import TextareaAutosize from 'react-textarea-autosize';
 
-interface Props{
-  todo: string;
-  setTodo: React.Dispatch<React.SetStateAction<string>>;
-  handleAdd: (e: React.FormEvent) => void
-} 
-const InputField: React.FC<Props> = ({todo, setTodo, handleAdd}) => {
+const InputField: React.FC = () => {
 
+  const [todo, setTodo] = useState('')
+  const dispatch = useDispatch()
+  const addTodo = (todo: string) => {
+    dispatch({type: 'ADD_TODO', payload: {id: Date.now(), todo: todo, isDone: false}})
+    setTodo('')
+  }
   const inputRef = useRef<HTMLTextAreaElement>(null)
   const submitRef = useRef<HTMLButtonElement>(null)
   return (
@@ -17,7 +19,7 @@ const InputField: React.FC<Props> = ({todo, setTodo, handleAdd}) => {
       className="input" 
       onKeyDown={(e) => {
         if(e.code === 'Enter') {
-          handleAdd(e)
+          addTodo(todo)
           inputRef.current?.blur()
         }
       }}
@@ -36,12 +38,11 @@ const InputField: React.FC<Props> = ({todo, setTodo, handleAdd}) => {
         ? <button 
           ref={submitRef} 
           className='input__submit'
-          type='submit' 
           onClick={(e) => {
-            handleAdd(e)
+            e.preventDefault()
+            addTodo(todo)
             inputRef.current?.blur()
           }}
-          
         >Add</button>
         : <></>
       }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { Todo } from './model'
+import { Todo } from './types/model'
 import './App.css';
 import InputField from './components/InputField';
 import TodoList from './components/TodoList';
@@ -8,6 +8,8 @@ import { DragDropContext, DropResult } from 'react-beautiful-dnd'
 import ClearButton from './components/ClearButton';
 
 const App: React.FC = () => {
+
+
 
   const initTodosJSON: string | null = localStorage.getItem('todos')
   const initTodos: Todo[] = initTodosJSON ? JSON.parse(initTodosJSON) : []
@@ -59,8 +61,8 @@ const App: React.FC = () => {
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="App">
         <span className="heading">Tasky</span>
-        <InputField todo={todo} setTodo={setTodo} handleAdd={handleAdd}/>
-        <TodoList todos={todos} setTodos={setTodos} completedTodos={completedTodos} setCompletedTodos={setCompletedTodos}/>
+        <InputField />
+        <TodoList />
         { todos.length !== 0 || completedTodos.length !== 0 
           ? <ClearButton setTodos={setTodos} setCompletedTodos={setCompletedTodos}/>
           : <></>}

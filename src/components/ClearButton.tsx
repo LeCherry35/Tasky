@@ -1,6 +1,6 @@
 import React from 'react'
 import './styles.css'
-import { Todo } from '../model'
+import { Todo } from '../types/model'
 
 interface Props {
     setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;

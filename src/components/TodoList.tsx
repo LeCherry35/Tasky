@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import './styles.css'
-import { Todo } from '../model'
+import { Todo } from '../types/model'
 import SingleTodo from './SingleTodo';
 import { Droppable } from 'react-beautiful-dnd';
 import { MdOutlineArrowForwardIos, MdOutlineArrowBackIos } from 'react-icons/md'
+import { useTypedSelector } from './hooks/useTypedSelector';
 
-interface Props{
-    todos: Todo[];
-    setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
-    completedTodos: Todo[];
-    setCompletedTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
-  }
 
-const TodoList: React.FC<Props> = ({todos, setTodos, completedTodos, setCompletedTodos}) => {
+
+const TodoList: React.FC = () => {
+
+  // const todos = useTypedSelector(state => state.todos.todos)
+  
+  
+  const {todos, completedTodos} = useTypedSelector(state => state.todos)
   
   const [isHidden,setIsHidden] = useState<boolean>(true)
   
@@ -25,6 +26,7 @@ const TodoList: React.FC<Props> = ({todos, setTodos, completedTodos, setComplete
       setIsHidden(false)
     } 
   }, [todos.length])
+  
   return (
     <div className="container">
       <Droppable droppableId='TodosList'>
@@ -36,7 +38,7 @@ const TodoList: React.FC<Props> = ({todos, setTodos, completedTodos, setComplete
                 <span className='arrow' onClick={() => {toggleRemoved()}}>{isHidden && completedTodos.length !== 0 ? <MdOutlineArrowForwardIos/> : ''}</span>
               </span>
               
-              {todos.map((todo, id) => <SingleTodo index={id} todo={todo} key={todo.id} todos={todos} setTodos={setTodos} othTodos={completedTodos} setOthTodos={setCompletedTodos}/>)}
+              {todos.map((todo, id) => <SingleTodo index={id} todo={todo} key={todo.id}/>)}
               {provided.placeholder}
             </div>
 
@@ -53,7 +55,7 @@ const TodoList: React.FC<Props> = ({todos, setTodos, completedTodos, setComplete
                 {!isHidden ? 'Completed tasks' : ''}
                 {!isHidden && todos.length !== 0 ? <span className='arrow' onClick={() => {toggleRemoved()}}><MdOutlineArrowBackIos/></span> : ''}
               </span>
-              {completedTodos.map((todo, id) => <SingleTodo index={id} todo={todo} key={todo.id} todos={completedTodos} setTodos={setCompletedTodos} othTodos={todos} setOthTodos={setTodos}/>)}
+              {completedTodos.map((todo, id) => <SingleTodo index={id} todo={todo} key={todo.id}/>)}
               {provided.placeholder}
             </div>
 
