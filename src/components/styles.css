@@ -143,6 +143,89 @@
     transform: scale(0.8) rotate(-90deg);
 }
 
+.infobar {
+    position: absolute;
+    font-family: inherit;
+    font-size: 20px;
+    margin: 0 auto;
+    color: white;
+    z-index: 5;
+
+}
+.infobar--warning {
+    animation: 1s infinite alternate blink;
+}
+@keyframes blink {
+    from {
+        color:white
+    }
+    to {
+        color: red;
+    }
+}
+.user {
+    margin-top: 50px;
+    font-family: inherit;
+    position: absolute;
+    font-size: 50px;
+    background: black;
+    z-index: 4;
+    padding: 40px;
+
+    font-family: inherit;
+    position: absolute;
+    font-size: 50px;
+    background: black;
+    z-index: 4;
+    padding: 40px;
+    box-shadow: 0 0 10px 1000px rgba(0, 0, 0, 0.5);
+    display: none;
+    opacity: 0;
+    transition: 1s;
+}
+.user--shown {
+    display: block;
+    opacity: 1;
+} 
+.user__box {
+    font-size: inherit;
+    display: flex;
+    flex-direction: column;
+}
+.user__input {
+    margin: 20px auto;
+    border: none;
+    outline: none;
+    padding: 8px 20px;
+    border: none;
+    font-size: inherit;
+    transition: 0.5s;
+    font-family:  inherit;
+    border-radius: 0;
+    z-index: 5;
+}
+
+.user__button {
+    margin: 20px auto;
+    font-family: inherit;
+    font-size: inherit;
+    padding: 8px 20px;
+    border: none;
+    color: white;
+    background-color: inherit;
+    z-index: 2;
+    /* background-color: rgb(85, 85, 85); */
+    background-color: red ;
+    transition: 0.5s;
+    height: 100%;
+}
+.user__button:hover {
+    background-color: rgb(190, 6, 6);
+}
+.user__button:active {
+    transform: scale(0.8);
+}
+
 @media (max-width:800px) {
     .input {
         font-size: 25px;

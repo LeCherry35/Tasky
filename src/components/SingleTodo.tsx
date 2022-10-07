@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { useState } from 'react'
-import { Todo } from '../types/model'
+import { Todo } from '../models/Todo'
 import { AiFillEdit, AiFillDelete } from 'react-icons/ai'
 import { MdDone, MdDownloadDone, MdOutlineCancel, MdOutlineArrowBackIos } from 'react-icons/md'
 import TextareaAutosize from 'react-textarea-autosize';

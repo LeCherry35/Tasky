@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import './styles.css'
-import { Todo } from '../types/model'
+import { Todo } from '../models/Todo'
 import SingleTodo from './SingleTodo';
 import { Droppable } from 'react-beautiful-dnd';
 import { MdOutlineArrowForwardIos, MdOutlineArrowBackIos } from 'react-icons/md'
-import { useTypedSelector } from './hooks/useTypedSelector';
+import { useTypedSelector } from '../hooks/useTypedSelector';
 
 
 

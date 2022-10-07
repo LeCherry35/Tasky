@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { Todo } from './models/Todo'
 import './App.css';
 import InputField from './components/InputField';
@@ -9,6 +9,10 @@ import ClearButton from './components/ClearButton';
 import { useTypedSelector } from './hooks/useTypedSelector';
 import LoginForm from './components/LoginForm';
 import { useDispatch } from 'react-redux';
+import axios from 'axios';
+import { AuthResponse } from './models/response/AuthResponse';
+import { API_URL } from './http';
+import InfoBar from './components/InfoBar';
 
 const App: React.FC = () => {
 
@@ -26,14 +30,29 @@ const App: React.FC = () => {
   // const [completedTodos, setCompletedTodos] = useState<Todo[]>(initCompletedTodos)
 
   const {todos, completedTodos} = useTypedSelector(state => state.todos)
-const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
   const onDragEnd = (result:DropResult) => {
     dispatch({type: 'DRAG_END', payload: result})
   }
+
+  const checkAuth = async () => {
+    const response = await axios.get<AuthResponse>(`${API_URL}/refresh`, {withCredentials: true})
+    console.log(response);
+    localStorage.setItem('token', response.data.accessToken)
+    dispatch({type: 'SET_USER', payload: response.data.user})
+  }
+
+  useEffect(() => {
+    if(localStorage.getItem('token')){
+      checkAuth()
+    }
+  }, [])
+  
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="App">
+        <InfoBar />
         <LoginForm />
         <span className="heading">Tasky</span>
         <InputField />
