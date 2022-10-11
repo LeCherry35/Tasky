@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { Todo } from './models/Todo'
+import { Todo } from './types/Todo'
 import './App.css';
 import InputField from './components/InputField';
 import TodoList from './components/TodoList';
@@ -13,6 +13,7 @@ import axios from 'axios';
 import { AuthResponse } from './models/response/AuthResponse';
 import { API_URL } from './http';
 import InfoBar from './components/InfoBar';
+import { dragEndAction } from './store/reducers/todoReducer';
 
 const App: React.FC = () => {
 
@@ -33,7 +34,7 @@ const App: React.FC = () => {
   const dispatch = useDispatch()
 
   const onDragEnd = (result:DropResult) => {
-    dispatch({type: 'DRAG_END', payload: result})
+    dispatch(dragEndAction(result))
   }
 
   const checkAuth = async () => {

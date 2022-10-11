@@ -1,67 +1,42 @@
 import React, {FC, useState} from 'react'
-import { useDispatch } from 'react-redux';
+import { login, logout, register } from '../asyncActions/user';
+import { useTypedDispatch } from '../hooks/useTypedDispatch';
 import { useTypedSelector } from '../hooks/useTypedSelector';
-import AuthService from '../services/AuthServises'
+import { hidePanel } from '../store/reducers/authPanelReducer';
 
-// const registration = (email: string, password: string) => {
-//     return (dispatch: (arg: any) => {}) => {
-//         dispatch({ type: 'START_LOADING' }); 
-//         AuthService.registration(email, password).then(response => {
-//             dispatch({ type: 'WRITE_TOKEN', payload: 'token___' }); 
-//             dispatch({ type: 'STOP_LOADING' });
-//         })
-//     }
-// }
 
 const LoginForm: FC = () => {
     
-        const dispatch = useDispatch();
-        const [email,setEmail] = useState<string>('')
-        const [password,setPassword] = useState<string>('')
-        const {isAuth, user} = useTypedSelector(state => state.user)
-        const {shown} = useTypedSelector(state => state.authPanel) 
-    
-        const login = async (email: string, password: string) => {
-            try {
-                const response = await AuthService.login(email, password)
-                console.log(response);
-                localStorage.setItem('token', response.data.accessToken)
-                dispatch({type: 'SET_USER', payload: response.data.user})
-            } catch (e: any) {
-                console.log(e.response?.data?.message);
-                
-            }
-
-    }
-    const register = async (email: string, password: string) => {
-        try {
-            const response = await AuthService.registration(email, password)   
-            console.log(response);
-            localStorage.setItem('token', response.data.accessToken)
-            dispatch({type: 'SET_USER', payload: response.data.user}) 
-        } catch (e: any) {
-            console.log(e.response?.data?.message);
-        }    
-    }
-
-    const logout = async () => {
-        const response = await AuthService.logout()   
-        localStorage.removeItem('token')
-        dispatch({type: 'UNSET_USER'})
-    }
+    const dispatch = useTypedDispatch();
+    const [email,setEmail] = useState<string>('')
+    const [password,setPassword] = useState<string>('')
+    const {isAuth, user, error, isLoading} = useTypedSelector(state => state.user)
+    const {shown} = useTypedSelector(state => state.authPanel)
 
     return (
-        <div 
-            className={shown ? "user user--shown" : 'user'}
-            onMouseLeave={() => {
-                dispatch({type: 'HIDE_PANEL'})
-            }}>
+        <div className={shown ? "user user--shown" : 'user'}>
+            <button className="user__closeButton" onClick={()=>{
+                dispatch(hidePanel())
+            }
+            }>x</button>
             {isAuth 
-            ?<> <button onClick={() => {
-                logout()
-            }}>LOG OUT</button></>
+            ? <div className='user__box'> 
+                {user.isActivated 
+                ? <><button className='user__button' onClick={() => {
+                    dispatch(logout())
+                    setEmail('')
+                    setPassword('')
+                }}>LOG OUT</button></>
+                :<div className="user__error">Tasky has sent activation link to {user.email}</div>}
+                <button className='user__button' onClick={() => {
+                    dispatch(logout())
+                    setEmail('')
+                    setPassword('')
+                }}>LOG OUT</button>
+            </div>
             : <>
             <form className='user__box'>
+                <div className="user__error">{error}</div>
                 <input
                     className='user__input'
                     placeholder='Email'
@@ -74,23 +49,26 @@ const LoginForm: FC = () => {
                     placeholder='Pass'
                     onChange={e => setPassword(e.target.value)}    
                     value={(password)}
-                    type='text'
+                    type='password'
                 />
                 <button className='user__button' onClick={(e) => {
                     e.preventDefault()
-                    register(email, password)
-                    console.log('reg');
-                    
-                    dispatch({type: 'HIDE_PANEL'})
-                }}>REG</button>
+                    dispatch(register(email, password))
+                    setEmail('')
+                    setPassword('')
+                }}>Register</button>
                 <button className='user__button' onClick={(e) => {
                     e.preventDefault()
-                    login(email, password)
-                    dispatch({type: 'HIDE_PANEL'})
-                }}>LOG</button>
+                    dispatch(login(email, password))
+                    setEmail('')
+                    setPassword('')
+                }}>Log in</button>
 
             </form>
             </>}
+            {isLoading 
+            ? <div className="user__loading">Loading</div>
+            : <></>}
         </div>
     )
 }

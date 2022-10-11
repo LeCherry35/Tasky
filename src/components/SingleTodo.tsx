@@ -1,12 +1,13 @@
 import React, { useEffect, useRef } from 'react'
 import { useState } from 'react'
-import { Todo } from '../models/Todo'
+import { Todo } from '../types/Todo'
 import { AiFillEdit, AiFillDelete } from 'react-icons/ai'
 import { MdDone, MdDownloadDone, MdOutlineCancel, MdOutlineArrowBackIos } from 'react-icons/md'
 import TextareaAutosize from 'react-textarea-autosize';
 import './styles.css'
 import { Draggable } from 'react-beautiful-dnd'
 import { useDispatch } from "react-redux"
+import { editTodoAction, removeTodoAction, setDoneAction, setUndoneAction } from '../store/reducers/todoReducer'
 
 interface Props {
   index: number;
@@ -24,20 +25,18 @@ const SingleTodo: React.FC<Props> = ({index, todo}) => {
   }
 
   const setDone = (id:number) => {
-    dispatch({type: 'SET_DONE', payload: id})
+    dispatch(setDoneAction(id))
   }
   const setUndone = (id:number) => {
-    dispatch({type: 'SET_UNDONE', payload: id})
+    dispatch(setUndoneAction(id))
   }
   const removeTodo = (id:number) => {
-    dispatch({type: 'REMOVE_TODO', payload: id})
-    // setTodos(todos.filter(todo => todo.id !== id))
+    dispatch(removeTodoAction(id))
   }
 
   const editTodo = (e: React.FormEvent, id: number) => {
     e.preventDefault()
-    dispatch({type: 'EDIT_TODO', payload: {id: id , editedTodo: editedTodo}})
-    
+    dispatch(editTodoAction(id, editedTodo))
     setEdit(false)
   }
 
@@ -113,11 +112,13 @@ const SingleTodo: React.FC<Props> = ({index, todo}) => {
               }}>
                 <AiFillEdit/>
               </button>
-              <button className="icon" onClick={(e) => {
+              {edit
+              ? <></>
+              : <button className="icon" onClick={(e) => {
                 setDone(todo.id)
               }} >
                 <MdDone/>
-              </button>
+              </button>}
               <button className="icon" onClick={() =>removeTodo(todo.id)}>
                 <AiFillDelete/>
               </button>

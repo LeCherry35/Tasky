@@ -3,13 +3,14 @@ import { useDispatch } from "react-redux"
 import './styles.css'
 import { useRef } from 'react'
 import TextareaAutosize from 'react-textarea-autosize';
+import { addToodoAction } from '../store/reducers/todoReducer';
 
 const InputField: React.FC = () => {
 
   const [todo, setTodo] = useState('')
   const dispatch = useDispatch()
   const addTodo = (todo: string) => {
-    dispatch({type: 'ADD_TODO', payload: {id: Date.now(), todo: todo, isDone: false}})
+    dispatch(addToodoAction(todo))
     setTodo('')
   }
   const inputRef = useRef<HTMLTextAreaElement>(null)

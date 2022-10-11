@@ -9,4 +9,3 @@ export const rootReducer = combineReducers({
     authPanel: authPanelReducer
 })
 
-export type RootState = ReturnType<typeof rootReducer>

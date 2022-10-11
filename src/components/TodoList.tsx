@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './styles.css'
-import { Todo } from '../models/Todo'
+import { Todo } from '../types/Todo'
 import SingleTodo from './SingleTodo';
 import { Droppable } from 'react-beautiful-dnd';
 import { MdOutlineArrowForwardIos, MdOutlineArrowBackIos } from 'react-icons/md'

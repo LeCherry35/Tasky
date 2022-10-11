@@ -1,10 +1,11 @@
 import React , {FC, useState} from 'react'
 import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../hooks/useTypedSelector';
+import { showPanel } from '../store/reducers/authPanelReducer';
 
 const InfoBar: FC = () => {
-    const [email,setEmail] = useState<string>('')
-    const [password,setPassword] = useState<string>('')
+    
+    
     const {isAuth, user} = useTypedSelector(state => state.user)  
     const {shown} = useTypedSelector(state => state.authPanel) 
     
@@ -15,13 +16,15 @@ const dispatch = useDispatch()
         {isAuth
             ? <div 
             className='infobar'
-            onMouseEnter={() => {
-                dispatch({type: 'SHOW_PANEL'})
-        }}> OK </div>
+            onClick={() => {
+                dispatch(showPanel())
+        }}> {user.isActivated
+            ? user.email
+            : 'Please activate your account'} </div>
         : <div 
         className='infobar infobar--warning'
         onMouseEnter={() => {
-            dispatch({type: 'SHOW_PANEL'})
+            dispatch(showPanel())
         }}>Please log in</div>
         }</>
     )

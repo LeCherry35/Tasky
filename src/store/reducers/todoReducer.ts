@@ -1,12 +1,10 @@
-import { Todo } from '../../models/Todo'
-import _ from 'lodash'
+import { TodosState, TodosAction, TodosActionTypes } from '../../types/todos';
 
-const ADD_TODO = 'ADD_TODO'
-const EDIT_TODO = 'EDIT_TODO'
-const REMOVE_TODO = 'REMOVE_TODO'
-const SET_DONE = 'SET_DONE'
-const SET_UNDONE = 'SET_UNDONE'
-const DRAG_END = 'DRAG_END'
+import { Todo } from '../../types/Todo'
+import _ from 'lodash'
+import { DropResult } from 'react-beautiful-dnd'
+
+
 
 
 // const initTodosJSON: string | null = localStorage.getItem('todos')
@@ -14,16 +12,7 @@ const DRAG_END = 'DRAG_END'
 // const initCompletedTodosJSON: string | null = localStorage.getItem('completedTodos')
 // const initCompletedTodos: Todo[] = initCompletedTodosJSON ? JSON.parse(initCompletedTodosJSON) : []
 
-interface TodosState {
-    todos: Todo[]
-    completedTodos: Todo[]
-    error: null | boolean
-}
 
-interface TodosAction {
-    type: string
-    payload?: any
-}
 
 const initialState: TodosState = {
     todos: [],
@@ -33,19 +22,19 @@ const initialState: TodosState = {
 
 export const todoReducer = (state = initialState, action: TodosAction): TodosState => {
     switch (action.type) {
-        case ADD_TODO:
+        case TodosActionTypes.ADD_TODO:
             return { ...state, todos: [...state.todos , action.payload]}
         
-        case EDIT_TODO:
+        case TodosActionTypes.EDIT_TODO:
             const editedTodos = state.todos.map((todo) => (todo.id === action.payload.id ? { ...todo, todo:  action.payload.editedTodo} : todo))
             return { ...state, todos: editedTodos}
             
-        case REMOVE_TODO:
+        case TodosActionTypes.REMOVE_TODO:
             const tds = state.todos.filter(todo => todo.id !== action.payload)
             const cTds = state.completedTodos.filter(todo => todo.id !== action.payload)
             return{ ...state, todos: tds, completedTodos: cTds}
         
-        case SET_DONE:
+        case TodosActionTypes.SET_DONE:
             const doneTodo: Todo | undefined = state.todos.find(todo => todo.id === action.payload) 
             if(doneTodo) doneTodo.isDone = true
             const leftTodos = _.cloneDeep(state.todos)
@@ -57,7 +46,7 @@ export const todoReducer = (state = initialState, action: TodosAction): TodosSta
             }
             return { ...state, todos: leftTodos, completedTodos: updatedCompletedTodos}
             
-        case SET_UNDONE:
+        case TodosActionTypes.SET_UNDONE:
             const undoneTodo: Todo | undefined = state.completedTodos.find(todo => todo.id === action.payload) 
             if(undoneTodo) undoneTodo.isDone = false
             const leftCompletedTodos = _.cloneDeep(state.completedTodos)
@@ -69,7 +58,7 @@ export const todoReducer = (state = initialState, action: TodosAction): TodosSta
             }
             return { ...state, todos: updatedTodos, completedTodos: leftCompletedTodos}
 
-        case DRAG_END:
+        case TodosActionTypes.DRAG_END:
             const {source, destination} = action.payload
             if (!destination) return state
             if (destination.droppableId === source.droppableId && destination.index === source.index) return state
@@ -97,4 +86,23 @@ export const todoReducer = (state = initialState, action: TodosAction): TodosSta
         default:
             return state
     }
+}
+
+export const addToodoAction = (todo:string) => {
+    return {type: TodosActionTypes.ADD_TODO, payload: {id: Date.now(), todo: todo, isDone: false}}
+}
+export const setDoneAction = (id:number) => {
+    return {type: TodosActionTypes.SET_DONE, payload: id}
+}
+export const setUndoneAction = (id:number) => {
+    return {type: TodosActionTypes.SET_UNDONE, payload: id}
+}
+export const removeTodoAction = (id:number) => {
+    return {type: TodosActionTypes.REMOVE_TODO, payload: id}
+}
+export const editTodoAction = (id:number, editedTodo:string) => {
+    return {type: TodosActionTypes.EDIT_TODO, payload: {id: id , editedTodo: editedTodo}}
+}
+export const dragEndAction = (result:DropResult) => {
+    return {type: TodosActionTypes.DRAG_END, payload: result}
 }
