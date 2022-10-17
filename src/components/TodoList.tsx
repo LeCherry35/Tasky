@@ -5,6 +5,9 @@ import SingleTodo from './SingleTodo';
 import { Droppable } from 'react-beautiful-dnd';
 import { MdOutlineArrowForwardIos, MdOutlineArrowBackIos } from 'react-icons/md'
 import { useTypedSelector } from '../hooks/useTypedSelector';
+import { getTodos } from '../asyncActions/todos';
+import { useTypedDispatch } from '../hooks/useTypedDispatch';
+import { clearTodos } from '../store/reducers/todoReducer';
 
 
 
@@ -14,18 +17,27 @@ const TodoList: React.FC = () => {
   
   
   const {todos, completedTodos} = useTypedSelector(state => state.todos)
+  const {isAuth, user} = useTypedSelector(state => state.user)
+  const dispatch = useTypedDispatch ()
   
-  const [isHidden,setIsHidden] = useState<boolean>(true)
+  const [completedIsHidden,setCompletedIsHidden] = useState<boolean>(true)
   
   const toggleRemoved = () => {
-    setIsHidden(!isHidden)
+    setCompletedIsHidden(!completedIsHidden)
   }
-
   useEffect(() => {
     if(todos.length === 0 && completedTodos.length !== 0) {
-      setIsHidden(false)
+      setCompletedIsHidden(false)
     } 
   }, [todos.length])
+
+  useEffect(() => {
+    if(isAuth) {
+      dispatch(getTodos(user.id))
+    } else {
+      dispatch(clearTodos())
+    }
+  },[isAuth])
   
   return (
     <div className="container">
@@ -35,7 +47,7 @@ const TodoList: React.FC = () => {
             <div className={`todos ${todos.length !== 0 ? 'shown' : ''}`} ref={provided.innerRef} { ...provided.droppableProps}>
               <span className={`todos__heading ${snapshot.isDraggingOver ? 'dragactive' : ''}`}>
                 Active tasks
-                <span className='arrow' onClick={() => {toggleRemoved()}}>{isHidden && completedTodos.length !== 0 ? <MdOutlineArrowForwardIos/> : ''}</span>
+                <span className='arrow' onClick={() => {toggleRemoved()}}>{completedIsHidden && completedTodos.length !== 0 ? <MdOutlineArrowForwardIos/> : ''}</span>
               </span>
               
               {todos.map((todo, id) => <SingleTodo index={id} todo={todo} key={todo.id}/>)}
@@ -50,10 +62,10 @@ const TodoList: React.FC = () => {
       <Droppable droppableId='CompletedTodosList'>
         {
           (provided, snapshot) => (
-            <div className={`todos ${!isHidden && completedTodos.length !== 0 ? 'shown' : ''}`} ref={provided.innerRef} { ...provided.droppableProps}>
+            <div className={`todos ${!completedIsHidden && completedTodos.length !== 0 ? 'shown' : ''}`} ref={provided.innerRef} { ...provided.droppableProps}>
               <span className={`todos__heading ${snapshot.isDraggingOver ? 'dragcompleted' : ''}`}>
-                {!isHidden ? 'Completed tasks' : ''}
-                {!isHidden && todos.length !== 0 ? <span className='arrow' onClick={() => {toggleRemoved()}}><MdOutlineArrowBackIos/></span> : ''}
+                {!completedIsHidden ? 'Completed tasks' : ''}
+                {!completedIsHidden && todos.length !== 0 ? <span className='arrow' onClick={() => {toggleRemoved()}}><MdOutlineArrowBackIos/></span> : ''}
               </span>
               {completedTodos.map((todo, id) => <SingleTodo index={id} todo={todo} key={todo.id}/>)}
               {provided.placeholder}

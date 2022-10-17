@@ -8,12 +8,17 @@ export interface TodosState {
 }
 
 export enum TodosActionTypes {
+    SET_TODOS = 'SET_TODOS',
     ADD_TODO = 'ADD_TODO',
     EDIT_TODO = 'EDIT_TODO',
     REMOVE_TODO = 'REMOVE_TODO',
     SET_DONE = 'SET_DONE',
     DRAG_END = 'DRAG_END',
     SET_UNDONE = 'SET_UNDONE'
+}
+interface SetTodoActionInterface {
+    type: TodosActionTypes.SET_TODOS
+    payload: Todo []
 }
 interface AddToodoActionInterface {
     type: TodosActionTypes.ADD_TODO
@@ -43,4 +48,4 @@ interface DragEndActionInterface {
     payload: DropResult
 }
 export type TodosAction = AddToodoActionInterface | EditToodoActionInterface | RemoveToodoActionInterface | 
-    SetDoneActionInterface | SetUnoneActionInterface | DragEndActionInterface
+    SetDoneActionInterface | SetUnoneActionInterface | DragEndActionInterface | SetTodoActionInterface

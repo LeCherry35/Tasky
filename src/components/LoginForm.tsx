@@ -13,6 +13,7 @@ const LoginForm: FC = () => {
     const {isAuth, user, error, isLoading} = useTypedSelector(state => state.user)
     const {shown} = useTypedSelector(state => state.authPanel)
 
+    
     return (
         <div className={shown ? "user user--shown" : 'user'}>
             <button className="user__closeButton" onClick={()=>{
@@ -22,11 +23,7 @@ const LoginForm: FC = () => {
             {isAuth 
             ? <div className='user__box'> 
                 {user.isActivated 
-                ? <><button className='user__button' onClick={() => {
-                    dispatch(logout())
-                    setEmail('')
-                    setPassword('')
-                }}>LOG OUT</button></>
+                ? <></>
                 :<div className="user__error">Tasky has sent activation link to {user.email}</div>}
                 <button className='user__button' onClick={() => {
                     dispatch(logout())

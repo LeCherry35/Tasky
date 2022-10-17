@@ -22,6 +22,8 @@ const initialState: TodosState = {
 
 export const todoReducer = (state = initialState, action: TodosAction): TodosState => {
     switch (action.type) {
+        case TodosActionTypes.SET_TODOS: 
+            return { ...state, todos: action.payload}
         case TodosActionTypes.ADD_TODO:
             return { ...state, todos: [...state.todos , action.payload]}
         
@@ -105,4 +107,7 @@ export const editTodoAction = (id:number, editedTodo:string) => {
 }
 export const dragEndAction = (result:DropResult) => {
     return {type: TodosActionTypes.DRAG_END, payload: result}
+}
+export const clearTodos = () => {
+    return {type: TodosActionTypes.SET_TODOS, payload: []}
 }
