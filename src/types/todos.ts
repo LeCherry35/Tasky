@@ -47,5 +47,6 @@ interface DragEndActionInterface {
     type: TodosActionTypes.DRAG_END
     payload: DropResult
 }
+
 export type TodosAction = AddToodoActionInterface | EditToodoActionInterface | RemoveToodoActionInterface | 
-    SetDoneActionInterface | SetUnoneActionInterface | DragEndActionInterface | SetTodoActionInterface
+    SetDoneActionInterface | SetUnoneActionInterface | DragEndActionInterface | SetTodoActionInterface 

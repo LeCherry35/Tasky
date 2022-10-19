@@ -23,7 +23,9 @@ const initialState: TodosState = {
 export const todoReducer = (state = initialState, action: TodosAction): TodosState => {
     switch (action.type) {
         case TodosActionTypes.SET_TODOS: 
-            return { ...state, todos: action.payload}
+            const activeTodos = action.payload.filter(todo => todo.isDone === false)
+            const completedTodos = action.payload.filter(todo => todo.isDone === true)
+            return { ...state, todos: activeTodos, completedTodos: completedTodos}
         case TodosActionTypes.ADD_TODO:
             return { ...state, todos: [...state.todos , action.payload]}
         
@@ -38,26 +40,30 @@ export const todoReducer = (state = initialState, action: TodosAction): TodosSta
         
         case TodosActionTypes.SET_DONE:
             const doneTodo: Todo | undefined = state.todos.find(todo => todo.id === action.payload) 
-            if(doneTodo) doneTodo.isDone = true
+            let doneTodoCopy
+            let updatedCompletedTodos: Todo[] = []
+            if(doneTodo) {
+                doneTodoCopy = _.cloneDeep(doneTodo)
+                doneTodoCopy.isDone = true
+                updatedCompletedTodos = _.cloneDeep(state.completedTodos || [])
+                updatedCompletedTodos.push(doneTodoCopy)
+            }
             const leftTodos = _.cloneDeep(state.todos)
             leftTodos.splice(leftTodos.findIndex(todo => todo.id === action.payload), 1)
-            let updatedCompletedTodos: Todo[] = []
-            if(doneTodo) {   
-                updatedCompletedTodos = _.cloneDeep(state.completedTodos || [])
-                updatedCompletedTodos.push(doneTodo)
-            }
             return { ...state, todos: leftTodos, completedTodos: updatedCompletedTodos}
             
         case TodosActionTypes.SET_UNDONE:
             const undoneTodo: Todo | undefined = state.completedTodos.find(todo => todo.id === action.payload) 
-            if(undoneTodo) undoneTodo.isDone = false
-            const leftCompletedTodos = _.cloneDeep(state.completedTodos)
-            leftCompletedTodos.splice(leftCompletedTodos.findIndex(todo => todo.id === action.payload), 1)
+            let undoneTodoCopy
             let updatedTodos: Todo[] = []
             if(undoneTodo) {
+                undoneTodoCopy = _.cloneDeep(undoneTodo)
+                undoneTodoCopy.isDone = false
                 updatedTodos = _.cloneDeep(state.todos || [])
-                updatedTodos.push(undoneTodo)
+                updatedTodos.push(undoneTodoCopy)
             }
+            const leftCompletedTodos = _.cloneDeep(state.completedTodos)
+            leftCompletedTodos.splice(leftCompletedTodos.findIndex(todo => todo.id === action.payload), 1)
             return { ...state, todos: updatedTodos, completedTodos: leftCompletedTodos}
 
         case TodosActionTypes.DRAG_END:
@@ -90,8 +96,8 @@ export const todoReducer = (state = initialState, action: TodosAction): TodosSta
     }
 }
 
-export const addToodoAction = (todo:string) => {
-    return {type: TodosActionTypes.ADD_TODO, payload: {id: Date.now(), todo: todo, isDone: false}}
+export const addToodoAction = (todo:string, id:number) => {
+    return {type: TodosActionTypes.ADD_TODO, payload: {id: id, todo: todo, isDone: false}}
 }
 export const setDoneAction = (id:number) => {
     return {type: TodosActionTypes.SET_DONE, payload: id}

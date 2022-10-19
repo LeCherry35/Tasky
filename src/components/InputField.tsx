@@ -6,25 +6,31 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { addToodoAction } from '../store/reducers/todoReducer';
 import TodoService from '../services/TodoServices';
 import { useTypedSelector } from '../hooks/useTypedSelector';
+import { addTodoAsync } from '../asyncActions/todos';
+import { useTypedDispatch } from '../hooks/useTypedDispatch';
 
 const InputField: React.FC = () => {
 
   const [todo, setTodo] = useState('')
   const {isAuth, user} = useTypedSelector(state => state.user)
-  const dispatch = useDispatch()
-  // const addTodo = (todo: string) => {
-  //   dispatch(addToodoAction(todo))
-  //   setTodo('')
-  // }
+  const dispatch = useTypedDispatch()
   const inputRef = useRef<HTMLTextAreaElement>(null)
   const submitRef = useRef<HTMLButtonElement>(null)
+
+  const addTodo = () => {
+    const id = Date.now()
+          dispatch(addTodoAsync(todo, user.id, id))
+          dispatch(addToodoAction(todo, id))
+          setTodo('')
+          inputRef.current?.blur()
+  }
+
   return (
     <form 
       className="input" 
       onKeyDown={(e) => {
         if(e.code === 'Enter') {
-          // addTodo(todo)
-          inputRef.current?.blur()
+          addTodo()
         }
       }}
     >
@@ -44,9 +50,7 @@ const InputField: React.FC = () => {
           className='input__submit'
           onClick={(e) => {
             e.preventDefault()
-            // addTodo(todo)
-            TodoService.addTodo(todo, user.id)
-            inputRef.current?.blur()
+            addTodo()
           }}
         >Add</button>
         : <></>

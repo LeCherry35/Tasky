@@ -8,6 +8,8 @@ import './styles.css'
 import { Draggable } from 'react-beautiful-dnd'
 import { useDispatch } from "react-redux"
 import { editTodoAction, removeTodoAction, setDoneAction, setUndoneAction } from '../store/reducers/todoReducer'
+import { deleteTodoAsync, editTodoAsync, setDoneAsync, setUndoneAsync } from '../asyncActions/todos'
+import { useTypedDispatch } from '../hooks/useTypedDispatch'
 
 interface Props {
   index: number;
@@ -17,7 +19,7 @@ interface Props {
 const SingleTodo: React.FC<Props> = ({index, todo}) => {
   const [edit, setEdit] = useState<boolean>(false)
   const [editedTodo, setEditedTodo] = useState<string>(todo.todo)
-  const dispatch = useDispatch()
+  const dispatch = useTypedDispatch()
   
   const saveInLocalStorage = (tds: Todo[], oTds: Todo[]) => {
     localStorage.setItem(!todo.isDone ? 'todos' : 'completedTodos', JSON.stringify(tds))
@@ -25,18 +27,22 @@ const SingleTodo: React.FC<Props> = ({index, todo}) => {
   }
 
   const setDone = (id:number) => {
+    dispatch(setDoneAsync(id))
     dispatch(setDoneAction(id))
   }
   const setUndone = (id:number) => {
+    dispatch(setUndoneAsync(id))
     dispatch(setUndoneAction(id))
   }
   const removeTodo = (id:number) => {
     dispatch(removeTodoAction(id))
+    dispatch(deleteTodoAsync(id))
   }
 
   const editTodo = (e: React.FormEvent, id: number) => {
     e.preventDefault()
     dispatch(editTodoAction(id, editedTodo))
+    dispatch(editTodoAsync(id, editedTodo))
     setEdit(false)
   }
 
@@ -119,9 +125,11 @@ const SingleTodo: React.FC<Props> = ({index, todo}) => {
               }} >
                 <MdDone/>
               </button>}
-              <button className="icon" onClick={() =>removeTodo(todo.id)}>
+              <button className="icon" onClick={() =>{
+                console.log(todo);
+                removeTodo(todo.id)}}>
                 <AiFillDelete/>
-              </button>
+              </button> 
             </>}
           </div>
         </form>

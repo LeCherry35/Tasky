@@ -5,7 +5,7 @@ import SingleTodo from './SingleTodo';
 import { Droppable } from 'react-beautiful-dnd';
 import { MdOutlineArrowForwardIos, MdOutlineArrowBackIos } from 'react-icons/md'
 import { useTypedSelector } from '../hooks/useTypedSelector';
-import { getTodos } from '../asyncActions/todos';
+import { getTodosAsync } from '../asyncActions/todos';
 import { useTypedDispatch } from '../hooks/useTypedDispatch';
 import { clearTodos } from '../store/reducers/todoReducer';
 
@@ -33,7 +33,7 @@ const TodoList: React.FC = () => {
 
   useEffect(() => {
     if(isAuth) {
-      dispatch(getTodos(user.id))
+      dispatch(getTodosAsync(user.id))
     } else {
       dispatch(clearTodos())
     }
