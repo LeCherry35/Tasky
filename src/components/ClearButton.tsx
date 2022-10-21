@@ -1,17 +1,24 @@
 import React from 'react'
 import './styles.css'
 import { Todo } from '../types/Todo'
+import { deleteAllAsync } from '../asyncActions/todos';
+import { useTypedSelector } from '../hooks/useTypedSelector';
+import { useTypedDispatch } from '../hooks/useTypedDispatch';
+import { clearTodosAction } from '../store/reducers/todoReducer';
 
-interface Props {
-    setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
-    setCompletedTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
-}
-const ClearButton: React.FC<Props> = ({setTodos, setCompletedTodos}) => {
+const ClearButton: React.FC = () => {
+  const {isAuth, user} = useTypedSelector(state => state.user)
+
+  const deleteAll = () => {
+    if (isAuth) dispatch(deleteAllAsync(user.id))
+    dispatch(clearTodosAction())
+
+  }
+
+  const dispatch = useTypedDispatch()
   return (
     <button className='clear-button' onClick={() => {
-        setTodos([])
-        setCompletedTodos([])
-        localStorage.clear()
+      deleteAll()
     }}>Clear all</button>
   )
 }

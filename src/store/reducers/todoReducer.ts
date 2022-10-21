@@ -114,6 +114,6 @@ export const editTodoAction = (id:number, editedTodo:string) => {
 export const dragEndAction = (result:DropResult) => {
     return {type: TodosActionTypes.DRAG_END, payload: result}
 }
-export const clearTodos = () => {
+export const clearTodosAction = () => {
     return {type: TodosActionTypes.SET_TODOS, payload: []}
 }

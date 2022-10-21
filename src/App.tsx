@@ -10,6 +10,7 @@ import InfoBar from './components/InfoBar';
 import { dragEndAction } from './store/reducers/todoReducer';
 import { checkAuth } from './asyncActions/user';
 import { useTypedDispatch } from './hooks/useTypedDispatch';
+import ClearButton from './components/ClearButton';
 
 const App: React.FC = () => {
 
@@ -34,6 +35,7 @@ const App: React.FC = () => {
         <span className="heading">Tasky</span>
         <InputField />
         <TodoList />
+        {(todos.length !== 0 || completedTodos.length !== 0) && <ClearButton />}
       </div>
 
     </DragDropContext>

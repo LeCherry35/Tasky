@@ -68,3 +68,13 @@ export const setUndoneAsync = (id:number) => {
         }
     }
 }
+export const deleteAllAsync = (userId: string) => {
+    return async (dispatch: Dispatch<TodosAction>) => {
+        try {
+            const response = await TodoService.deleteAll(userId)
+            console.log(response.data.deletedCount + ' todos deleted')
+        } catch(e) {
+            console.log(e)
+        }
+    }
+}

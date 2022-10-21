@@ -7,7 +7,7 @@ import { MdOutlineArrowForwardIos, MdOutlineArrowBackIos } from 'react-icons/md'
 import { useTypedSelector } from '../hooks/useTypedSelector';
 import { getTodosAsync } from '../asyncActions/todos';
 import { useTypedDispatch } from '../hooks/useTypedDispatch';
-import { clearTodos } from '../store/reducers/todoReducer';
+import { clearTodosAction } from '../store/reducers/todoReducer';
 
 
 
@@ -35,7 +35,7 @@ const TodoList: React.FC = () => {
     if(isAuth) {
       dispatch(getTodosAsync(user.id))
     } else {
-      dispatch(clearTodos())
+      dispatch(clearTodosAction())
     }
   },[isAuth])
   

@@ -1,4 +1,4 @@
-import { clearTodos } from './../store/reducers/todoReducer';
+import { clearTodosAction } from './../store/reducers/todoReducer';
 import { UserActionTypes, UserAction } from '../types/user';
 import { Dispatch } from "redux"
 import AuthService from "../services/AuthServises"
@@ -33,7 +33,7 @@ export const logout = () => {
             const response = await AuthService.logout()
             localStorage.removeItem('token')
             dispatch({type: UserActionTypes.LOG_OUT})
-            clearTodos()
+            clearTodosAction()
         } catch (e: any) {
             dispatch({type: UserActionTypes.ERROR, payload: e.response?.data?.message})
         }

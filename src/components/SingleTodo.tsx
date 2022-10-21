@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux"
 import { editTodoAction, removeTodoAction, setDoneAction, setUndoneAction } from '../store/reducers/todoReducer'
 import { deleteTodoAsync, editTodoAsync, setDoneAsync, setUndoneAsync } from '../asyncActions/todos'
 import { useTypedDispatch } from '../hooks/useTypedDispatch'
+import { useTypedSelector } from '../hooks/useTypedSelector'
 
 interface Props {
   index: number;
@@ -20,6 +21,7 @@ const SingleTodo: React.FC<Props> = ({index, todo}) => {
   const [edit, setEdit] = useState<boolean>(false)
   const [editedTodo, setEditedTodo] = useState<string>(todo.todo)
   const dispatch = useTypedDispatch()
+  const {isAuth} = useTypedSelector(state => state.user)
   
   const saveInLocalStorage = (tds: Todo[], oTds: Todo[]) => {
     localStorage.setItem(!todo.isDone ? 'todos' : 'completedTodos', JSON.stringify(tds))
@@ -27,22 +29,22 @@ const SingleTodo: React.FC<Props> = ({index, todo}) => {
   }
 
   const setDone = (id:number) => {
-    dispatch(setDoneAsync(id))
+    if (isAuth) dispatch(setDoneAsync(id))
     dispatch(setDoneAction(id))
   }
   const setUndone = (id:number) => {
-    dispatch(setUndoneAsync(id))
+    if (isAuth) dispatch(setUndoneAsync(id))
     dispatch(setUndoneAction(id))
   }
   const removeTodo = (id:number) => {
+    if (isAuth) dispatch(deleteTodoAsync(id))
     dispatch(removeTodoAction(id))
-    dispatch(deleteTodoAsync(id))
   }
 
   const editTodo = (e: React.FormEvent, id: number) => {
     e.preventDefault()
+    if (isAuth) dispatch(editTodoAsync(id, editedTodo))
     dispatch(editTodoAction(id, editedTodo))
-    dispatch(editTodoAsync(id, editedTodo))
     setEdit(false)
   }
 
