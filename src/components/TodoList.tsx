@@ -33,7 +33,7 @@ const TodoList: React.FC = () => {
 
   useEffect(() => {
     if(isAuth) {
-      dispatch(getTodosAsync(user.id))
+      dispatch(getTodosAsync())
     } else {
       dispatch(clearTodosAction())
     }

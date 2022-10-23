@@ -4,11 +4,11 @@ import { TodoResponse } from "../models/response/TodoResponse";
 import { Todo } from "../types/Todo";
 
 export default class TodoService {
-    static async addTodo(todo: string, userId: string, id: number): Promise<AxiosResponse<Todo>>{
-        return $api.post('/addTodo', {todo, userId, id})
+    static async addTodo(todo: string, id: number): Promise<AxiosResponse<Todo>>{
+        return $api.post('/addTodo', {todo, id})
     }
-    static async getTodos(userId: string): Promise<AxiosResponse<Todo[]>> {
-        return $api.get('/getTodos?userId=' + userId)
+    static async getTodos(): Promise<AxiosResponse<Todo[]>> {
+        return $api.get('/getTodos')
     }
     static async deleteTodo(id: number): Promise<AxiosResponse<Todo>> {
         return $api.delete('/deleteTodo?id=' + id)
@@ -22,7 +22,7 @@ export default class TodoService {
     static async setUndone(id: number): Promise<AxiosResponse<Todo>> {
         return $api.put('/setDone?id=' + id)
     }
-    static async deleteAll(userId: string): Promise<AxiosResponse<any>> {
-        return $api.delete('/deleteAll?userId=' + userId)
+    static async deleteAll(): Promise<AxiosResponse<any>> {
+        return $api.delete('/deleteAll')
     }
 }

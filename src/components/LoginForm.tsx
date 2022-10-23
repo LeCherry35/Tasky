@@ -24,7 +24,10 @@ const LoginForm: FC = () => {
             ? <div className='user__box'> 
                 {user.isActivated 
                 ? <></>
-                :<div className="user__error">Tasky has sent activation link to {user.email}</div>}
+                :<div className="user__error">
+                    Registration was successful!<br/>
+                    Tasky has sent activation link to {user.email}
+                </div>}
                 <button className='user__button' onClick={() => {
                     dispatch(logout())
                     setEmail('')
@@ -51,13 +54,13 @@ const LoginForm: FC = () => {
                 <button className='user__button' onClick={(e) => {
                     e.preventDefault()
                     dispatch(register(email, password))
-                    setEmail('')
+                    if (isAuth) setEmail('')
                     setPassword('')
                 }}>Register</button>
                 <button className='user__button' onClick={(e) => {
                     e.preventDefault()
                     dispatch(login(email, password))
-                    setEmail('')
+                    if (isAuth) setEmail('')
                     setPassword('')
                 }}>Log in</button>
 

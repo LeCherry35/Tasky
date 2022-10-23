@@ -11,7 +11,7 @@ export const login = (email: string, password: string) => {
             localStorage.setItem('token', response.data.accessToken)
             dispatch({type: UserActionTypes.SET_USER, payload: response.data.user})
         } catch (e: any) {
-            dispatch({type: UserActionTypes.ERROR, payload: e.response?.data?.message})
+            dispatch({type: UserActionTypes.ERROR, payload: e.response?.data?.message || e.message})
         }
     }
 }
@@ -20,10 +20,11 @@ export const register = (email: string, password: string) => {
         try {
             dispatch({type: UserActionTypes.LOADING})
             const response = await AuthService.registration(email, password)
+            
             localStorage.setItem('token', response.data.accessToken)
             dispatch({type: UserActionTypes.SET_USER, payload: response.data.user}) 
         } catch (e: any) {
-            dispatch({type: UserActionTypes.ERROR, payload: e.response?.data?.message})
+            dispatch({type: UserActionTypes.ERROR, payload: e.response?.data?.message || e.message})
         }    
     }
 }
@@ -35,7 +36,7 @@ export const logout = () => {
             dispatch({type: UserActionTypes.LOG_OUT})
             clearTodosAction()
         } catch (e: any) {
-            dispatch({type: UserActionTypes.ERROR, payload: e.response?.data?.message})
+            dispatch({type: UserActionTypes.ERROR, payload: e.response?.data?.message || e.message})
         }
     }
 }

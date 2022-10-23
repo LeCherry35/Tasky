@@ -10,7 +10,7 @@ const ClearButton: React.FC = () => {
   const {isAuth, user} = useTypedSelector(state => state.user)
 
   const deleteAll = () => {
-    if (isAuth) dispatch(deleteAllAsync(user.id))
+    if (isAuth) dispatch(deleteAllAsync())
     dispatch(clearTodosAction())
 
   }

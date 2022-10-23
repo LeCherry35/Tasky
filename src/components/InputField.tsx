@@ -19,7 +19,7 @@ const InputField: React.FC = () => {
 
   const addTodo = () => {
     const id = Date.now()
-    if (isAuth) dispatch(addTodoAsync(todo, user.id, id))
+    if (isAuth) dispatch(addTodoAsync(todo, id))
     dispatch(addToodoAction(todo, id))
     setTodo('')
     inputRef.current?.blur()
