@@ -5,13 +5,8 @@ export const API_URL = 'https://tasky-server35.herokuapp.com/api'
 
 
 const $api = axios.create({
-    // withCredentials: true,
-    baseURL: API_URL,
-    // headers: {
-    //     'Access-Control-Allow-Origin' : "*",
-    //     'Access-Control-Allow-Headers' : 'Origin, X-Requested-With, Content-Type, Accept'
-
-    // }
+    withCredentials: true,
+    baseURL: API_URL
 })
 
 $api.interceptors.request.use((config) => {
