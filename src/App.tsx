@@ -25,7 +25,7 @@ const App: React.FC = () => {
     if(localStorage.getItem('token')){
       dispatch(checkAuth())
     }
-  }, [])
+  }, [dispatch])
   
   return (
     <DragDropContext onDragEnd={onDragEnd}>

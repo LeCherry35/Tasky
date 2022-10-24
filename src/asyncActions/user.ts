@@ -31,7 +31,7 @@ export const register = (email: string, password: string) => {
 export const logout = () => {
     return async (dispatch: Dispatch<UserAction>) => {
         try {
-            const response = await AuthService.logout()
+            await AuthService.logout()
             localStorage.removeItem('token')
             dispatch({type: UserActionTypes.LOG_OUT})
             clearTodosAction()

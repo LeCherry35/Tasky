@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
-import { useDispatch } from "react-redux"
 import './styles.css'
 import { useRef } from 'react'
 import TextareaAutosize from 'react-textarea-autosize';
 import { addToodoAction } from '../store/reducers/todoReducer';
-import TodoService from '../services/TodoServices';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 import { addTodoAsync } from '../asyncActions/todos';
 import { useTypedDispatch } from '../hooks/useTypedDispatch';
@@ -12,7 +10,7 @@ import { useTypedDispatch } from '../hooks/useTypedDispatch';
 const InputField: React.FC = () => {
 
   const [todo, setTodo] = useState('')
-  const {isAuth, user} = useTypedSelector(state => state.user)
+  const {isAuth} = useTypedSelector(state => state.user)
   const dispatch = useTypedDispatch()
   const inputRef = useRef<HTMLTextAreaElement>(null)
   const submitRef = useRef<HTMLButtonElement>(null)

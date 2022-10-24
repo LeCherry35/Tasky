@@ -1,6 +1,5 @@
 import $api from "../http";
-import axios, { AxiosResponse } from "axios";
-import { TodoResponse } from "../models/response/TodoResponse";
+import { AxiosResponse } from "axios";
 import { Todo } from "../types/Todo";
 
 export default class TodoService {

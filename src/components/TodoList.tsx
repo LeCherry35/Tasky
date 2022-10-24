@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import './styles.css'
-import { Todo } from '../types/Todo'
 import SingleTodo from './SingleTodo';
 import { Droppable } from 'react-beautiful-dnd';
 import { MdOutlineArrowForwardIos, MdOutlineArrowBackIos } from 'react-icons/md'
@@ -17,7 +16,7 @@ const TodoList: React.FC = () => {
   
   
   const {todos, completedTodos} = useTypedSelector(state => state.todos)
-  const {isAuth, user} = useTypedSelector(state => state.user)
+  const {isAuth} = useTypedSelector(state => state.user)
   const dispatch = useTypedDispatch ()
   
   const [completedIsHidden,setCompletedIsHidden] = useState<boolean>(true)
@@ -29,7 +28,7 @@ const TodoList: React.FC = () => {
     if(todos.length === 0 && completedTodos.length !== 0) {
       setCompletedIsHidden(false)
     } 
-  }, [todos.length])
+  }, [todos.length, completedTodos.length])
 
   useEffect(() => {
     if(isAuth) {
@@ -37,7 +36,7 @@ const TodoList: React.FC = () => {
     } else {
       dispatch(clearTodosAction())
     }
-  },[isAuth])
+  },[isAuth, dispatch])
   
   return (
     <div className="container">

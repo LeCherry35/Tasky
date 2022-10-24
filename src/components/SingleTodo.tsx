@@ -2,11 +2,10 @@ import React, { useEffect, useRef } from 'react'
 import { useState } from 'react'
 import { Todo } from '../types/Todo'
 import { AiFillEdit, AiFillDelete } from 'react-icons/ai'
-import { MdDone, MdDownloadDone, MdOutlineCancel, MdOutlineArrowBackIos } from 'react-icons/md'
+import { MdDone, MdDownloadDone, MdOutlineArrowBackIos } from 'react-icons/md'
 import TextareaAutosize from 'react-textarea-autosize';
 import './styles.css'
 import { Draggable } from 'react-beautiful-dnd'
-import { useDispatch } from "react-redux"
 import { editTodoAction, removeTodoAction, setDoneAction, setUndoneAction } from '../store/reducers/todoReducer'
 import { deleteTodoAsync, editTodoAsync, setDoneAsync, setUndoneAsync } from '../asyncActions/todos'
 import { useTypedDispatch } from '../hooks/useTypedDispatch'
@@ -22,11 +21,6 @@ const SingleTodo: React.FC<Props> = ({index, todo}) => {
   const [editedTodo, setEditedTodo] = useState<string>(todo.todo)
   const dispatch = useTypedDispatch()
   const {isAuth} = useTypedSelector(state => state.user)
-  
-  const saveInLocalStorage = (tds: Todo[], oTds: Todo[]) => {
-    localStorage.setItem(!todo.isDone ? 'todos' : 'completedTodos', JSON.stringify(tds))
-    localStorage.setItem(todo.isDone ? 'todos' : 'completedTodos', JSON.stringify(oTds))
-  }
 
   const setDone = (id:number) => {
     if (isAuth) dispatch(setDoneAsync(id))

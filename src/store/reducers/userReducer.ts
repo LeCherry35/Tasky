@@ -26,3 +26,7 @@ export const userReducer = (state = initialState, action: UserAction): UserState
             return state
     }
 }
+
+export const clearErrorAction = () => {
+    return {type: UserActionTypes.ERROR, payload: '' }
+}

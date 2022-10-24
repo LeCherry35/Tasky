@@ -1,8 +1,10 @@
-import React, {FC, useState} from 'react'
+import React, {FC, useEffect, useState} from 'react'
 import { login, logout, register } from '../asyncActions/user';
 import { useTypedDispatch } from '../hooks/useTypedDispatch';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 import { hidePanel } from '../store/reducers/authPanelReducer';
+import { clearErrorAction } from '../store/reducers/userReducer';
+
 
 
 const LoginForm: FC = () => {
@@ -13,6 +15,9 @@ const LoginForm: FC = () => {
     const {isAuth, user, error, isLoading} = useTypedSelector(state => state.user)
     const {shown} = useTypedSelector(state => state.authPanel)
 
+    useEffect(() => {
+        dispatch(clearErrorAction())
+    }, [shown, dispatch])
     
     return (
         <div className={shown ? "user user--shown" : 'user'}>
