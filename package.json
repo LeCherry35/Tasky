@@ -47,6 +47,6 @@
     ]
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.186"
+    "@types/lodash": "^4.14.187"
   }
 }
