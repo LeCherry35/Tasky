@@ -48,7 +48,7 @@ export const todoReducer = (state = initialState, action: TodosAction): TodosSta
                 updatedCompletedTodos = _.cloneDeep(state.completedTodos || [])
                 updatedCompletedTodos.push(doneTodoCopy)
             }
-            const leftTodos = _.cloneDeep(state.todos)
+            const leftTodos: Todo[] = _.cloneDeep(state.todos)
             leftTodos.splice(leftTodos.findIndex(todo => todo.id === action.payload), 1)
             return { ...state, todos: leftTodos, completedTodos: updatedCompletedTodos}
             
@@ -62,7 +62,7 @@ export const todoReducer = (state = initialState, action: TodosAction): TodosSta
                 updatedTodos = _.cloneDeep(state.todos || [])
                 updatedTodos.push(undoneTodoCopy)
             }
-            const leftCompletedTodos = _.cloneDeep(state.completedTodos)
+            const leftCompletedTodos: Todo[] = _.cloneDeep(state.completedTodos)
             leftCompletedTodos.splice(leftCompletedTodos.findIndex(todo => todo.id === action.payload), 1)
             return { ...state, todos: updatedTodos, completedTodos: leftCompletedTodos}
 
