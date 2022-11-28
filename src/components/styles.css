@@ -12,7 +12,7 @@
     padding: 8px 20px;
     border: none;
     font-size: inherit;
-    transition: 0.5s;
+    /* transition: 0.5s; */
     resize: none;
     overflow: hidden;
     font-family:  inherit;
@@ -25,7 +25,31 @@
     box-shadow: 0 0 10px 1000px rgba(0, 0, 0, 0.5);
     outline: none;
 }
-
+.input__date__container {
+    display: flex;
+    width: 70%;
+    justify-content: left;
+    font-size: 20px;
+}
+.input__date_text {
+    padding: 8px 20px;
+    z-index: 35;
+    border:none;
+    background-color: white;
+    font-size: inherit;
+    font-family: inherit;
+}
+.input__date {
+    padding: 8px 20px;
+    z-index: 30;
+    border:none;
+    font-size: inherit;
+    font-family: inherit;
+}
+.input__date:focus {
+    outline: none;
+    box-shadow: 0 0 10px 1000px rgba(0, 0, 0, 0.5);
+}
 .input__submit {
     font-family: inherit;
     font-size: inherit;
@@ -39,6 +63,7 @@
     transition: 0.5s;
     height: 100%;
 }
+
 .input__submit:hover {
     background-color: rgb(190, 6, 6);
 }

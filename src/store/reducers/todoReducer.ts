@@ -1,7 +1,7 @@
 import { TodosState, TodosAction, TodosActionTypes } from '../../types/todos';
 
 import { Todo } from '../../types/Todo'
-import _ from 'lodash'
+import * as _ from 'lodash'
 import { DropResult } from 'react-beautiful-dnd'
 
 
@@ -30,16 +30,16 @@ export const todoReducer = (state = initialState, action: TodosAction): TodosSta
             return { ...state, todos: [...state.todos , action.payload]}
         
         case TodosActionTypes.EDIT_TODO:
-            const editedTodos = state.todos.map((todo) => (todo.id === action.payload.id ? { ...todo, todo:  action.payload.editedTodo} : todo))
+            const editedTodos = state.todos.map((todo) => (todo.createdAt === action.payload.createdAt ? { ...todo, todo:  action.payload.editedTodo} : todo))
             return { ...state, todos: editedTodos}
             
         case TodosActionTypes.REMOVE_TODO:
-            const tds = state.todos.filter(todo => todo.id !== action.payload)
-            const cTds = state.completedTodos.filter(todo => todo.id !== action.payload)
+            const tds = state.todos.filter(todo => todo.createdAt !== action.payload)
+            const cTds = state.completedTodos.filter(todo => todo.createdAt !== action.payload)
             return{ ...state, todos: tds, completedTodos: cTds}
         
         case TodosActionTypes.SET_DONE:
-            const doneTodo: Todo | undefined = state.todos.find(todo => todo.id === action.payload) 
+            const doneTodo: Todo | undefined = state.todos.find(todo => todo.createdAt === action.payload) 
             let doneTodoCopy
             let updatedCompletedTodos: Todo[] = []
             if(doneTodo) {
@@ -49,11 +49,11 @@ export const todoReducer = (state = initialState, action: TodosAction): TodosSta
                 updatedCompletedTodos.push(doneTodoCopy)
             }
             const leftTodos: Todo[] = _.cloneDeep(state.todos)
-            leftTodos.splice(leftTodos.findIndex(todo => todo.id === action.payload), 1)
+            leftTodos.splice(leftTodos.findIndex(todo => todo.createdAt === action.payload), 1)
             return { ...state, todos: leftTodos, completedTodos: updatedCompletedTodos}
             
         case TodosActionTypes.SET_UNDONE:
-            const undoneTodo: Todo | undefined = state.completedTodos.find(todo => todo.id === action.payload) 
+            const undoneTodo: Todo | undefined = state.completedTodos.find(todo => todo.createdAt === action.payload) 
             let undoneTodoCopy
             let updatedTodos: Todo[] = []
             if(undoneTodo) {
@@ -63,7 +63,7 @@ export const todoReducer = (state = initialState, action: TodosAction): TodosSta
                 updatedTodos.push(undoneTodoCopy)
             }
             const leftCompletedTodos: Todo[] = _.cloneDeep(state.completedTodos)
-            leftCompletedTodos.splice(leftCompletedTodos.findIndex(todo => todo.id === action.payload), 1)
+            leftCompletedTodos.splice(leftCompletedTodos.findIndex(todo => todo.createdAt === action.payload), 1)
             return { ...state, todos: updatedTodos, completedTodos: leftCompletedTodos}
 
         case TodosActionTypes.DRAG_END:
@@ -96,20 +96,20 @@ export const todoReducer = (state = initialState, action: TodosAction): TodosSta
     }
 }
 
-export const addToodoAction = (todo:string, id:number) => {
-    return {type: TodosActionTypes.ADD_TODO, payload: {id: id, todo: todo, isDone: false}}
+export const addToodoAction = (todo:string, deadline: number, createdAt:number) => {
+    return {type: TodosActionTypes.ADD_TODO, payload: {createdAt: createdAt, deadline, todo: todo, isDone: false}}
 }
-export const setDoneAction = (id:number) => {
-    return {type: TodosActionTypes.SET_DONE, payload: id}
+export const setDoneAction = (createdAt:number) => {
+    return {type: TodosActionTypes.SET_DONE, payload: createdAt}
 }
-export const setUndoneAction = (id:number) => {
-    return {type: TodosActionTypes.SET_UNDONE, payload: id}
+export const setUndoneAction = (createdAt:number) => {
+    return {type: TodosActionTypes.SET_UNDONE, payload: createdAt}
 }
-export const removeTodoAction = (id:number) => {
-    return {type: TodosActionTypes.REMOVE_TODO, payload: id}
+export const removeTodoAction = (createdAt:number) => {
+    return {type: TodosActionTypes.REMOVE_TODO, payload: createdAt}
 }
-export const editTodoAction = (id:number, editedTodo:string) => {
-    return {type: TodosActionTypes.EDIT_TODO, payload: {id: id , editedTodo: editedTodo}}
+export const editTodoAction = (createdAt:number, editedTodo:string) => {
+    return {type: TodosActionTypes.EDIT_TODO, payload: {createdAt: createdAt , editedTodo: editedTodo}}
 }
 export const dragEndAction = (result:DropResult) => {
     return {type: TodosActionTypes.DRAG_END, payload: result}

@@ -10,21 +10,23 @@ import { useTypedDispatch } from '../hooks/useTypedDispatch';
 const InputField: React.FC = () => {
 
   const [todo, setTodo] = useState('')
+  const [deadline, setDeadline] = useState('')
   const {isAuth} = useTypedSelector(state => state.user)
   const dispatch = useTypedDispatch()
   const inputRef = useRef<HTMLTextAreaElement>(null)
   const submitRef = useRef<HTMLButtonElement>(null)
 
   const addTodo = () => {
-    const id = Date.now()
-    if (isAuth) dispatch(addTodoAsync(todo, id))
-    dispatch(addToodoAction(todo, id))
+    const createdAt = Date.now()
+    if (isAuth) dispatch(addTodoAsync(todo, Date.parse(deadline), createdAt))
+    dispatch(addToodoAction(todo, Date.parse(deadline), createdAt))
     setTodo('')
+    setDeadline('')
     inputRef.current?.blur()
   }
 
   return (
-    <form 
+    <><form 
       className="input" 
       onKeyDown={(e) => {
         if(e.code === 'Enter') {
@@ -42,7 +44,9 @@ const InputField: React.FC = () => {
           setTodo(e.target.value)
         }}
       />
+      
       {todo 
+        
         ? <button 
           ref={submitRef} 
           className='input__submit'
@@ -54,6 +58,11 @@ const InputField: React.FC = () => {
         : <></>
       }
     </form>
+    {todo && <div className='input__date__container'><label className='input__date_text' htmlFor='date'>Deadline:   </label> <input id='date' className='input__date' type="datetime-local" placeholder='lll' value={deadline} onChange={(e) => {
+      setDeadline(e.target.value)
+      console.log('##',deadline);
+      
+    }}></input></div>}</>
   )
 }
 

@@ -27,7 +27,7 @@ interface AddToodoActionInterface {
 interface EditToodoActionInterface {
     type: TodosActionTypes.EDIT_TODO
     payload: {
-        id: number
+        createdAt: number
         editedTodo: string
     }
 }

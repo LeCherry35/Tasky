@@ -1,6 +1,8 @@
 export interface Todo {
     _id: string
-    id: number
+    createdAt: number
+    deadline?: number
     todo: string
     isDone: boolean
+
 }

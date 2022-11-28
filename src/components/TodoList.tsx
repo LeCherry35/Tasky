@@ -49,7 +49,7 @@ const TodoList: React.FC = () => {
                 <span className='arrow' onClick={() => {toggleRemoved()}}>{completedIsHidden && completedTodos.length !== 0 ? <MdOutlineArrowForwardIos/> : ''}</span>
               </span>
               
-              {todos.map((todo, id) => <SingleTodo index={id} todo={todo} key={todo.id}/>)}
+              {todos.map((todo, createdAt) => <SingleTodo index={createdAt} todo={todo} key={todo.createdAt}/>)}
               {provided.placeholder}
             </div>
 
@@ -66,7 +66,7 @@ const TodoList: React.FC = () => {
                 {!completedIsHidden ? 'Completed tasks' : ''}
                 {!completedIsHidden && todos.length !== 0 ? <span className='arrow' onClick={() => {toggleRemoved()}}><MdOutlineArrowBackIos/></span> : ''}
               </span>
-              {completedTodos.map((todo, id) => <SingleTodo index={id} todo={todo} key={todo.id}/>)}
+              {completedTodos.map((todo, createdAt) => <SingleTodo index={createdAt} todo={todo} key={todo.createdAt}/>)}
               {provided.placeholder}
             </div>
 

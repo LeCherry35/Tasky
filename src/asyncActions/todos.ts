@@ -2,10 +2,10 @@ import { TodosAction, TodosActionTypes } from './../types/todos';
 import { Dispatch } from 'redux';
 import TodoService from '../services/TodoServices';
 
-export const addTodoAsync = (todo: string, id:number) => {
+export const addTodoAsync = (todo: string, deadline: number, createdAt:number) => {
     return async (dispatch: Dispatch<TodosAction>) => {
         try {
-            const response = await TodoService.addTodo(todo, id)
+            const response = await TodoService.addTodo(todo, deadline, createdAt)
             console.log(`Todo '${response.data.todo}' added`);
         } catch (e) {
             console.log(e);
@@ -25,10 +25,10 @@ export const getTodosAsync = () => {
         }
     }
 }
-export const deleteTodoAsync = (id:number) => {
+export const deleteTodoAsync = (createdAt:number) => {
     return async (dispatch: Dispatch<TodosAction>) => {
         try {
-            const response = await TodoService.deleteTodo(id)
+            const response = await TodoService.deleteTodo(createdAt)
             console.log(`Todo '${response.data.todo}' deleted`);
         } catch(e) {
             console.log(e)
@@ -36,10 +36,10 @@ export const deleteTodoAsync = (id:number) => {
     }
 
 }
-export const editTodoAsync = (id:number, editTodo: string) => {
+export const editTodoAsync = (createdAt:number, editTodo: string) => {
     return async (dispatch: Dispatch<TodosAction>) => {
         try {
-            const response = await TodoService.editTodo(id, editTodo)
+            const response = await TodoService.editTodo(createdAt, editTodo)
             console.log(`Todo '${response.data.todo}' changed to '${editTodo}'`);
         } catch(e) {
             console.log(e)
@@ -47,10 +47,10 @@ export const editTodoAsync = (id:number, editTodo: string) => {
     }
 
 }
-export const setDoneAsync = (id:number) => {
+export const setDoneAsync = (createdAt:number) => {
     return async (dispatch: Dispatch<TodosAction>) => {
         try {
-            const response = await TodoService.setDone(id)
+            const response = await TodoService.setDone(createdAt)
             console.log(`Todo '${response.data.todo}' is done`);
         } catch (e) {
             console.log(e)
@@ -58,10 +58,10 @@ export const setDoneAsync = (id:number) => {
     }
 }
 
-export const setUndoneAsync = (id:number) => {
+export const setUndoneAsync = (createdAt:number) => {
     return async (dispatch: Dispatch<TodosAction>) => {
         try {
-            const response = await TodoService.setDone(id)
+            const response = await TodoService.setDone(createdAt)
             console.log(`Todo '${response.data.todo}' set back to undone`);
         } catch (e) {
             console.log(e)

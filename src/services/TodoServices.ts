@@ -3,23 +3,23 @@ import { AxiosResponse } from "axios";
 import { Todo } from "../types/Todo";
 
 export default class TodoService {
-    static async addTodo(todo: string, id: number): Promise<AxiosResponse<Todo>>{
-        return $api.post('/addTodo', {todo, id})
+    static async addTodo(todo: string, deadline: number, createdAt: number): Promise<AxiosResponse<Todo>>{
+        return $api.post('/addTodo', {todo, createdAt})
     }
     static async getTodos(): Promise<AxiosResponse<Todo[]>> {
         return $api.get('/getTodos')
     }
-    static async deleteTodo(id: number): Promise<AxiosResponse<Todo>> {
-        return $api.delete('/deleteTodo?id=' + id)
+    static async deleteTodo(createdAt: number): Promise<AxiosResponse<Todo>> {
+        return $api.delete('/deleteTodo?createdAt=' + createdAt)
     }
-    static async editTodo(id: number, editedTodo: string): Promise<AxiosResponse<Todo>>{
-        return $api.put('/editTodo?id=' + id, {editedTodo})
+    static async editTodo(createdAt: number, editedTodo: string): Promise<AxiosResponse<Todo>>{
+        return $api.put('/editTodo?createdAt=' + createdAt, {editedTodo})
     }
-    static async setDone(id: number): Promise<AxiosResponse<Todo>> {
-        return $api.put('/setDone?id=' + id)
+    static async setDone(createdAt: number): Promise<AxiosResponse<Todo>> {
+        return $api.put('/setDone?createdAt=' + createdAt)
     }
-    static async setUndone(id: number): Promise<AxiosResponse<Todo>> {
-        return $api.put('/setDone?id=' + id)
+    static async setUndone(createdAt: number): Promise<AxiosResponse<Todo>> {
+        return $api.put('/setDone?createdAt=' + createdAt)
     }
     static async deleteAll(): Promise<AxiosResponse<any>> {
         return $api.delete('/deleteAll')

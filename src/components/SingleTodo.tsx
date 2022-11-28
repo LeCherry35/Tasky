@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import { useState } from 'react'
 import { Todo } from '../types/Todo'
 import { AiFillEdit, AiFillDelete } from 'react-icons/ai'
-import { MdDone, MdDownloadDone, MdOutlineArrowBackIos } from 'react-icons/md'
+import { MdDone, MdDownloadDone, MdUndo } from 'react-icons/md'
 import TextareaAutosize from 'react-textarea-autosize';
 import './styles.css'
 import { Draggable } from 'react-beautiful-dnd'
@@ -22,23 +22,25 @@ const SingleTodo: React.FC<Props> = ({index, todo}) => {
   const dispatch = useTypedDispatch()
   const {isAuth} = useTypedSelector(state => state.user)
 
-  const setDone = (id:number) => {
-    if (isAuth) dispatch(setDoneAsync(id))
-    dispatch(setDoneAction(id))
+  // console.log('$$', todo);
+  
+  const setDone = (createdAt:number) => {
+    if (isAuth) dispatch(setDoneAsync(createdAt))
+    dispatch(setDoneAction(createdAt))
   }
-  const setUndone = (id:number) => {
-    if (isAuth) dispatch(setUndoneAsync(id))
-    dispatch(setUndoneAction(id))
+  const setUndone = (createdAt:number) => {
+    if (isAuth) dispatch(setUndoneAsync(createdAt))
+    dispatch(setUndoneAction(createdAt))
   }
-  const removeTodo = (id:number) => {
-    if (isAuth) dispatch(deleteTodoAsync(id))
-    dispatch(removeTodoAction(id))
+  const removeTodo = (createdAt:number) => {
+    if (isAuth) dispatch(deleteTodoAsync(createdAt))
+    dispatch(removeTodoAction(createdAt))
   }
 
-  const editTodo = (e: React.FormEvent, id: number) => {
+  const editTodo = (e: React.FormEvent, createdAt: number) => {
     e.preventDefault()
-    if (isAuth) dispatch(editTodoAsync(id, editedTodo))
-    dispatch(editTodoAction(id, editedTodo))
+    if (isAuth) dispatch(editTodoAsync(createdAt, editedTodo))
+    dispatch(editTodoAction(createdAt, editedTodo))
     setEdit(false)
   }
 
@@ -50,16 +52,8 @@ const SingleTodo: React.FC<Props> = ({index, todo}) => {
     inputRef.current?.focus()
   }, [edit])
 
-  // useEffect(() => {
-  //   saveInLocalStorage(todos, othTodos)
-  //   // const lst: string | null = localStorage.getItem('todos')
-  //   // lst ? console.log('t', JSON.parse(lst)) : console.log('empty');
-  //   // const lsct: string | null = localStorage.getItem('completedTodos')
-  //   // lsct ? console.log('c',JSON.parse(lsct)) : console.log('empty');
-  // }, [todos, othTodos])
-
   return (
-    <Draggable draggableId={todo.id.toString()} index={index}>
+    <Draggable draggableId={todo.createdAt.toString()} index={index}>
       {(provided) => (
 
         <form className='todo' {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
@@ -72,7 +66,7 @@ const SingleTodo: React.FC<Props> = ({index, todo}) => {
                 onKeyDown={(e) => {
                   switch (e.code) {
                     case 'Enter': 
-                      editTodo(e,todo.id)
+                      editTodo(e,todo.createdAt)
                       inputRef.current?.blur()
                       break
                     case 'Escape':
@@ -94,17 +88,17 @@ const SingleTodo: React.FC<Props> = ({index, todo}) => {
             {todo.isDone 
             ? <>
               <button className='icon' onClick={(e) => {
-                  setUndone(todo.id)
+                  setUndone(todo.createdAt)
               }}>
-                <MdOutlineArrowBackIos/>
+                <MdUndo/>
               </button>
-              <button className="icon" onClick={() =>removeTodo(todo.id)}>
+              <button className="icon" onClick={() =>removeTodo(todo.createdAt)}>
                 <AiFillDelete/>
               </button>
             </>
             : <>
               {edit 
-              ? <button className="icon" type='submit' onClick={e => editTodo(e,todo.id)} > 
+              ? <button className="icon" type='submit' onClick={e => editTodo(e,todo.createdAt)} > 
                 <MdDownloadDone style={{color: 'red'}}/>
               </button>
               : <></>}
@@ -117,13 +111,13 @@ const SingleTodo: React.FC<Props> = ({index, todo}) => {
               {edit
               ? <></>
               : <button className="icon" onClick={(e) => {
-                setDone(todo.id)
+                setDone(todo.createdAt)
               }} >
                 <MdDone/>
               </button>}
               <button className="icon" onClick={() =>{
                 console.log(todo);
-                removeTodo(todo.id)}}>
+                removeTodo(todo.createdAt)}}>
                 <AiFillDelete/>
               </button> 
             </>}
