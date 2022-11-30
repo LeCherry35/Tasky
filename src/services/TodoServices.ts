@@ -4,7 +4,7 @@ import { Todo } from "../types/Todo";
 
 export default class TodoService {
     static async addTodo(todo: string, deadline: number, createdAt: number): Promise<AxiosResponse<Todo>>{
-        return $api.post('/addTodo', {todo, createdAt})
+        return $api.post('/addTodo', {todo, createdAt, deadline})
     }
     static async getTodos(): Promise<AxiosResponse<Todo[]>> {
         return $api.get('/getTodos')

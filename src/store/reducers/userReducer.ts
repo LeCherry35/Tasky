@@ -4,8 +4,7 @@ import { IUser } from '../../types/IUser';
 const initialState: UserState = {
     user: {
         email: '',
-        isActivated: false,
-        id: '0'
+        isActivated: false
     },
     isAuth: false,
     isLoading: false,

@@ -60,8 +60,6 @@ const InputField: React.FC = () => {
     </form>
     {todo && <div className='input__date__container'><label className='input__date_text' htmlFor='date'>Deadline:   </label> <input id='date' className='input__date' type="datetime-local" placeholder='lll' value={deadline} onChange={(e) => {
       setDeadline(e.target.value)
-      console.log('##',deadline);
-      
     }}></input></div>}</>
   )
 }

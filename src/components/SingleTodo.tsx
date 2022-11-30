@@ -10,6 +10,7 @@ import { editTodoAction, removeTodoAction, setDoneAction, setUndoneAction } from
 import { deleteTodoAsync, editTodoAsync, setDoneAsync, setUndoneAsync } from '../asyncActions/todos'
 import { useTypedDispatch } from '../hooks/useTypedDispatch'
 import { useTypedSelector } from '../hooks/useTypedSelector'
+import { timestampToString } from '../helpers/timestampToString'
 
 interface Props {
   index: number;
@@ -17,12 +18,15 @@ interface Props {
 }
 
 const SingleTodo: React.FC<Props> = ({index, todo}) => {
+  todo.deadline && todo.deadline < Date.now() && console.log('kk');
+  
+  
   const [edit, setEdit] = useState<boolean>(false)
   const [editedTodo, setEditedTodo] = useState<string>(todo.todo)
   const dispatch = useTypedDispatch()
   const {isAuth} = useTypedSelector(state => state.user)
+  const [expiresIn, setExpiresIn] = useState<number>( todo.deadline ? todo.deadline - Date.now() : Infinity)
 
-  // console.log('$$', todo);
   
   const setDone = (createdAt:number) => {
     if (isAuth) dispatch(setDoneAsync(createdAt))
@@ -36,27 +40,26 @@ const SingleTodo: React.FC<Props> = ({index, todo}) => {
     if (isAuth) dispatch(deleteTodoAsync(createdAt))
     dispatch(removeTodoAction(createdAt))
   }
-
   const editTodo = (e: React.FormEvent, createdAt: number) => {
     e.preventDefault()
     if (isAuth) dispatch(editTodoAsync(createdAt, editedTodo))
     dispatch(editTodoAction(createdAt, editedTodo))
     setEdit(false)
   }
-
-  
-
   const inputRef = useRef<HTMLTextAreaElement>(null)
 
   useEffect(() => {
     inputRef.current?.focus()
   }, [edit])
 
+  if (todo.deadline && expiresIn > 0) {
+    setTimeout(() => setExpiresIn(expiresIn - 1000), 1000)
+  }
   return (
     <Draggable draggableId={todo.createdAt.toString()} index={index}>
       {(provided) => (
 
-        <form className='todo' {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+        <form className={expiresIn > 0 && !todo.isDone? 'todo' : 'todo todo-expired'} {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
           <div className='todo__textarea'>
             {edit ? (
               <TextareaAutosize
@@ -82,7 +85,7 @@ const SingleTodo: React.FC<Props> = ({index, todo}) => {
             ): (
               <span className='todo__textarea--text'>{todo.todo}</span>
             )}
-
+            <br></br>expires in {timestampToString(expiresIn)}
           </div>
           <div className="todo__icons">
             {todo.isDone 
@@ -116,7 +119,6 @@ const SingleTodo: React.FC<Props> = ({index, todo}) => {
                 <MdDone/>
               </button>}
               <button className="icon" onClick={() =>{
-                console.log(todo);
                 removeTodo(todo.createdAt)}}>
                 <AiFillDelete/>
               </button> 
