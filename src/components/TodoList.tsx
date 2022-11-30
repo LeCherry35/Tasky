@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import './styles.css'
-import SingleTodo from './SingleTodo';
+import ActiveTodo from './ActiveTodo';
 import { Droppable } from 'react-beautiful-dnd';
 import { MdOutlineArrowForwardIos, MdOutlineArrowBackIos } from 'react-icons/md'
 import { useTypedSelector } from '../hooks/useTypedSelector';
 import { getTodosAsync } from '../asyncActions/todos';
 import { useTypedDispatch } from '../hooks/useTypedDispatch';
 import { clearTodosAction } from '../store/reducers/todoReducer';
+import CompletedTodo from './CompletedTodo';
 
 
 
@@ -49,7 +50,7 @@ const TodoList: React.FC = () => {
                 <span className='arrow' onClick={() => {toggleRemoved()}}>{completedIsHidden && completedTodos.length !== 0 ? <MdOutlineArrowForwardIos/> : ''}</span>
               </span>
               
-              {todos.map((todo, createdAt) => <SingleTodo index={createdAt} todo={todo} key={todo.createdAt}/>)}
+              {todos.map((todo, id) => <ActiveTodo index={id} todo={todo} key={todo.createdAt}/>)}
               {provided.placeholder}
             </div>
 
@@ -66,10 +67,9 @@ const TodoList: React.FC = () => {
                 {!completedIsHidden ? 'Completed tasks' : ''}
                 {!completedIsHidden && todos.length !== 0 ? <span className='arrow' onClick={() => {toggleRemoved()}}><MdOutlineArrowBackIos/></span> : ''}
               </span>
-              {completedTodos.map((todo, createdAt) => <SingleTodo index={createdAt} todo={todo} key={todo.createdAt}/>)}
+              {completedTodos.map((todo, id) => <CompletedTodo index={id} todo={todo} key={todo.createdAt}/>)}
               {provided.placeholder}
             </div>
-
           )
         }
 

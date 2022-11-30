@@ -2,12 +2,12 @@ import React, { useEffect, useRef } from 'react'
 import { useState } from 'react'
 import { Todo } from '../types/Todo'
 import { AiFillEdit, AiFillDelete } from 'react-icons/ai'
-import { MdDone, MdDownloadDone, MdUndo } from 'react-icons/md'
+import { MdDone, MdDownloadDone } from 'react-icons/md'
 import TextareaAutosize from 'react-textarea-autosize';
 import './styles.css'
 import { Draggable } from 'react-beautiful-dnd'
-import { editTodoAction, removeTodoAction, setDoneAction, setUndoneAction } from '../store/reducers/todoReducer'
-import { deleteTodoAsync, editTodoAsync, setDoneAsync, setUndoneAsync } from '../asyncActions/todos'
+import { editTodoAction, removeTodoAction, setDoneAction } from '../store/reducers/todoReducer'
+import { deleteTodoAsync, editTodoAsync, setDoneAsync } from '../asyncActions/todos'
 import { useTypedDispatch } from '../hooks/useTypedDispatch'
 import { useTypedSelector } from '../hooks/useTypedSelector'
 import { timestampToString } from '../helpers/timestampToString'
@@ -17,7 +17,7 @@ interface Props {
   todo: Todo;
 }
 
-const SingleTodo: React.FC<Props> = ({index, todo}) => {
+const ActiveTodo: React.FC<Props> = ({index, todo}) => {
   todo.deadline && todo.deadline < Date.now() && console.log('kk');
   
   
@@ -31,10 +31,6 @@ const SingleTodo: React.FC<Props> = ({index, todo}) => {
   const setDone = (createdAt:number) => {
     if (isAuth) dispatch(setDoneAsync(createdAt))
     dispatch(setDoneAction(createdAt))
-  }
-  const setUndone = (createdAt:number) => {
-    if (isAuth) dispatch(setUndoneAsync(createdAt))
-    dispatch(setUndoneAction(createdAt))
   }
   const removeTodo = (createdAt:number) => {
     if (isAuth) dispatch(deleteTodoAsync(createdAt))
@@ -80,26 +76,10 @@ const SingleTodo: React.FC<Props> = ({index, todo}) => {
                 className='todo__textarea--text'
               />
               
-            ) :  todo.isDone ? (
-              <s className='todo__textarea--text'>{todo.todo}</s>
-            ): (
-              <span className='todo__textarea--text'>{todo.todo}</span>
-            )}
-            <br></br>expires in {timestampToString(expiresIn)}
+            ) :  <span className='todo__textarea--text'>{todo.todo}</span>}
+            {expiresIn > 0 && expiresIn !== Infinity && <><br />{'deadline: ' + timestampToString(expiresIn)}</>}
           </div>
           <div className="todo__icons">
-            {todo.isDone 
-            ? <>
-              <button className='icon' onClick={(e) => {
-                  setUndone(todo.createdAt)
-              }}>
-                <MdUndo/>
-              </button>
-              <button className="icon" onClick={() =>removeTodo(todo.createdAt)}>
-                <AiFillDelete/>
-              </button>
-            </>
-            : <>
               {edit 
               ? <button className="icon" type='submit' onClick={e => editTodo(e,todo.createdAt)} > 
                 <MdDownloadDone style={{color: 'red'}}/>
@@ -122,7 +102,6 @@ const SingleTodo: React.FC<Props> = ({index, todo}) => {
                 removeTodo(todo.createdAt)}}>
                 <AiFillDelete/>
               </button> 
-            </>}
           </div>
         </form>
       )}
@@ -130,4 +109,4 @@ const SingleTodo: React.FC<Props> = ({index, todo}) => {
   )
 }
 
-export default SingleTodo
+export default ActiveTodo
