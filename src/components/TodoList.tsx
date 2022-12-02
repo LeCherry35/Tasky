@@ -4,22 +4,13 @@ import ActiveTodo from './ActiveTodo';
 import { Droppable } from 'react-beautiful-dnd';
 import { MdOutlineArrowForwardIos, MdOutlineArrowBackIos } from 'react-icons/md'
 import { useTypedSelector } from '../hooks/useTypedSelector';
-import { getTodosAsync } from '../asyncActions/todos';
-import { useTypedDispatch } from '../hooks/useTypedDispatch';
-import { clearTodosAction } from '../store/reducers/todoReducer';
 import CompletedTodo from './CompletedTodo';
 
 
 
 const TodoList: React.FC = () => {
-
-  // const todos = useTypedSelector(state => state.todos.todos)
-  
   
   const {todos, completedTodos} = useTypedSelector(state => state.todos)
-  const {isAuth} = useTypedSelector(state => state.user)
-  const dispatch = useTypedDispatch ()
-  
   const [completedIsHidden,setCompletedIsHidden] = useState<boolean>(true)
   
   const toggleRemoved = () => {
@@ -30,14 +21,6 @@ const TodoList: React.FC = () => {
       setCompletedIsHidden(false)
     } 
   }, [todos.length, completedTodos.length])
-
-  useEffect(() => {
-    if(isAuth) {
-      dispatch(getTodosAsync())
-    } else {
-      dispatch(clearTodosAction())
-    }
-  },[isAuth, dispatch])
   
   return (
     <div className="container">

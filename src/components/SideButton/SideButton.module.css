@@ -1,0 +1,25 @@
+.sideButton {
+    font-family: inherit;
+    font-size: 51px;
+    padding: 8px 20px;
+    border: none;
+    color: white;
+    background-color: inherit;
+    z-index: 2;
+    background-color: rgb(85, 85, 85);
+    transition: 0.5s;
+    position: fixed;
+    left: -120px;
+    top: 100px;
+    height: 67px;
+    transform: rotate(90deg);
+    width: 199px;
+}
+
+.sideButton:hover {
+    background-color: rgb(190, 6, 6);
+    left: -74px;
+}
+.sideButton:active {
+    transform: scale(0.8) rotate(90deg);
+}

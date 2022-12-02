@@ -4,16 +4,6 @@ import { Todo } from '../../types/Todo'
 import * as _ from 'lodash'
 import { DropResult } from 'react-beautiful-dnd'
 
-
-
-
-// const initTodosJSON: string | null = localStorage.getItem('todos')
-// const initTodos: Todo[] = initTodosJSON ? JSON.parse(initTodosJSON) : []
-// const initCompletedTodosJSON: string | null = localStorage.getItem('completedTodos')
-// const initCompletedTodos: Todo[] = initCompletedTodosJSON ? JSON.parse(initCompletedTodosJSON) : []
-
-
-
 const initialState: TodosState = {
     todos: [],
     completedTodos: [],
@@ -45,6 +35,7 @@ export const todoReducer = (state = initialState, action: TodosAction): TodosSta
             if(doneTodo) {
                 doneTodoCopy = _.cloneDeep(doneTodo)
                 doneTodoCopy.isDone = true
+                doneTodoCopy.completedAt = Date.now()
                 updatedCompletedTodos = _.cloneDeep(state.completedTodos || [])
                 updatedCompletedTodos.push(doneTodoCopy)
             }
