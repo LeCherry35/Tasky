@@ -11,7 +11,17 @@
     margin: 10px;
     height: 50px;
 }
+.today {
+    box-sizing: border-box;
+    border: 5px solid #FFCF56;
+    margin: 10px;
+    height: 50px;
+    background-color: azure;
+
+    
+}
 .weekdayName {
     text-align: center;
 }
+
         

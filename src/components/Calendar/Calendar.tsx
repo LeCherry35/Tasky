@@ -3,27 +3,43 @@ import { weekdays } from '../../configs/weekdays'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
 import s from './Calendar.module.css'
 import { months } from '../../configs/weekdays'
+import { IDate } from '../../types/calendar'
+import { countWeekdaysBeforeMonth } from '../../helpers/countWeekDaysBeforeMonth'
 
 const Calendar = () => {
-    const [days, setDays] = useState<number[]>([])
+    const {todos, completedTodos} = useTypedSelector(state => state.todos)    
+    const [days, setDays] = useState<IDate[]>([])
     const now = new Date(Date.now())
     const weekday = now.getDay()
     const month = now.getMonth()
     const date = now.getDate()
-    // console.log('44', weekday);
     
     useEffect(() => {
-        const d: number[] = new Array(weekday - 1).fill(0)
+        
+        const d: IDate[] = new Array(countWeekdaysBeforeMonth(weekday,date)).fill({date: 0})
         for (let i = 1; i <= months[month].days; i++) {
-            d.push(i)
+            d.push({date: i})
         }
+        todos.map(todo => {
+            if (todo.deadline) {
+                const todoD = new Date(todo.deadline)
+                const todoMonth = todoD.getMonth()
+                const todoDate = todoD.getDate()
+                if(todoMonth === month) {
+                    const dayId: number = weekday - 1 + todoDate // fix this
+                    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+                    d[dayId].todos = []
+                    d[dayId].todos?.push(todo)
+                }
+            }
+        }
+        )
         setDays(d)
     },[])
     
     
     
 
-    const {todos, completedTodos} = useTypedSelector(state => state.todos)    
   return (
     <div className={s.container}>
         <div className={s.days}>
@@ -34,7 +50,10 @@ const Calendar = () => {
             })}
             {days.map(day => {
                 return (
-                    <div className={day !== 0 ? s.day : ''}>{day !== 0 && day}</div>
+                    <div className={day.date === 0 ? '' : (day.date === date ? s.today : s.day)}>
+                        {day.date !== 0 && day.date}
+                        {/* {day.todos } */}
+                    </div>
                 )
             })}
         </div>
