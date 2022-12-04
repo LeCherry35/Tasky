@@ -1,27 +1,42 @@
 .container {
     width: 70%;
     padding: 10px;
+    display: flex;
+    flex-direction: column;
 }
 .days {
     display: grid;
+    
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 .day {
     background-color: azure;
-    margin: 10px;
+    margin: 5px;
     height: 50px;
 }
 .today {
-    box-sizing: border-box;
+    box-sizing:border-box;
     border: 5px solid #FFCF56;
-    margin: 10px;
-    height: 50px;
     background-color: azure;
-
-    
 }
 .weekdayName {
     text-align: center;
 }
-
-        
+.month {
+    position: absolute;
+    font-size: 30px;
+    text-align: center;
+    writing-mode: vertical-lr;
+    transform: rotate(180deg) translateX(40px);
+}
+.showMoreButton {
+    margin: 10px auto;
+    padding: 0 20px;
+    border: none;
+    background-color: #037171;
+    font-family: inherit;
+    font-size: 20px;
+    line-height: 20px;
+    color: white;
+    cursor: pointer;
+}
