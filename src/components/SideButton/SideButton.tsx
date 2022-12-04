@@ -1,18 +1,24 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom';
 import s from './SideButton.module.css'
 
-interface Props {
-  name: string
-  location: string
-}
-const SideButton: React.FC<Props> = ({name, location}) => {
+const SideButton: React.FC = () => {
 
   let navigate = useNavigate();
+  let location = useLocation()
 
-
+    useEffect(() => {
+    
+  },[location])
   return (
-    <button className={s.sideButton} onClick={() => navigate(location)}>{name}</button>
+    <>
+    {location.pathname === '/calendar'
+      ? <button className={s.sideButton} onClick={() => navigate('/')}>todos</button>
+
+      : <button className={s.sideButton} onClick={() => navigate('/calendar')}>calendar</button>
+    }
+    </>
+
   )
 }
 

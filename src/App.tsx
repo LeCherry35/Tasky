@@ -45,16 +45,16 @@ const App: React.FC = () => {
       <div className="App">
       <BrowserRouter>
         
-          <InfoBar />
-          <LoginForm />
-          <span className="heading">Tasky</span>
-          <InputField />
-          <Routes>
-            <Route path='/calendar' element={<Calendar/>}/>
-            <Route path='/' element={<TodoList />}/>
-          </Routes>
-          {(todos.length !== 0 || completedTodos.length !== 0) && <ClearButton />}
-          {window.location.pathname === '/' ? <SideButton name='calendar' location='/calendar'/> : <SideButton name='todos' location='/'/>}
+        <InfoBar />
+        <LoginForm />
+        <span className="heading">Tasky</span>
+        <InputField />
+        <Routes>
+          <Route path='/calendar' element={<Calendar/>}/>
+          <Route path='/' element={<TodoList />}/>
+        </Routes>
+        {(todos.length !== 0 || completedTodos.length !== 0) && <ClearButton />}
+        <SideButton />
     </BrowserRouter>
       </div>
   </DragDropContext>
