@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { AuthResponse } from '../models/response/AuthResponse'
-// export const API_URL = 'https://tasky-server35.herokuapp.com/api'
-export const API_URL = 'http://localhost:5000/api'
+export const API_URL = 'https://nice-plum-chiton-belt.cyclic.app/api'
+// export const API_URL = 'http://localhost:5000/api'
 
 
 const $api = axios.create({
