@@ -2,19 +2,20 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useEffect } from 'react';
 import './App.css';
-import InputField from './components/InputField';
-import TodoList from './components/TodoList';
+import InputField from './components/InputField/InputField';
+import TodoList from './components/TodoList/TodoList';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd'
 import { useTypedSelector } from './hooks/useTypedSelector';
-import LoginForm from './components/LoginForm';
-import InfoBar from './components/InfoBar';
+import LoginForm from './components/LoginForm/LoginForm';
 import { clearTodosAction, dragEndAction } from './store/reducers/todoReducer';
 import { checkAuth } from './asyncActions/user';
 import { useTypedDispatch } from './hooks/useTypedDispatch';
-import ClearButton from './components/ClearButton';
+import ClearButton from './components/ClearButton/ClearButton';
 import Calendar from './components/Calendar/Calendar';
 import { getTodosAsync } from './asyncActions/todos';
 import SideButton from './components/SideButton/SideButton';
+import NavBar from './components/NavBar/NavBar';
+import Profile from './components/Profile/Profile';
 
 
 const App: React.FC = () => {
@@ -44,17 +45,19 @@ const App: React.FC = () => {
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="App">
       <BrowserRouter>
-        
-        <InfoBar />
-        <LoginForm />
+        <NavBar />
+        {/* <InfoBar />
+        <LoginForm /> */}
         <span className="heading">Tasky</span>
-        <InputField />
         <Routes>
           <Route path='/calendar' element={<Calendar/>}/>
           <Route path='/' element={<TodoList />}/>
+          <Route path='/auth' element={<LoginForm/>} />
+          <Route path='/profile' element={<Profile/>} />
+
         </Routes>
-        {(todos.length !== 0 || completedTodos.length !== 0) && <ClearButton />}
-        <SideButton />
+        {/* {(todos.length !== 0 || completedTodos.length !== 0) && <ClearButton />}
+        <SideButton /> */}
     </BrowserRouter>
       </div>
   </DragDropContext>

@@ -1,0 +1,27 @@
+.container {
+    position:absolute;
+    width: 30vh;
+    left: 0;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    
+}
+.sideButton {
+    font-family: inherit;
+    font-size: 40px;
+    padding: 5px 10px;
+    border: none;
+    color: white;
+    background-color: #ffcf56;
+    transition: 0.5s;
+    margin: 10px;
+}
+
+.sideButton:hover {
+    background-color: #f8bb22;
+}
+.sideButton:active {
+    transform: scale(0.8);
+}

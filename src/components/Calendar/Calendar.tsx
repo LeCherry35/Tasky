@@ -5,6 +5,7 @@ import { useTypedSelector } from '../../hooks/useTypedSelector'
 import s from './Calendar.module.css'
 import { months } from '../../configs/weekdays'
 import { countWeekdaysBeforeMonth } from '../../helpers/countWeekDaysBeforeMonth'
+import InputField from '../InputField/InputField'
 
 const Calendar = () => {
     const {todos, completedTodos} = useTypedSelector(state => state.todos)    
@@ -29,13 +30,12 @@ const Calendar = () => {
             const date = new Date(now.getFullYear(), monthToday, i).valueOf()
             d.push(date)
         }
-        while ((d.length) % 7 !==0) {
+        while ((d.length) < 42) {
             d.push(d[d.length - 1] + 24 * 60 * 60 * 1000)
         }
         setDays(d)
     },[])
     useEffect(() => {
-        console.log('d',showDaysFrom);
         
     },[showDaysFrom])
     const showPreviousWeek = () => {
@@ -50,8 +50,6 @@ const Calendar = () => {
             getNextWeek()
             if (days.length > 7 * 5){
                 setShowDaysFrom(() => showDaysFrom + 7)
-        console.log('dkkkk',showDaysFrom);
-
             }
         } else {
             getNextWeek()
@@ -77,7 +75,10 @@ const Calendar = () => {
     
 
     return (
+        <>
+        <InputField />
         <div className={s.container}>
+            
             {/* <div className={s.month}>{months[month].name}</div> */}
             <button className={s.showMoreButton} onClick={showPreviousWeek}>
                 <FaChevronUp/>
@@ -108,17 +109,19 @@ const Calendar = () => {
                                 <span>{dayDate.getDate()}</span> 
                                 <span>{ months[dayDate.getMonth()].name.substring(0,3)}</span>
                                 <br/>
-                                <span>{deadlineTodos.map(todo => '!')}</span>
+                                <span>{deadlineTodos.map((todo, id) => '!')}</span>
                             </div>
                         )
-                    }
+                    } else return <></>
+                    
                 })}
             </div>
             <button className={s.showMoreButton} onClick={showNextWeek}>
                 <FaChevronDown/>
                 {/* {months[monthToday === 11 ? 0 : monthToday + 1].name} */}
-                </button>
+            </button>
         </div>
+        </>
     )
 }
 

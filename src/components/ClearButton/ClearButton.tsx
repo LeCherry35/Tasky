@@ -1,9 +1,9 @@
 import React from 'react'
-import './styles.css'
-import { deleteAllAsync } from '../asyncActions/todos';
-import { useTypedSelector } from '../hooks/useTypedSelector';
-import { useTypedDispatch } from '../hooks/useTypedDispatch';
-import { clearTodosAction } from '../store/reducers/todoReducer';
+import { deleteAllAsync } from '../../asyncActions/todos';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { useTypedDispatch } from '../../hooks/useTypedDispatch';
+import { clearTodosAction } from '../../store/reducers/todoReducer';
+import s from './ClearButton.module.css'
 
 const ClearButton: React.FC = () => {
   const {isAuth} = useTypedSelector(state => state.user)
@@ -16,7 +16,7 @@ const ClearButton: React.FC = () => {
 
   const dispatch = useTypedDispatch()
   return (
-    <button className='clear-button' onClick={() => {
+    <button className={s.clearButton} onClick={() => {
       deleteAll()
     }}>Clear all</button>
   )

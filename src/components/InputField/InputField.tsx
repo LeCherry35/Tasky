@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import './styles.css'
+import s from './InputField.module.css'
 import { useRef } from 'react'
 import TextareaAutosize from 'react-textarea-autosize';
-import { addToodoAction } from '../store/reducers/todoReducer';
-import { useTypedSelector } from '../hooks/useTypedSelector';
-import { addTodoAsync } from '../asyncActions/todos';
-import { useTypedDispatch } from '../hooks/useTypedDispatch';
+import { addToodoAction } from '../../store/reducers/todoReducer';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { addTodoAsync } from '../../asyncActions/todos';
+import { useTypedDispatch } from '../../hooks/useTypedDispatch';
 
 const InputField: React.FC = () => {
 
@@ -27,7 +27,7 @@ const InputField: React.FC = () => {
 
   return (
     <><form 
-      className="input" 
+      className={s.input} 
       onKeyDown={(e) => {
         if(e.code === 'Enter') {
           addTodo()
@@ -37,7 +37,7 @@ const InputField: React.FC = () => {
       
       <TextareaAutosize 
         ref={inputRef}
-        className='input__box' 
+        className={s.input__box}
         placeholder='enter a task' 
         value={todo}
         onChange={(e) => {
@@ -49,7 +49,7 @@ const InputField: React.FC = () => {
         
         ? <button 
           ref={submitRef} 
-          className='input__submit'
+          className={s.input__submit}
           onClick={(e) => {
             e.preventDefault()
             addTodo()
@@ -58,7 +58,7 @@ const InputField: React.FC = () => {
         : <></>
       }
     </form>
-    {todo && <div className='input__date__container'><label className='input__date_text' htmlFor='date'>Deadline:   </label> <input id='date' className='input__date' type="datetime-local" placeholder='lll' value={deadline} onChange={(e) => {
+    {todo && <div className={s.input__date__container}><label className={s.input__date_text} htmlFor='date'>Deadline:   </label> <input id='date' className={s.input__date} type="datetime-local" placeholder='lll' value={deadline} onChange={(e) => {
       setDeadline(e.target.value)
     }}></input></div>}</>
   )

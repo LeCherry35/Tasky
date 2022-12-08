@@ -1,0 +1,39 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items:flex-start;
+    justify-content: center;
+    width: 70%;
+}
+
+.todos {
+    position: relative;
+    display: none;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-basis: 500px;
+    width: 50%;
+    padding: 10px;
+    background-color: #86baa1;
+    margin: 10px;
+}
+
+.todos__heading {
+    text-align: center;
+    font-size: 50px;
+}
+.arrow {
+    position: absolute;
+    right: 0;
+}
+.shown {
+    display: flex;
+}
+@media (max-width:800px) {
+    .todos__heading {
+        font-size: 25px;
+    }
+    .todos {
+      width: 100%;
+    }
+}

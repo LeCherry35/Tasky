@@ -1,0 +1,96 @@
+.user {
+    font-family: inherit;
+    z-index: 4;
+    font-family: inherit;
+    z-index: 4;
+    transition: 1s;
+    font-size: 40px;
+}
+.user__loading {
+    width: 200px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 10px 30px;
+    background-color: black;
+    color: white;
+    z-index: 20;
+    animation: 1s stretch infinite;
+}
+.user__error {
+    color:red;
+    font-size: inherit;
+    text-align: center;
+}
+
+.user__box {
+    font-size: inherit;
+    display: flex;
+    flex-direction: column;
+}
+.user__input {
+    margin: 0 auto;
+    border: none;
+    outline: none;
+    padding: 8px 20px;
+    border: none;
+    font-size: inherit;
+    transition: 0.5s;
+    font-family:  inherit;
+    border-radius: 0;
+    z-index: 5;
+    margin: 5px;
+}
+.buttonContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+.user__button {
+    margin: 10px;
+    font-family: inherit;
+    font-size: inherit;
+    padding: 8px 20px;
+    border: none;
+    color: white;
+    background-color: inherit;
+    z-index: 2;
+    background-color: #ffcf56;
+    transition: 0.5s;
+    height: 100%;
+    cursor: pointer;
+}
+.user__button:hover {
+    background-color: #f8bb22;
+}
+.user__button:active {
+    transform: scale(0.8);
+}
+@keyframes blink {
+    from {
+        color:white
+    }
+    to {
+        color: red;
+    }
+}
+@keyframes stretch {
+    0% {
+        transform: scale(1);
+    }
+    20% {
+        transform: scale(1,1.3);
+    }
+    40% {
+        transform: scale(1.3,1);
+    }
+    60% {
+        transform: scale(1,1.1);
+    }
+    80% {
+        transform: scale(1.1,1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}

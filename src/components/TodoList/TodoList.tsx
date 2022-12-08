@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import './styles.css'
-import ActiveTodo from './ActiveTodo';
+import s from './TodoList.module.css'
+import ActiveTodo from '../Todo/ActiveTodo';
 import { Droppable } from 'react-beautiful-dnd';
 import { MdOutlineArrowForwardIos, MdOutlineArrowBackIos } from 'react-icons/md'
-import { useTypedSelector } from '../hooks/useTypedSelector';
-import CompletedTodo from './CompletedTodo';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
+import CompletedTodo from '../Todo/CompletedTodo';
+import InputField from '../InputField/InputField';
 
 
 
@@ -23,14 +24,17 @@ const TodoList: React.FC = () => {
   }, [todos.length, completedTodos.length])
   
   return (
-    <div className="container">
+    <>
+    <InputField />
+    <div className={s.container}>
+      
       <Droppable droppableId='TodosList'>
         {
           (provided, snapshot) => (
-            <div className={`todos ${todos.length !== 0 ? 'shown' : ''}`} ref={provided.innerRef} { ...provided.droppableProps}>
-              <span className={`todos__heading ${snapshot.isDraggingOver ? 'dragactive' : ''}`}>
+            <div className={`${s.todos} ${todos.length !== 0 ? s.shown : ''}`} ref={provided.innerRef} { ...provided.droppableProps}>
+              <span className={`${s.todos__heading} ${snapshot.isDraggingOver ? 'dragactive' : ''}`}>
                 Active tasks
-                <span className='arrow' onClick={() => {toggleRemoved()}}>{completedIsHidden && completedTodos.length !== 0 ? <MdOutlineArrowForwardIos/> : ''}</span>
+                <span className={s.arrow} onClick={() => {toggleRemoved()}}>{completedIsHidden && completedTodos.length !== 0 ? <MdOutlineArrowForwardIos/> : ''}</span>
               </span>
               
               {todos.map((todo, id) => <ActiveTodo index={id} todo={todo} key={todo.createdAt}/>)}
@@ -45,8 +49,8 @@ const TodoList: React.FC = () => {
       <Droppable droppableId='CompletedTodosList'>
         {
           (provided, snapshot) => (
-            <div className={`todos ${!completedIsHidden && completedTodos.length !== 0 ? 'shown' : ''}`} ref={provided.innerRef} { ...provided.droppableProps}>
-              <span className={`todos__heading ${snapshot.isDraggingOver ? 'dragcompleted' : ''}`}>
+            <div className={`${s.todos} ${!completedIsHidden && completedTodos.length !== 0 ? s.shown : ''}`} ref={provided.innerRef} { ...provided.droppableProps}>
+              <span className={`${s.todos__heading} ${snapshot.isDraggingOver ? 'dragcompleted' : ''}`}>
                 {!completedIsHidden ? 'Completed tasks' : ''}
                 {!completedIsHidden && todos.length !== 0 ? <span className='arrow' onClick={() => {toggleRemoved()}}><MdOutlineArrowBackIos/></span> : ''}
               </span>
@@ -58,6 +62,7 @@ const TodoList: React.FC = () => {
 
       </Droppable>
     </div>
+    </>
   )
 }
 
