@@ -1,5 +1,8 @@
-import { getFebDays } from './../helpers/getFebDays';
-import { IMonth } from './../types/calendar';
+import { getFebDays } from '../helpers/getFebDays';
+import { IMonth } from '../types/calendar';
+
+export const MILISECONDS_IN_DAY = 24 * 60 * 60 * 1000
+export const DAYS_IN_WEEK = 7
 export const weekdays: string [] = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
 export const months: IMonth [] = [

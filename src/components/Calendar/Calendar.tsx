@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa'
-import { weekdays } from '../../configs/weekdays'
+import { DAYS_IN_WEEK, MILISECONDS_IN_DAY, weekdays } from '../../configs/calendar'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
 import s from './Calendar.module.css'
-import { months } from '../../configs/weekdays'
+import { months } from '../../configs/calendar'
 import { countWeekdaysBeforeMonth } from '../../helpers/countWeekDaysBeforeMonth'
 import InputField from '../InputField/InputField'
 
@@ -17,7 +17,7 @@ const Calendar = () => {
     const dateToday = now.getDate()
     const timestampToday = new Date(now.getFullYear(), monthToday, dateToday).valueOf()
     const emptyWeekdaysNumber = countWeekdaysBeforeMonth(weekdayToday,dateToday)
-    
+    const weeksShown = 6
     useEffect(() => {
         
         const d: number[] = []
@@ -30,8 +30,8 @@ const Calendar = () => {
             const date = new Date(now.getFullYear(), monthToday, i).valueOf()
             d.push(date)
         }
-        while ((d.length) < 42) {
-            d.push(d[d.length - 1] + 24 * 60 * 60 * 1000)
+        while ((d.length) < weeksShown * DAYS_IN_WEEK) {
+            d.push(d[d.length - 1] + MILISECONDS_IN_DAY)
         }
         setDays(d)
     },[])
@@ -42,32 +42,29 @@ const Calendar = () => {
         if (showDaysFrom === 0) {
             getPreviousWeek()
         } else {            
-            setShowDaysFrom(() => showDaysFrom - 7)
+            setShowDaysFrom(() => showDaysFrom - DAYS_IN_WEEK)
         }
     }
     const showNextWeek = () => {
         if (showDaysFrom === 0) {
             getNextWeek()
-            if (days.length > 7 * 5){
-                setShowDaysFrom(() => showDaysFrom + 7)
-            }
+            setShowDaysFrom(() => showDaysFrom + DAYS_IN_WEEK)
         } else {
             getNextWeek()
-            setShowDaysFrom(() => showDaysFrom + 7)
-            
+            setShowDaysFrom(() => showDaysFrom + DAYS_IN_WEEK)
         }
     }
     const getPreviousWeek = () => {
         const newDays = []
-        for (let i = 0; i < 7; i++ ) {
-            newDays.push(days[0] - (7 - i) * 24 * 60 * 60 * 1000)
+        for (let i = 0; i < DAYS_IN_WEEK; i++ ) {
+            newDays.push(days[0] - (DAYS_IN_WEEK - i) * MILISECONDS_IN_DAY)
         }
         setDays([...newDays,...days])
     }
     const getNextWeek = () => {
         const newDays = []
-        for (let i = 0; i < 7; i++ ) {
-            newDays.push(days[days.length - 1] + (i + 1) * 24 * 60 * 60 * 1000)
+        for (let i = 0; i < DAYS_IN_WEEK; i++ ) {
+            newDays.push(days[days.length - 1] + (i + 1) * MILISECONDS_IN_DAY)
         }
         
         setDays([...days, ...newDays])
@@ -78,11 +75,8 @@ const Calendar = () => {
         <>
         <InputField />
         <div className={s.container}>
-            
-            {/* <div className={s.month}>{months[month].name}</div> */}
             <button className={s.showMoreButton} onClick={showPreviousWeek}>
                 <FaChevronUp/>
-                {/* {months[monthToday === 0 ? 11 : monthToday - 1].name} */}
             </button>
             <div className={s.days}>
                 {weekdays.map(weekday => {
@@ -91,7 +85,7 @@ const Calendar = () => {
                     )
                 })}
                 {days.map((day, id) => {
-                    if(id >= showDaysFrom && id < showDaysFrom + 42) {
+                    if(id >= showDaysFrom && id < showDaysFrom + DAYS_IN_WEEK * weeksShown) {
                         let dayDate
                         dayDate = new Date(day)
                         const deadlineTodos = todos.filter(todo => {
@@ -103,7 +97,7 @@ const Calendar = () => {
                         })
                         return (
                             <div 
-                                className={day === timestampToday ? s.today : s.day} 
+                                className={day === timestampToday ?`${s.today} ${s.day}` : s.day} 
                                 key={day}
                             >
                                 <span>{dayDate.getDate()}</span> 
@@ -118,7 +112,6 @@ const Calendar = () => {
             </div>
             <button className={s.showMoreButton} onClick={showNextWeek}>
                 <FaChevronDown/>
-                {/* {months[monthToday === 11 ? 0 : monthToday + 1].name} */}
             </button>
         </div>
         </>
