@@ -2,7 +2,6 @@ import React, {FC, useEffect, useState} from 'react'
 import { login, logout, register } from '../../asyncActions/user';
 import { useTypedDispatch } from '../../hooks/useTypedDispatch';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { hidePanel } from '../../store/reducers/authPanelReducer';
 import { clearErrorAction } from '../../store/reducers/userReducer';
 import s from './LoginForm.module.css'
 
