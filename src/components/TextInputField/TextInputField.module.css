@@ -1,0 +1,71 @@
+.input {
+    width: 100%;
+}
+.input__box {
+    width: 100%;
+    padding: 8px 20px;
+    border: none;
+    font-size: 40px;
+    /* transition: 0.5s; */
+    resize: none;
+    overflow: hidden;
+    font-family:  inherit;
+    border-radius: 0;
+    z-index: 2;
+}
+
+
+.input__box:focus {
+    box-shadow: 0 0 10px 1000px rgba(0, 0, 0, 0.5);
+    outline: none;
+}
+.input__date__container {
+    display: flex;
+    width: 70%;
+    justify-content: left;
+    font-size: 20px;
+}
+.input__date_text {
+    padding: 8px 20px;
+    z-index: 35;
+    border:none;
+    background-color: white;
+    font-size: inherit;
+    font-family: inherit;
+}
+.input__date {
+    padding: 8px 20px;
+    z-index: 30;
+    border:none;
+    font-size: inherit;
+    font-family: inherit;
+}
+.input__date:focus {
+    outline: none;
+    box-shadow: 0 0 10px 1000px rgba(0, 0, 0, 0.5);
+}
+.input__submit {
+    font-family: inherit;
+    font-size: inherit;
+    padding: 8px 20px;
+    border: none;
+    color: white;
+    background-color: inherit;
+    z-index: 2;
+    /* background-color: rgb(85, 85, 85); */
+    background-color: #ffcf56;
+    transition: 0.5s;
+    height: 100%;
+}
+
+.input__submit:hover {
+    background-color: #FFCF56
+}
+.input__submit:active {
+    transform: scale(0.8);
+}
+@media (max-width:800px) {
+    .input {
+        font-size: 25px;
+    }
+}

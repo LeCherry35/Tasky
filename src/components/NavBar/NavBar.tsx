@@ -5,7 +5,7 @@ import { useTypedSelector } from '../../hooks/useTypedSelector';
 import s from './NavBar.module.css'
 
 const NavBar = () => {
-    const {isAuth, user} = useTypedSelector(state => state.user) 
+    const {isAuth} = useTypedSelector(state => state.user) 
 
     let navigate = useNavigate();
     let location = useLocation()
@@ -18,6 +18,8 @@ const NavBar = () => {
             <div className={s.navButtonContainer}>
                 {location.pathname !== '/calendar' && <button className={s.sideButton} onClick={() => navigate('/calendar')}>calendar</button>}
                 {location.pathname !== '/' && <button className={s.sideButton} onClick={() => navigate('/')}>todos</button>}
+                {location.pathname !== '/events' && <button className={s.sideButton} onClick={() => navigate('/events')}>events</button>}
+
             </div>
             <div className={s.user}>
                 {location.pathname !== '/auth' && <button className={s.sideButton} onClick={() => navigate('/auth')}>{isAuth ? 'log out' : 'log in'}</button>}

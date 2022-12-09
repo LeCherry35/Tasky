@@ -2,17 +2,19 @@ import React, { useState, useEffect, useMemo } from 'react'
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa'
 import { DAYS_IN_WEEK, MILISECONDS_IN_DAY, weekdays } from '../../configs/calendar'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
-import s from './Calendar.module.css'
+import s from './DateInput.module.css'
 import { months } from '../../configs/calendar'
 import { countWeekdaysBeforeMonth } from '../../helpers/countWeekDaysBeforeMonth'
-import InputField from '../InputField/InputField'
 
-const Calendar = () => {
+interface Props {
+    pickedDate: number,
+    setPickedDate: React.Dispatch<React.SetStateAction<number>>
+}
+const DateInput: React.FC<Props> = ({pickedDate, setPickedDate}) => {
     const {todos} = useTypedSelector(state => state.todos)    
 
     const [days, setDays] = useState<number[]>([])
     const [showDaysFrom, setShowDaysFrom] = useState<number>(0)
-    const [pickedDay,setPickedDay] = useState<number>(0)
     
     const weeksShown = 6
     const now = useMemo(() => new Date(),[]) 
@@ -36,7 +38,7 @@ const Calendar = () => {
             d.push(d[d.length - 1] + MILISECONDS_IN_DAY)
         }
         setDays(d)
-    }, [emptyWeekdaysNumber, monthToday, now])
+    },[emptyWeekdaysNumber, now, monthToday])
     const showPreviousWeek = () => {
         if (showDaysFrom === 0) {
             getPreviousWeek()
@@ -72,7 +74,6 @@ const Calendar = () => {
 
     return (
         <>
-        <InputField />
         <div className={s.container}>
             <button className={s.showMoreButton} onClick={showPreviousWeek}>
                 <FaChevronUp/>
@@ -91,7 +92,7 @@ const Calendar = () => {
                             case timestampToday:
                                 classes = `${s.today} ${s.day}`
                                 break
-                            case pickedDay:
+                            case pickedDate:
                                 classes = `${s.picked} ${s.day}`
                                 break
                             default:
@@ -108,7 +109,7 @@ const Calendar = () => {
                             <div 
                                 className={classes} 
                                 key={day}
-                                onClick={(e) => setPickedDay(day)}
+                                onClick={(e) => setPickedDate(day)}
                             >
                                 <span>{dayDate.getDate()}</span> 
                                 <span>{ months[dayDate.getMonth()].name.substring(0,3)}</span>
@@ -128,4 +129,4 @@ const Calendar = () => {
     )
 }
 
-export default Calendar
+export default DateInput

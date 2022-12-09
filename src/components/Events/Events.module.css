@@ -1,0 +1,63 @@
+.container {
+    width: 70%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.input {
+    display: flex;
+    width: 100%;
+    position: relative;
+    align-items: flex-start;
+    font-family:  inherit;
+    font-size: 40px;
+    /* background-color: #a0e8af; */
+}
+.input__box {
+    width: 100%;
+    padding: 8px 20px;
+    border: none;
+    font-size: inherit;
+    /* transition: 0.5s; */
+    resize: none;
+    overflow: hidden;
+    font-family:  inherit;
+    border-radius: 0;
+    z-index: 2;
+}
+
+
+.input__box:focus {
+    box-shadow: 0 0 10px 1000px rgba(0, 0, 0, 0.5);
+    outline: none;
+}
+.input__submit {
+    font-family: inherit;
+    font-size: inherit;
+    padding: 8px 20px;
+    border: none;
+    color: white;
+    background-color: inherit;
+    z-index: 2;
+    background-color: #ffcf56;
+    transition: 0.5s;
+    height: 100%;
+}
+
+.input__submit:hover {
+    background-color: #FFCF56
+}
+.input__submit:active {
+    transform: scale(0.8);
+}
+.dateAndTime {
+    font-size: 40px;
+}
+.timePicker {
+    width: 50px;
+    border: none;
+    outline: none;
+    background: none;
+    font: inherit;
+}

@@ -9,18 +9,18 @@
   font-family: 'Bebas Neue', cursive;
   position:relative;
 }
-.heading {
-  font-size: 10vh;
-  margin: 20px 0;
-  color: white;
+.bg {
+  position: absolute;
+  font-size: 60vw;
+  line-height: 60vw;
+  z-index: -10;
   text-align: center;
-  z-index: 1;
-}
+  color: white;
+  opacity: 0.3;
+  bottom: 0;
+  overflow: hidden;
+} 
 
 @media (max-width:800px) {
-  .heading {
-    margin: 15px 0;
-    font-size: 15vh;
-  }
 
 }
