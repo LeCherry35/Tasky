@@ -6,6 +6,7 @@
     padding: 20px;
     justify-content: space-between;
     min-height: 45px;
+    border-radius: 10px;
 }
 .todo_expired {
     background-color: #de6b48;

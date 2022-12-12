@@ -6,6 +6,7 @@ import { addToodoAction } from '../../store/reducers/todoReducer';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { addTodoAsync } from '../../asyncActions/todos';
 import { useTypedDispatch } from '../../hooks/useTypedDispatch';
+import NameInputField from '../NameInputField/NameInputField';
 
 const InputField: React.FC = () => {
 
@@ -26,7 +27,7 @@ const InputField: React.FC = () => {
   }
 
   return (
-    <><form 
+    <><div 
       className={s.input} 
       onKeyDown={(e) => {
         if(e.code === 'Enter') {
@@ -34,8 +35,8 @@ const InputField: React.FC = () => {
         }
       }}
     >
-      
-      <TextareaAutosize 
+      <NameInputField placeholder='enter a task' setText={setTodo} text={todo} disabled={!todo} onSubmit={() => addTodo()}/>
+      {/* <TextareaAutosize 
         ref={inputRef}
         className={s.input__box}
         placeholder='enter a task' 
@@ -56,8 +57,8 @@ const InputField: React.FC = () => {
           }}
         >Add</button>
         : <></>
-      }
-    </form>
+      } */}
+    </div>
     {todo && <div className={s.input__date__container}><label className={s.input__date_text} htmlFor='date'>Deadline:   </label> <input id='date' className={s.input__date} type="datetime-local" placeholder='lll' value={deadline} onChange={(e) => {
       setDeadline(e.target.value)
     }}></input></div>}</>

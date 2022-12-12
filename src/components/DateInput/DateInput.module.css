@@ -2,6 +2,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    z-index: 40;
 }
 .days {
     display: grid;
@@ -14,6 +15,7 @@
     height: 50px;
     transition: 1s;
     box-sizing:border-box;
+    border-radius: 5px;
 }
 .day:hover {
     transform: scale(200%);
@@ -48,6 +50,7 @@
     line-height: 20px;
     color: white;
     cursor: pointer;
+    border-radius: 5px;
 }
 @keyframes blink {
     from {

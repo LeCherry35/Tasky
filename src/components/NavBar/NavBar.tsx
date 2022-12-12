@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
+import NavButton from '../Button/NavButton';
 import s from './NavBar.module.css'
 
 const NavBar = () => {
@@ -15,12 +16,12 @@ const NavBar = () => {
     return (
         <div className={s.container}>
             <div className={s.navButtonContainer}>
-                <button className={s.sideButton} onClick={() => navigate('/calendar')} disabled={location.pathname === '/calendar'}>calendar</button>
-                <button className={s.sideButton} onClick={() => navigate('/')} disabled={location.pathname === '/'}>todos</button>
-                <button className={s.sideButton} onClick={() => navigate('/events')} disabled={location.pathname === '/events'}>events</button>
+                <NavButton onClick={() => navigate('/calendar')} disabled={location.pathname === '/calendar'} name={'calendar'} />
+                <NavButton onClick={() => navigate('/')} disabled={location.pathname === '/'} name={'todos'} />
+                <NavButton onClick={() => navigate('/events')} disabled={location.pathname === '/events'} name={'events'} />
             </div>
             <div className={s.user}>
-                {location.pathname !== '/auth' && <button className={s.sideButton} onClick={() => navigate('/auth')}>{isAuth ? 'log out' : 'log in'}</button>}
+                {location.pathname !== '/auth' && <NavButton onClick={() => navigate('/auth')} name={isAuth ? 'log out' : 'log in'} />}
 
             </div>
         </div>

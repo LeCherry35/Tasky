@@ -7,7 +7,6 @@ const Calendar = () => {
     const [date, setDate] = useState(0)
     return (
         <div className={s.container}>
-        <InputField />
         <DateInput pickedDate={date} setPickedDate={setDate}/>
         </div>
     )

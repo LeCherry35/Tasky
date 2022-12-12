@@ -1,0 +1,29 @@
+.navButton {
+    font-family: inherit;
+    font-size: 40px;
+    padding: 5px 10px;
+    border: none;
+    color: white;
+    background-color: #ffcf56;
+    transition: 0.5s;
+    margin: 10px;
+    border-radius: 10px;
+    line-break: none;
+}
+.navButton:hover {
+    background-color: #f8bb22;
+}
+.navButton:active {
+    transform: scale(0.8);
+}
+.navButton:disabled {
+    background-color: #909090;
+}
+
+@media (max-width:800px) {
+    .navButton {
+        font-size: 25px;
+        border-radius: 7px;
+        margin: 5px;
+    }
+}

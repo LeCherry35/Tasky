@@ -24,7 +24,7 @@ const ActiveTodo: React.FC<Props> = ({index, todo}) => {
   const dispatch = useTypedDispatch()
   const {isAuth} = useTypedSelector(state => state.user)
   const [expiresIn, setExpiresIn] = useState<number>( todo.deadline ? todo.deadline - Date.now() : Infinity)
-
+  
   
   const setDone = (createdAt:number) => {
     if (isAuth) dispatch(setDoneAsync(createdAt))

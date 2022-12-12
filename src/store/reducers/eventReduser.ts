@@ -7,8 +7,7 @@ const initialState: EventsState = {
 
 export const eventReducer = (state = initialState, action: EventsAction): EventsState => {
     switch (action.type) {
-        case EventsActionTypes.SET_EVENTS: 
-        console.log('$$$', action.payload);
+        case EventsActionTypes.SET_EVENTS:
             return {events: action.payload}
         case EventsActionTypes.ADD_EVENT:
             return { ...state, events: [...state.events , action.payload]}
