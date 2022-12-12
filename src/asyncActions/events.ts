@@ -8,6 +8,7 @@ export const addEventAsync = (name: string, startsAt: number) => {
         try {
             const createdAt = new Date().valueOf()
             const response = await EventService.addEvent(name, createdAt, startsAt)
+            dispatch({type: EventsActionTypes.ADD_EVENT, payload: response.data})
         } catch (e) {
             console.log(e);
         }
@@ -17,7 +18,6 @@ export const getEventsAsync = () => {
     return async (dispatch: Dispatch<EventsAction>) => {
         try {
             const response = await EventService.getEvents()
-            console.log('##',response);
             dispatch({type: EventsActionTypes.SET_EVENTS, payload: response.data})
             
         } catch (e) {
