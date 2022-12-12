@@ -24,9 +24,9 @@ const TodoList: React.FC = () => {
   }, [todos.length, completedTodos.length])
   
   return (
-    <>
-    <InputField />
     <div className={s.container}>
+    <InputField />
+    <div className={s.todosContainer}>
       
       <Droppable droppableId='TodosList'>
         {
@@ -62,7 +62,7 @@ const TodoList: React.FC = () => {
 
       </Droppable>
     </div>
-    </>
+    </div>
   )
 }
 

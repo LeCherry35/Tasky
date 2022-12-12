@@ -17,9 +17,7 @@ interface Props {
   todo: Todo;
 }
 
-const ActiveTodo: React.FC<Props> = ({index, todo}) => {
-  todo.deadline && todo.deadline < Date.now() && console.log('kk');
-  
+const ActiveTodo: React.FC<Props> = ({index, todo}) => {  
   
   const [edit, setEdit] = useState<boolean>(false)
   const [editedTodo, setEditedTodo] = useState<string>(todo.todo)

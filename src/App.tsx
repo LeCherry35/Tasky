@@ -14,6 +14,7 @@ import { getTodosAsync } from './asyncActions/todos';
 import NavBar from './components/NavBar/NavBar';
 import Profile from './components/Profile/Profile';
 import Events from './components/Events/Events';
+import { getEventsAsync } from './asyncActions/events';
 
 
 const App: React.FC = () => {
@@ -26,6 +27,7 @@ const App: React.FC = () => {
   useEffect(() => {
     if(isAuth) {
       dispatch(getTodosAsync())
+      dispatch(getEventsAsync())
     } else {
       dispatch(clearTodosAction())
     }

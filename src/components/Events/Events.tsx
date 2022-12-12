@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import DateInput from '../DateInput/DteInput'
+import DateInput from '../DateInput/DateInput'
 import TextareaAutosize from 'react-textarea-autosize';
 import s from './Events.module.css'
 import { addEventAsync } from '../../asyncActions/events';
@@ -14,6 +14,13 @@ const Events = () => {
 
     const dispatch = useTypedDispatch()
 
+    const addEvent = () => {
+      const startsAt = date + +time.split(':')[0] * MILISECONDS_IN_HOUR + +time.split(':')[1] * MILISECONDS_IN_MINUTE
+      dispatch(addEventAsync(name, startsAt))
+      setDate(0)
+      setName('')
+      setTime('')
+    }
   return (
     <div className={s.container}>
       <div className={s.input}>
@@ -26,12 +33,7 @@ const Events = () => {
         {!(!date) && name && time &&
         <button 
           className={s.input__submit}
-          onClick={(e) => {
-            const startsAt = date + +time.split(':')[0] * MILISECONDS_IN_HOUR + +time.split(':')[1] * MILISECONDS_IN_MINUTE
-            console.log('gkfkk', startsAt);
-            dispatch(addEventAsync(name, startsAt))
-            
-          }}
+          onClick={addEvent}
         >Add</button>}
       </div>
         {name && <> 

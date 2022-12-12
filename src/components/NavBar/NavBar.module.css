@@ -24,3 +24,6 @@
 .sideButton:active {
     transform: scale(0.8);
 }
+.sideButton:disabled {
+    background-color: #909090;
+}

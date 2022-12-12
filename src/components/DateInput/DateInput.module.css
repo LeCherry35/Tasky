@@ -35,6 +35,9 @@
     writing-mode: vertical-lr;
     transform: rotate(180deg) translateX(40px);
 }
+.mark {
+    color:red;
+}
 .showMoreButton {
     margin: 10px auto;
     padding: 0 20px;

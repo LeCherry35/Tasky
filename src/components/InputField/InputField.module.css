@@ -1,10 +1,10 @@
 .input {
     display: flex;
-    width: 70%;
     position: relative;
     align-items: flex-start;
     font-family:  inherit;
     font-size: 40px;
+    width: 100%;
     /* background-color: #a0e8af; */
 }
 .input__box {

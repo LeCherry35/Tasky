@@ -37,4 +37,4 @@ interface RemoveEventActionInterface {
 }
 
 
-export type EventssAction = AddEventActionInterface | EditEventActionInterface | RemoveEventActionInterface | SetEventsActionInterface 
+export type EventsAction = AddEventActionInterface | EditEventActionInterface | RemoveEventActionInterface | SetEventsActionInterface 

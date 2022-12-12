@@ -11,7 +11,8 @@ interface Props {
     setPickedDate: React.Dispatch<React.SetStateAction<number>>
 }
 const DateInput: React.FC<Props> = ({pickedDate, setPickedDate}) => {
-    const {todos} = useTypedSelector(state => state.todos)    
+    const { todos } = useTypedSelector(state => state.todos)
+    const { events } = useTypedSelector(state => state.events)
 
     const [days, setDays] = useState<number[]>([])
     const [showDaysFrom, setShowDaysFrom] = useState<number>(0)
@@ -100,10 +101,13 @@ const DateInput: React.FC<Props> = ({pickedDate, setPickedDate}) => {
                         }
                         const deadlineTodos = todos.filter(todo => {
                             if (todo.deadline !== undefined) {
-                                return todo.deadline >= day && todo.deadline <= day + 24* 60 *60 *1000
+                                return todo.deadline >= day && todo.deadline <= day + MILISECONDS_IN_DAY
                             } else {
                                 return false
                             }
+                        })
+                        const eventsStart = events.filter(event => {
+                            return event.startsAt >= day && event.startsAt <= day + MILISECONDS_IN_DAY
                         })
                         return (
                             <div 
@@ -114,7 +118,8 @@ const DateInput: React.FC<Props> = ({pickedDate, setPickedDate}) => {
                                 <span>{dayDate.getDate()}</span> 
                                 <span>{ months[dayDate.getMonth()].name.substring(0,3)}</span>
                                 <br/>
-                                <span>{deadlineTodos.map((todo, id) => '!')}</span>
+                                <span className={s.mark}>{deadlineTodos.map((todo, id) => '!')}</span>
+                                <span className={s.mark}>{eventsStart.map((event, id) => 'E')}</span>
                             </div>
                         )
                     } else return <></>
