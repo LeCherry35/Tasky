@@ -82,7 +82,7 @@ const DateInput: React.FC<Props> = ({pickedDate, setPickedDate}) => {
             <div className={s.days}>
                 {weekdays.map(weekday => {
                     return (
-                        <div className={s.weekdayName} >{weekday}</div>
+                        <div key={weekday} className={s.weekdayName} >{weekday}</div>
                     )
                 })}
                 {days.map((day, id) => {

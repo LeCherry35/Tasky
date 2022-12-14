@@ -8,7 +8,6 @@
     transition: 0.5s;
     margin: 10px;
     border-radius: 10px;
-    line-break: none;
 }
 .navButton:hover {
     background-color: #f8bb22;

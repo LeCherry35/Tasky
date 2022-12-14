@@ -3,6 +3,7 @@ import { login, logout, register } from '../../asyncActions/user';
 import { useTypedDispatch } from '../../hooks/useTypedDispatch';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { clearErrorAction } from '../../store/reducers/userReducer';
+import NavButton from '../Button/NavButton';
 import s from './LoginForm.module.css'
 
 
@@ -15,7 +16,9 @@ const LoginForm: FC = () => {
     const {isAuth, user, error, isLoading} = useTypedSelector(state => state.user)
 
     useEffect(() => {
-        dispatch(clearErrorAction())
+        return function cleanup () {
+            dispatch(clearErrorAction())
+        } 
     }, [dispatch])
     
     return (
@@ -27,11 +30,11 @@ const LoginForm: FC = () => {
                 :<div>
                     Tasky has sent activation link to {user.email}
                 </div>}
-                <button className={s.user__button} onClick={() => {
+                <NavButton name='Log out!' onClick={() => {
                     dispatch(logout())
                     setEmail('')
                     setPassword('')
-                }}>LOG OUT!</button>
+                }}/>
             </div>
             : <>
             <form className={s.user__box}>
@@ -51,18 +54,18 @@ const LoginForm: FC = () => {
                     type='password'
                 />
                 <div className={s.buttonContainer}>
-                    <button className={s.user__button} onClick={(e) => {
+                    <NavButton name='Register' onClick={(e) => {
                         e.preventDefault()
                         dispatch(register(email, password))
                         if (isAuth) setEmail('')
                         setPassword('')
-                    }}>Register</button> or
-                    <button className={s.user__button} onClick={(e) => {
+                    }}/> or
+                    <NavButton name='Log in' onClick={(e) => {
                         e.preventDefault()
                         dispatch(login(email, password))
                         if (isAuth) setEmail('')
                         setPassword('')
-                    }}>Log in</button>
+                    }}/>
                 </div>
 
             </form>

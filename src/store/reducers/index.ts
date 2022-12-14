@@ -1,4 +1,4 @@
-import { eventReducer } from './eventReduser';
+import { eventReducer } from './eventReducer';
 import {combineReducers} from 'redux'
 import { todoReducer } from './todoReducer'
 import { userReducer } from './userReducer'

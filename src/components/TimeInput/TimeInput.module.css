@@ -1,0 +1,33 @@
+.container {
+    display: flex;
+}
+.inputContainer {
+    position: relative;
+}
+.input {
+    outline: none;
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+    width: 35px;
+    text-align: center;
+}
+.arrowTop{
+    height: 5px;
+    width: 0;
+    border: 20px solid transparent; 
+    border-bottom: 10px solid white;
+    position: absolute;
+    top: -35px;
+    z-index: 10;
+}
+.arrowBottom {
+    height: 5px;
+    width: 0;
+    border: 20px solid transparent; 
+    border-top: 10px solid white;
+    position: absolute;
+    bottom: -35px;
+    z-index: 10;
+    
+}

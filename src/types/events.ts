@@ -14,7 +14,8 @@ export enum EventsActionTypes {
     SET_EVENTS = 'SET_EVENTS',
     ADD_EVENT = 'ADD_EVENT',
     EDIT_EVENT = 'EDIT_EVENT',
-    REMOVE_EVENT = 'REMOVE_EVENT'
+    REMOVE_EVENT = 'REMOVE_EVENT',
+    CLEAR_EVENTS = 'CLEAR_EVENTS'
 }
 interface SetEventsActionInterface {
     type: EventsActionTypes.SET_EVENTS
@@ -36,5 +37,9 @@ interface RemoveEventActionInterface {
     payload: number
 }
 
+interface ClearEventsActionInterface {
+    type: EventsActionTypes.CLEAR_EVENTS
+}
 
-export type EventsAction = AddEventActionInterface | EditEventActionInterface | RemoveEventActionInterface | SetEventsActionInterface 
+
+export type EventsAction = AddEventActionInterface | EditEventActionInterface | RemoveEventActionInterface | SetEventsActionInterface | ClearEventsActionInterface

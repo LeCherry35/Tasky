@@ -1,3 +1,4 @@
+import { clearEventsAction } from './../store/reducers/eventReducer';
 import { clearTodosAction } from './../store/reducers/todoReducer';
 import { UserActionTypes, UserAction } from '../types/user';
 import { Dispatch } from "redux"
@@ -11,7 +12,7 @@ export const login = (email: string, password: string) => {
             localStorage.setItem('token', response.data.accessToken)
             dispatch({type: UserActionTypes.SET_USER, payload: response.data.user})
         } catch (e: any) {
-            dispatch({type: UserActionTypes.ERROR, payload: e.response?.data?.message || e.message})
+            dispatch({type: UserActionTypes.CLEAR_ERROR, payload: e.response?.data?.message || e.message})
         }
     }
 }
@@ -24,7 +25,7 @@ export const register = (email: string, password: string) => {
             localStorage.setItem('token', response.data.accessToken)
             dispatch({type: UserActionTypes.SET_USER, payload: response.data.user}) 
         } catch (e: any) {
-            dispatch({type: UserActionTypes.ERROR, payload: e.response?.data?.message || e.message})
+            dispatch({type: UserActionTypes.CLEAR_ERROR, payload: e.response?.data?.message || e.message})
         }    
     }
 }
@@ -35,8 +36,10 @@ export const logout = () => {
             localStorage.removeItem('token')
             dispatch({type: UserActionTypes.LOG_OUT})
             clearTodosAction()
+            clearEventsAction()
+            
         } catch (e: any) {
-            dispatch({type: UserActionTypes.ERROR, payload: e.response?.data?.message || e.message})
+            dispatch({type: UserActionTypes.CLEAR_ERROR, payload: e.response?.data?.message || e.message})
         }
     }
 }
@@ -47,7 +50,7 @@ export const checkAuth = () => {
             localStorage.setItem('token', response.data.accessToken)
             dispatch({type: UserActionTypes.SET_USER, payload: response.data.user})
         } catch (e:any) {
-            dispatch({type: UserActionTypes.ERROR, payload: e.response?.data?.message})
+            dispatch({type: UserActionTypes.CLEAR_ERROR, payload: e.response?.data?.message})
         } 
     }
   }

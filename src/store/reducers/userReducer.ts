@@ -15,7 +15,7 @@ export const userReducer = (state = initialState, action: UserAction): UserState
     switch (action.type) {
         case UserActionTypes.LOADING:
             return { ...state, isLoading: true}
-        case UserActionTypes.ERROR: 
+        case UserActionTypes.CLEAR_ERROR:         
             return { ...state, error: action.payload, isLoading: false}
         case UserActionTypes.SET_USER:
             return {error: null, isAuth: true , user: action.payload, isLoading: false}
@@ -27,5 +27,5 @@ export const userReducer = (state = initialState, action: UserAction): UserState
 }
 
 export const clearErrorAction = () => {
-    return {type: UserActionTypes.ERROR, payload: '' }
+    return {type: UserActionTypes.CLEAR_ERROR, payload: null }
 }

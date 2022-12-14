@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import DateInput from '../DateInput/DateInput'
-import TextareaAutosize from 'react-textarea-autosize';
 import s from './Events.module.css'
 import { addEventAsync } from '../../asyncActions/events';
 import { MILISECONDS_IN_HOUR, MILISECONDS_IN_MINUTE } from '../../configs/calendar';
@@ -8,9 +7,13 @@ import { useTypedDispatch } from '../../hooks/useTypedDispatch';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import Event from '../Todo/Event';
 import NameInputField from '../NameInputField/NameInputField';
+import TimeInput from '../TimeInput/TimeInput';
+import { addEventAction } from '../../store/reducers/eventReducer';
 
 const Events = () => {
   const { events } = useTypedSelector(state => state.events)
+  const { isAuth } = useTypedSelector(state => state.user)
+
   const [date,setDate] = useState<number>(0)
   const [name,setName] = useState<string>('')
   const [time,setTime] = useState<string>('')
@@ -19,7 +22,13 @@ const Events = () => {
 
   const addEvent = () => {
     const startsAt = date + +time.split(':')[0] * MILISECONDS_IN_HOUR + +time.split(':')[1] * MILISECONDS_IN_MINUTE
-    dispatch(addEventAsync(name, startsAt))
+    
+    const createdAt = new Date().valueOf()
+    if( isAuth) {
+      dispatch(addEventAsync(name, createdAt, startsAt))
+    } else {
+      dispatch(addEventAction(name, createdAt, startsAt))
+    }
     setDate(0)
     setName('')
     setTime('')
@@ -36,17 +45,18 @@ const Events = () => {
         {name && <> 
           <div className={s.dateAndTime}>
               {date
-                  ? new Date(date).toDateString() + '  '
-                  : 'select date '}
-              {time
+                  ? new Date(date).toDateString() + '  starts at '
+                  : 'select date and time'}
+              {/* {time
                   ? time
                   : `${date ? ' select time:' : ' and time' }`}
-              <input type='time' className={s.timePicker} onChange={(e) => setTime(e.target.value)}/>
+              <input type='time' className={s.timePicker} onChange={(e) => setTime(e.target.value)}/> */}
+              <TimeInput setTime={setTime}/>
           </div>
           <DateInput pickedDate={date} setPickedDate={setDate}/>
           </>}
           <div className={s.eventsContainer}>
-            {events.sort((a,b) => b.startsAt - a.startsAt).map(event => (Date.now() - event.startsAt) > 0 ? <Event key={event.createdAt} event={event}/> : <></>)}
+            {events.map(event => (Date.now() - event.startsAt) > 0 ? <Event key={event.createdAt} event={event}/> : <></>)}
           </div>
     </div>
   )

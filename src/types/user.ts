@@ -4,7 +4,7 @@ export enum UserActionTypes {
     SET_USER = 'SET_USER',
     LOG_OUT = 'LOG_OUT',
     LOADING = 'LOADING',
-    ERROR = 'ERROR'
+    CLEAR_ERROR = 'CLEAR_ERROR'
 }
 
 export interface UserState {
@@ -19,7 +19,7 @@ interface LoadingActionInterface {
 }
 
 interface AuthErrorActionInterface {
-    type: UserActionTypes.ERROR
+    type: UserActionTypes.CLEAR_ERROR
     payload: string
 }
 

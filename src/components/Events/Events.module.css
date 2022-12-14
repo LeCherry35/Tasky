@@ -8,6 +8,8 @@
 
 .dateAndTime {
     font-size: 40px;
+    display: flex;
+    justify-content: space-around;
 }
 .timePicker {
     width: 50px;

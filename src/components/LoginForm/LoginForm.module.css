@@ -5,6 +5,7 @@
     z-index: 4;
     transition: 1s;
     font-size: 40px;
+    margin-top: 50px ;
 }
 .user__loading {
     width: 200px;
@@ -36,7 +37,7 @@
     font-size: inherit;
     transition: 0.5s;
     font-family:  inherit;
-    border-radius: 0;
+    border-radius: 10px;
     z-index: 5;
     margin: 5px;
 }
@@ -46,26 +47,7 @@
     justify-content: space-around;
     align-items: center;
 }
-.user__button {
-    margin: 10px;
-    font-family: inherit;
-    font-size: inherit;
-    padding: 8px 20px;
-    border: none;
-    color: white;
-    background-color: inherit;
-    z-index: 2;
-    background-color: #ffcf56;
-    transition: 0.5s;
-    height: 100%;
-    cursor: pointer;
-}
-.user__button:hover {
-    background-color: #f8bb22;
-}
-.user__button:active {
-    transform: scale(0.8);
-}
+
 @keyframes blink {
     from {
         color:white
