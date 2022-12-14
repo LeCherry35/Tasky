@@ -21,10 +21,10 @@ const ActiveTodo: React.FC<Props> = ({index, todo}) => {
   
   const [edit, setEdit] = useState<boolean>(false)
   const [editedTodo, setEditedTodo] = useState<string>(todo.todo)
-  const dispatch = useTypedDispatch()
-  const {isAuth} = useTypedSelector(state => state.user)
   const [expiresIn, setExpiresIn] = useState<number>( todo.deadline ? todo.deadline - Date.now() : Infinity)
-  
+
+  const dispatch = useTypedDispatch()
+  const {isAuth} = useTypedSelector(state => state.user)  
   
   const setDone = (createdAt:number) => {
     if (isAuth) dispatch(setDoneAsync(createdAt))
@@ -45,10 +45,11 @@ const ActiveTodo: React.FC<Props> = ({index, todo}) => {
   useEffect(() => {
     inputRef.current?.focus()
   }, [edit])
-
-  if (todo.deadline && expiresIn > 0) {
-    setTimeout(() => setExpiresIn(expiresIn - 1000), 1000)
-  }
+  useEffect(() => {
+    if (todo.deadline && expiresIn > 0) {
+      setTimeout(() => setExpiresIn(expiresIn - 1000), 1000)
+    }
+  },[expiresIn, todo.deadline])
   return (
     <Draggable draggableId={todo.createdAt.toString()} index={index}>
       {(provided) => (

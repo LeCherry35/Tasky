@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import s from './TodoList.module.css'
-import ActiveTodo from '../Todo/ActiveTodo';
+import ActiveTodo from '../SingleUnits/ActiveTodo';
 import { Droppable } from 'react-beautiful-dnd';
 import { MdOutlineArrowForwardIos, MdOutlineArrowBackIos } from 'react-icons/md'
 import { useTypedSelector } from '../../hooks/useTypedSelector';
-import CompletedTodo from '../Todo/CompletedTodo';
+import CompletedTodo from '../SingleUnits/CompletedTodo';
 import InputField from '../InputField/InputField';
 
 

@@ -7,9 +7,9 @@ const initialState: EventsState = {
 export const eventReducer = (state = initialState, action: EventsAction): EventsState => {
     switch (action.type) {
         case EventsActionTypes.SET_EVENTS:
-            return {events: action.payload.sort((a,b) => b.startsAt - a.startsAt)}
+            return {events: action.payload.sort((a,b) => a.startsAt - b.startsAt)}
         case EventsActionTypes.ADD_EVENT:
-            return { ...state, events: [...state.events , action.payload]}
+            return { ...state, events: [...state.events , action.payload].sort((a,b) => a.startsAt - b.startsAt)}
         case EventsActionTypes.CLEAR_EVENTS:
             return {events: []}
         default:

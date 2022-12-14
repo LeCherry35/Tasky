@@ -5,10 +5,11 @@ import { addEventAsync } from '../../asyncActions/events';
 import { MILISECONDS_IN_HOUR, MILISECONDS_IN_MINUTE } from '../../configs/calendar';
 import { useTypedDispatch } from '../../hooks/useTypedDispatch';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
-import Event from '../Todo/Event';
+import Event from '../SingleUnits/Event';
 import NameInputField from '../NameInputField/NameInputField';
 import TimeInput from '../TimeInput/TimeInput';
 import { addEventAction } from '../../store/reducers/eventReducer';
+import DateTimePicker from '../DateTimePicker/DateTimePicker';
 
 const Events = () => {
   const { events } = useTypedSelector(state => state.events)
@@ -42,6 +43,7 @@ const Events = () => {
         onSubmit={addEvent} 
         disabled={(!date) || (!name) || !(time)} 
       />
+        {/* <DateTimePicker/> */}
         {name && <> 
           <div className={s.dateAndTime}>
               {date
@@ -56,7 +58,7 @@ const Events = () => {
           <DateInput pickedDate={date} setPickedDate={setDate}/>
           </>}
           <div className={s.eventsContainer}>
-            {events.map(event => (Date.now() - event.startsAt) > 0 ? <Event key={event.createdAt} event={event}/> : <></>)}
+            {events.map(event => (event.startsAt - Date.now() > 0) ? <Event key={event.createdAt} event={event}/> : <></> )}
           </div>
     </div>
   )
