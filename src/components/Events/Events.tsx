@@ -7,7 +7,6 @@ import { useTypedDispatch } from '../../hooks/useTypedDispatch';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import Event from '../SingleUnits/Event';
 import NameInputField from '../NameInputField/NameInputField';
-import TimeInput from '../TimeInput/TimeInput';
 import { addEventAction } from '../../store/reducers/eventReducer';
 import DateTimePicker from '../DateTimePicker/DateTimePicker';
 
@@ -45,17 +44,7 @@ const Events = () => {
       />
         {/* <DateTimePicker/> */}
         {name && <> 
-          <div className={s.dateAndTime}>
-              {date
-                  ? new Date(date).toDateString() + '  starts at '
-                  : 'select date and time'}
-              {/* {time
-                  ? time
-                  : `${date ? ' select time:' : ' and time' }`}
-              <input type='time' className={s.timePicker} onChange={(e) => setTime(e.target.value)}/> */}
-              <TimeInput setTime={setTime}/>
-          </div>
-          <DateInput pickedDate={date} setPickedDate={setDate}/>
+          <DateTimePicker date={date} setDate={setDate} setTime={setTime}/>
           </>}
           <div className={s.eventsContainer}>
             {events.map(event => (event.startsAt - Date.now() > 0) ? <Event key={event.createdAt} event={event}/> : <></> )}

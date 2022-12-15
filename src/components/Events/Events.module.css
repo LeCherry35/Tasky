@@ -19,8 +19,7 @@
     font: inherit;
 }
 .eventsContainer {
-    position: relative;
-    width: 100%;
+    width: 90%;
     padding: 10px;
     background-color: #86baa1;
     margin: 10px;

@@ -9,7 +9,7 @@
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 .day {
-    background-color: azure;
+    background-color: #5c6784;
     margin: 5px;
     height: 50px;
     transition: 1s;
@@ -23,7 +23,6 @@
     border: 5px solid #FFCF56;
 }
 .picked {
-    border: 5px solid #FFCF56;
     animation: 2s blink infinite alternate;
 }
 .weekdayName {
