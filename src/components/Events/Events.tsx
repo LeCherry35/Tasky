@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import DateInput from '../DateInput/DateInput'
 import s from './Events.module.css'
 import { addEventAsync } from '../../asyncActions/events';
 import { MILISECONDS_IN_HOUR, MILISECONDS_IN_MINUTE } from '../../configs/calendar';

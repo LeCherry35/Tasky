@@ -20,6 +20,7 @@
     position: absolute;
     top: -35px;
     z-index: 10;
+    animation: blinkTop 1s infinite alternate;
 }
 .arrowBottom {
     height: 5px;
@@ -29,5 +30,22 @@
     position: absolute;
     bottom: -35px;
     z-index: 10;
+    animation: blinkBottom 1s infinite alternate;
     
+}
+@keyframes blinkBottom {
+    from {
+        border-top: 10px solid white;
+    }
+    to {
+        border-top: 10px solid #FFCF56;
+    }
+}
+@keyframes blinkTop {
+    from {
+        border-bottom: 10px solid white;
+    }
+    to {
+        border-bottom: 10px solid #FFCF56;
+    }
 }

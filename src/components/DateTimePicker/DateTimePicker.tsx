@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import DateInput from '../DateInput/DateInput'
 import TimeInput from '../TimeInput/TimeInput'
 import s from './DateTimePicker.module.css'
@@ -24,10 +24,10 @@ const DateTimePicker:React.FC<Props> = ({ date, setDate, setTime}) => {
                     {date === 0 ? ' date ' : new Date(date).toDateString() + ' ,'}
                 </span>
                 {isTimePickerDisplayed ? '' : 'Select '}
-                <span className={s.clickWord} onClick={() => setIsTimePickerDisplayed(true)}>
+                <span onClick={() => setIsTimePickerDisplayed(true)}>
                     {isTimePickerDisplayed 
                         ? <div className={s.timeContainer}><TimeInput setTime={setTime}/></div> 
-                        : 'time '}
+                        : <span className={s.clickWord}>time </span>}
                 </span>
                 {isTimePickerDisplayed ? '' : 'of new event'}
             </div> 
