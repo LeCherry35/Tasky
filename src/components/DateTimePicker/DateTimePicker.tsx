@@ -1,20 +1,23 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { MILISECONDS_IN_HOUR, MILISECONDS_IN_MINUTE } from '../../configs/calendar'
 import DateInput from '../DateInput/DateInput'
 import TimeInput from '../TimeInput/TimeInput'
 import s from './DateTimePicker.module.css'
 
 interface Props {
-    date: number,
-    setDate: React.Dispatch<React.SetStateAction<number>>,
-    setTime: React.Dispatch<React.SetStateAction<string>>
+    setDateAndTime: React.Dispatch<React.SetStateAction<number>>
 }
 
-const DateTimePicker:React.FC<Props> = ({ date, setDate, setTime}) => {
+const DateTimePicker:React.FC<Props> = ({ setDateAndTime}) => {
     const [isDatePickerDisplayed, setIsDatePickerDisplayed] = useState(false)
     const [isTimePickerDisplayed, setIsTimePickerDisplayed] = useState(false)
-    // const [date,setDate] = useState(0)
-    // const [time, setTime] = useState('')
+    const [date,setDate] = useState(0)
+    const [time, setTime] = useState('')
 
+    useEffect(() => {
+            setDateAndTime(date + +time.split(':')[0] * MILISECONDS_IN_HOUR + +time.split(':')[1] * MILISECONDS_IN_MINUTE)
+
+    },[date, time, setDateAndTime])
     
 
     return (
