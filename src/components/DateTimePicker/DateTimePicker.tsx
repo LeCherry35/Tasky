@@ -12,7 +12,7 @@ const DateTimePicker:React.FC<Props> = ({ setDateAndTime}) => {
     const [isDatePickerDisplayed, setIsDatePickerDisplayed] = useState(false)
     const [isTimePickerDisplayed, setIsTimePickerDisplayed] = useState(false)
     const [date,setDate] = useState(0)
-    const [time, setTime] = useState('')
+    const [time, setTime] = useState('00:00')
 
     useEffect(() => {
             setDateAndTime(date + +time.split(':')[0] * MILISECONDS_IN_HOUR + +time.split(':')[1] * MILISECONDS_IN_MINUTE)
@@ -24,15 +24,14 @@ const DateTimePicker:React.FC<Props> = ({ setDateAndTime}) => {
         <div className={s.container}> 
             <div className={s.text}>{date === 0 ? 'Select ' : ''}
                 <span className={date === 0 ? s.clickWord : s.pointer} onClick={() => setIsDatePickerDisplayed(b => !b)}> 
-                    {date === 0 ? ' date ' : new Date(date).toDateString() + ' ,'}
+                    {date === 0 ? ' date' : new Date(date).toDateString()}
                 </span>
-                {isTimePickerDisplayed ? '' : 'Select '}
+                {isTimePickerDisplayed ? ',' : ', Select '}
                 <span onClick={() => setIsTimePickerDisplayed(true)}>
                     {isTimePickerDisplayed 
                         ? <div className={s.timeContainer}><TimeInput setTime={setTime}/></div> 
                         : <span className={s.clickWord}>time </span>}
                 </span>
-                {isTimePickerDisplayed ? '' : 'of new event'}
             </div> 
             
             {isDatePickerDisplayed && <div className={s.inputContainer}>

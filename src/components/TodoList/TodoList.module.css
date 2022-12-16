@@ -2,6 +2,17 @@
     width: 70%;
     padding: 10px;
 }
+.deadlineContainer {
+    display: flex;
+    flex-direction: column;
+}
+.deadlineInfo {
+    font-size: 40px;
+    white-space: nowrap;
+    cursor: pointer;
+    text-align: center;
+    display: inline;
+}
 .todosContainer {
     display: flex;
     justify-content: space-between;
@@ -25,7 +36,7 @@
 
 .todos__heading {
     text-align: center;
-    font-size: 50px;
+    font-size: 40px;
 }
 .arrow {
     position: absolute;
@@ -40,5 +51,8 @@
     }
     .todos {
       width: 100%;
+    }
+    .deadlineInfo {
+        font-size: 25px;
     }
 }

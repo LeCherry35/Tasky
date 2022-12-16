@@ -31,6 +31,7 @@
     bottom: -35px;
     z-index: 10;
     animation: blinkBottom 1s infinite alternate;
+    z-index: 15;
     
 }
 @keyframes blinkBottom {

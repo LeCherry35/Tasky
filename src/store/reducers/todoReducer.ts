@@ -1,3 +1,4 @@
+import { sortTodos } from './../../helpers/sortTodos';
 import { TodosState, TodosAction, TodosActionTypes } from '../../types/todos';
 
 import { Todo } from '../../types/Todo'
@@ -15,12 +16,12 @@ export const todoReducer = (state = initialState, action: TodosAction): TodosSta
         case TodosActionTypes.SET_TODOS: 
             const activeTodos = action.payload.filter(todo => todo.isDone === false)
             const completedTodos = action.payload.filter(todo => todo.isDone === true)
-            return { ...state, todos: activeTodos, completedTodos: completedTodos}
+            return { ...state, todos: activeTodos.sort(sortTodos), completedTodos: completedTodos}
         case TodosActionTypes.ADD_TODO:
-            return { ...state, todos: [...state.todos , action.payload]}
+            return { ...state, todos: [...state.todos , action.payload].sort(sortTodos)}
         
         case TodosActionTypes.EDIT_TODO:
-            const editedTodos = state.todos.map((todo) => (todo.createdAt === action.payload.createdAt ? { ...todo, todo:  action.payload.editedTodo} : todo))
+            const editedTodos = state.todos.map((todo) => (todo.createdAt === action.payload.createdAt ? { ...todo, todo:  action.payload.editedTodo} : todo)).sort(sortTodos)
             return { ...state, todos: editedTodos}
             
         case TodosActionTypes.REMOVE_TODO:

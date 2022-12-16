@@ -22,6 +22,7 @@ const ActiveTodo: React.FC<Props> = ({index, todo}) => {
   const [edit, setEdit] = useState<boolean>(false)
   const [editedTodo, setEditedTodo] = useState<string>(todo.todo)
   const [expiresIn, setExpiresIn] = useState<number>( todo.deadline ? todo.deadline - Date.now() : Infinity)
+  console.log('##',expiresIn);
 
   const dispatch = useTypedDispatch()
   const {isAuth} = useTypedSelector(state => state.user)  
@@ -54,7 +55,7 @@ const ActiveTodo: React.FC<Props> = ({index, todo}) => {
     <Draggable draggableId={todo.createdAt.toString()} index={index}>
       {(provided) => (
 
-        <form className={expiresIn > 0 && !todo.isDone ? `${s.todo}` : `${s.todo} ${s.todo__expired}`} {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+        <form className={expiresIn > 0 ? `${s.todo}` : `${s.todo} ${s.todo__expired}`} {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
           <div className={s.todo__textarea}>
             {edit 
             ? (
