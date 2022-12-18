@@ -10,39 +10,42 @@ const TimeInput: React.FC<Props> = ({setTime}) => {
     const [mins, setMins] = useState('00')
 
     useEffect(() => {
-      setTime(addZero(hrs) + ':' + addZero(mins))
+      setTime(hrs + ':' + mins)
     }, [hrs, mins, setTime])
     
-    const addZero = (num:string) => {
-        return Number(num) < 10 ? '0' + String(num) : String(num)
+    const handleZero = (num:string) => {
+        if (num.length === 1) return '0' + num
+        if (num.length === 2) return num
+        
+        while (num[0] === '0' && num.length > 2) num = num.substring(1)  
+        return num
     }
     
     return (
         <div className={s.container}>
             <div className={s.inputContainer}>
-                <div className={s.arrowTop} onClick={() => Number(hrs) < 23 && setHrs(hrs => addZero(String(Number(hrs) + 1)))}></div>
+                <div className={s.arrowTop} onClick={() => Number(hrs) < 23 ? setHrs(hrs => handleZero(String(Number(hrs) + 1))) : setHrs('00')}></div>
                 <input className={s.input} type='text' value={hrs} onChange={(e) => {
                     const inputToNum =Number(e.target.value)
                     if(Number.isNaN(inputToNum)) {
                         return
                     } else {
                         if (inputToNum >=0 && inputToNum <= 24) {
-                            setHrs(addZero(e.target.value))
+                            setHrs(handleZero(e.target.value))
                         } else {
                             return
                         }
                     }
-                    setHrs(addZero(e.target.value))
                     }}/>
-                <div className={s.arrowBottom} onClick={() => Number(hrs) > 0 && setHrs(hrs => addZero(String(Number(hrs) - 1)))}></div>
+                <div className={s.arrowBottom} onClick={() => Number(hrs) > 0 && setHrs(hrs => handleZero(String(Number(hrs) - 1)))}></div>
             </div>
             <div>:</div>
             <div className={s.inputContainer}>
                 <div className={s.arrowTop} onClick={() => {
-                    if(Number(mins) < 59) setMins(mins => addZero(String(Number(mins) + 1)))
+                    if(Number(mins) < 59) setMins(mins => handleZero(String(Number(mins) + 1)))
                     else {
                         setMins('00')
-                        setHrs(hrs => addZero(String(Number(hrs) + 1)))
+                        setHrs(hrs => handleZero(String(Number(hrs) + 1)))
                     }
                     }}></div>
                 <input className={s.input} type='text' value={mins} onChange={(e) => {
@@ -51,18 +54,18 @@ const TimeInput: React.FC<Props> = ({setTime}) => {
                         return
                     } else {
                         if (inputToNum >=0 && inputToNum <= 60) {
-                            setMins(addZero(e.target.value)) 
+                            setMins(handleZero(e.target.value)) 
                         } else {
                             return
                         }
                     }
-                    setMins(addZero(e.target.value))
+                    setMins(handleZero(e.target.value))
                     }}/>
                 <div className={s.arrowBottom} onClick={() => {
-                    if(Number(mins) > 0) setMins(mins => addZero(String(Number(mins) - 1)))
+                    if(Number(mins) > 0) setMins(mins => handleZero(String(Number(mins) - 1)))
                     else if(Number(hrs) > 0 ) {
                         setMins('59')
-                        setHrs(hrs => addZero(String(Number(hrs) - 1)))
+                        setHrs(hrs => handleZero(String(Number(hrs) - 1)))
                     }
                     }}></div>
             </div>
