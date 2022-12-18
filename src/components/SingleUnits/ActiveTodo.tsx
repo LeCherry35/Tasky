@@ -1,15 +1,15 @@
 import React, { useEffect, useRef } from 'react'
+import s from './Todo.module.css'
 import { useState } from 'react'
-import { Todo } from '../../types/Todo'
 import { AiFillEdit, AiFillDelete } from 'react-icons/ai'
 import { MdDone, MdDownloadDone } from 'react-icons/md'
 import TextareaAutosize from 'react-textarea-autosize';
-import s from './Todo.module.css'
 import { Draggable } from 'react-beautiful-dnd'
+import { useTypedSelector } from '../../hooks/useTypedSelector'
+import { useTypedDispatch } from '../../hooks/useTypedDispatch'
+import { Todo } from '../../types/Todo'
 import { editTodoAction, removeTodoAction, setDoneAction } from '../../store/reducers/todoReducer'
 import { deleteTodoAsync, editTodoAsync, setDoneAsync } from '../../asyncActions/todos'
-import { useTypedDispatch } from '../../hooks/useTypedDispatch'
-import { useTypedSelector } from '../../hooks/useTypedSelector'
 import { timestampToString } from '../../helpers/timestampToString'
 
 interface Props {
@@ -22,7 +22,6 @@ const ActiveTodo: React.FC<Props> = ({index, todo}) => {
   const [edit, setEdit] = useState<boolean>(false)
   const [editedTodo, setEditedTodo] = useState<string>(todo.todo)
   const [expiresIn, setExpiresIn] = useState<number>( todo.deadline ? todo.deadline - Date.now() : Infinity)
-  console.log('##',expiresIn);
 
   const dispatch = useTypedDispatch()
   const {isAuth} = useTypedSelector(state => state.user)  

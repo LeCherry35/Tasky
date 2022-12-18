@@ -9,6 +9,7 @@ interface Props {
 }
 
 const Event: React.FC<Props> = ({ event }) => {
+  
   const [timeLeftBeforeEvent, setTimeLeftBeforeEvent] = useState(event.startsAt - Date.now())
   useEffect(() => {
     if(timeLeftBeforeEvent > 1000) setTimeout(() => setTimeLeftBeforeEvent(timeLeftBeforeEvent - 1000), 1000)

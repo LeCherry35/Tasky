@@ -3,13 +3,13 @@ import s from './Events.module.css'
 import { addEventAsync } from '../../asyncActions/events';
 import { useTypedDispatch } from '../../hooks/useTypedDispatch';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
-import Event from '../SingleUnits/Event';
 import NameInputField from '../NameInputField/NameInputField';
 import { addEventAction } from '../../store/reducers/eventReducer';
 import DateTimePicker from '../DateTimePicker/DateTimePicker';
+import EventList from '../EventList/EventList';
+import { MILISECONDS_IN_DAY } from '../../configs/calendar';
 
 const Events = () => {
-  const { events } = useTypedSelector(state => state.events)
   const { isAuth } = useTypedSelector(state => state.user)
 
   const [name, setName] = useState<string>('')
@@ -34,14 +34,12 @@ const Events = () => {
         setText={setName} 
         text={name} 
         onSubmit={addEvent} 
-        disabled={(!name) || !(startsAt)} 
+        disabled={(!name) || !(startsAt) || startsAt < new Date().valueOf()} 
       />
-        {name && <> 
-          <DateTimePicker setDateAndTime={setStartsAt}/>
-          </>}
-          <div className={s.eventsContainer}>
-            {events.map(event => (event.startsAt - Date.now() > 0) ? <Event key={event.createdAt} event={event}/> : <></> )}
-          </div>
+      {name && <> 
+        <DateTimePicker setDateAndTime={setStartsAt}/>
+      </>}
+      <EventList />
     </div>
   )
 }
