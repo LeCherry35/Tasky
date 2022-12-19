@@ -4,7 +4,7 @@
     width: 100%;
 }
 .nameInput {
-    min-width: 80%;
+    min-width: 85%;
     padding: 8px 20px;
     border: none;
     font-size: 40px;
@@ -40,7 +40,7 @@
 
 @media (max-width:800px) {
     .nameInput {
-        min-width: 75%;
+        min-width: 80%;
         font-size: 25px;
         margin: 5px;
     }

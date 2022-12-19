@@ -1,9 +1,10 @@
 import React from 'react'
 
+import s from './SingleUnit.module.css'
+
 import { Todo } from '../../types/Todo'
 import { AiFillDelete } from 'react-icons/ai'
 import { MdUndo } from 'react-icons/md'
-import s from './Todo.module.css'
 import { Draggable } from 'react-beautiful-dnd'
 import { removeTodoAction, setUndoneAction } from '../../store/reducers/todoReducer'
 import { deleteTodoAsync, setUndoneAsync } from '../../asyncActions/todos'
@@ -32,12 +33,11 @@ const CompletedTodo: React.FC<Props> = ({index, todo}) => {
     <Draggable draggableId={todo.createdAt.toString()} index={index}>
       {(provided) => (
 
-        <form className={s.todo} {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-          <div className={s.todo__textarea}>
-            <s className={s.todo__textarea__text}>{todo.todo}</s>
-            {/* <br />{'Completed ' + todo.completedAt ? new Date(Date.parse(todo.completedAt)).toString() : ''} */}
+        <form className={s.container} {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+          <div className={s.textarea}>
+            <s className={s.textareaText}>{todo.todo}</s>
           </div>
-          <div className={s.todo__icons}>
+          <div className={s.iconsContainer}>
             <button className={s.icon} onClick={(e) => {
                 setUndone(todo.createdAt)
             }}>

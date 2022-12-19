@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { timestampToString } from '../../helpers/timestampToString'
 import { IEvent } from '../../types/events'
 
-import s from './Todo.module.css'
+import s from './SingleUnit.module.css'
 
 interface Props {
   event: IEvent
@@ -16,11 +16,11 @@ const Event: React.FC<Props> = ({ event }) => {
   }, [timeLeftBeforeEvent])
   
   return (
-    <div className={s.todo}>
-      <div className={s.todo__textarea}>
-        <span className={s.todo__textarea__text}>{event.name}</span>
+    <div className={s.container}>
+      <div className={s.textarea}>
+        <span className={s.textareaText}>{event.name}</span>
         <br/>
-        <span className={s.todo__textarea__text}> {'starts in  ' + timestampToString(timeLeftBeforeEvent)}</span>
+        <span className={s.textareaText}> {'starts in  ' + timestampToString(timeLeftBeforeEvent)}</span>
       </div>
           
     </div>

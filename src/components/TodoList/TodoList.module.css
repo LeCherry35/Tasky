@@ -1,18 +1,3 @@
-.container {
-    width: 70%;
-    padding: 10px;
-}
-.deadlineContainer {
-    display: flex;
-    flex-direction: column;
-}
-.deadlineInfo {
-    font-size: 40px;
-    white-space: nowrap;
-    cursor: pointer;
-    text-align: center;
-    display: inline;
-}
 .todosContainer {
     display: flex;
     justify-content: space-between;
@@ -26,33 +11,32 @@
     display: none;
     flex-direction: column;
     flex-grow: 1;
-    flex-basis: 500px;
-    width: 50%;
     padding: 10px;
-    background-color: #86baa1;
+    background-color: #404E7C;
     margin: 10px;
     border-radius: 15px;
 }
 
-.todos__heading {
+.heading {
     text-align: center;
     font-size: 40px;
 }
 .arrow {
     position: absolute;
-    right: 0;
+    right: -20px;
+    cursor: pointer;
 }
 .shown {
     display: flex;
 }
 @media (max-width:800px) {
-    .todos__heading {
+    .heading {
         font-size: 25px;
     }
     .todos {
       width: 100%;
     }
-    .deadlineInfo {
-        font-size: 25px;
+    .arrow {
+        right: -12px
     }
 }

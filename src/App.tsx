@@ -1,8 +1,6 @@
-import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
-import TodoList from './components/TodoList/TodoList';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd'
 import { useTypedSelector } from './hooks/useTypedSelector';
 import LoginForm from './components/LoginForm/LoginForm';
@@ -15,6 +13,7 @@ import NavBar from './components/NavBar/NavBar';
 import Profile from './components/Profile/Profile';
 import Events from './components/Events/Events';
 import { getEventsAsync } from './asyncActions/events';
+import Todos from './components/Todos/Todos';
 
 
 const App: React.FC = () => {
@@ -47,7 +46,7 @@ const App: React.FC = () => {
         <NavBar />
         <Routes>
           <Route path='/calendar' element={<Calendar/>}/>
-          <Route path='/' element={<TodoList />}/>
+          <Route path='/' element={<Todos />}/>
           <Route path='/auth' element={<LoginForm/>} />
           <Route path='/profile' element={<Profile/>} />
           <Route path='/events' element={<Events/>} />

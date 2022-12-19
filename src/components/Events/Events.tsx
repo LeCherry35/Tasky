@@ -7,7 +7,6 @@ import NameInputField from '../NameInputField/NameInputField';
 import { addEventAction } from '../../store/reducers/eventReducer';
 import DateTimePicker from '../DateTimePicker/DateTimePicker';
 import EventList from '../EventList/EventList';
-import { MILISECONDS_IN_DAY } from '../../configs/calendar';
 
 const Events = () => {
   const { isAuth } = useTypedSelector(state => state.user)

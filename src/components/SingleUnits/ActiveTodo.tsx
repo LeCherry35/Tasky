@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import s from './Todo.module.css'
+import s from './SingleUnit.module.css'
 import { useState } from 'react'
 import { AiFillEdit, AiFillDelete } from 'react-icons/ai'
 import { MdDone, MdDownloadDone } from 'react-icons/md'
@@ -54,8 +54,8 @@ const ActiveTodo: React.FC<Props> = ({index, todo}) => {
     <Draggable draggableId={todo.createdAt.toString()} index={index}>
       {(provided) => (
 
-        <form className={expiresIn > 0 ? `${s.todo}` : `${s.todo} ${s.todo__expired}`} {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-          <div className={s.todo__textarea}>
+        <div className={expiresIn > 0 ? `${s.container}` : `${s.container} ${s.expired}`} {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+          <div className={s.textarea}>
             {edit 
             ? (
               <TextareaAutosize
@@ -73,37 +73,34 @@ const ActiveTodo: React.FC<Props> = ({index, todo}) => {
                       break
                   }
                 }} 
-                className={s.todo__textarea__text}
+                className={s.textareaText}
               />
             ) 
-            :  <span className={s.todo__textarea__text}>{todo.todo}</span>}
+            :  <span className={s.textareaText}>{todo.todo}</span>}
             {expiresIn > 0 && expiresIn !== Infinity && <><br />{'deadline: ' + timestampToString(expiresIn)}</>}
           </div>
-          <div className={s.todo__icons}>
-              {edit 
-              ? <button className={s.icon} type='submit' onClick={e => editTodo(e,todo.createdAt)} > 
-                <MdDownloadDone style={{color: 'red'}}/>
+          <div className={s.iconsContainer}>
+            <button className={s.icon} style={edit ? {color: 'red'} : {}} onClick={(e) =>{
+              e.preventDefault()
+              setEdit(!edit)
+            }}>
+              <AiFillEdit/>
+            </button>
+            {edit
+            ? <button className={s.icon} type='submit' onClick={e => editTodo(e,todo.createdAt)} > 
+              <MdDownloadDone style={{color: 'red'}}/>
               </button>
-              : <></>}
-              <button className={s.icon} style={edit ? {color: 'red'} : {}} onClick={(e) =>{
-                e.preventDefault()
-                setEdit(!edit)
-              }}>
-                <AiFillEdit/>
-              </button>
-              {edit
-              ? <></>
-              : <button className={s.icon} onClick={(e) => {
-                setDone(todo.createdAt)
-              }} >
-                <MdDone/>
-              </button>}
-              <button className={s.icon} onClick={() =>{
-                removeTodo(todo.createdAt)}}>
-                <AiFillDelete/>
-              </button> 
+            : <button className={s.icon} onClick={(e) => {
+              setDone(todo.createdAt)
+            }} >
+              <MdDone/>
+            </button>}
+            <button className={s.icon} onClick={() =>{
+              removeTodo(todo.createdAt)}}>
+              <AiFillDelete/>
+            </button> 
           </div>
-        </form>
+        </div>
       )}
     </Draggable>
   )
