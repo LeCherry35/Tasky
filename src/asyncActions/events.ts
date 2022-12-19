@@ -25,3 +25,13 @@ export const getEventsAsync = () => {
         }
     }
 }
+export const deleteEventAsync = (_id: string) => {
+    return async (dispatch: Dispatch<EventsAction>) => {
+        try {
+            await EventService.deleteEvent(_id)
+            dispatch({type: EventsActionTypes.DELETE_EVENT, payload: _id})
+        } catch (e) {
+            console.log(e);
+        }
+    }
+}

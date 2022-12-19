@@ -30,6 +30,9 @@
     display: flex;
 }
 @media (max-width:800px) {
+    .todosContainer {
+        flex-direction: column;
+    }
     .heading {
         font-size: 25px;
     }

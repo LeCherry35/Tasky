@@ -6,11 +6,7 @@
     width: 100%;
     justify-content: space-between;   
 }
-.user {
-    background-color: white;
-    border-radius: 15px;
-    margin-right: 10px;
-}
+
 @media (max-width:800px) {
     .user {
         border-radius: 10px;

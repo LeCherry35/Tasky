@@ -2,7 +2,6 @@
     display: flex;
     background-color: #C179B9;
     margin-top: 10px;
-    transition: 0.5s;
     padding: 20px;
     justify-content: space-between;
     min-height: 45px;
@@ -29,6 +28,7 @@
     overflow: hidden;
     width: 100%;
     background-color: inherit;
+    height: 20px;
     
 }
 .textareaText :active {
@@ -50,7 +50,6 @@
         font-size: 15px;
     }
     .container {
-      flex-direction: column;
       align-items: center;
     }
 }

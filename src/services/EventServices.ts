@@ -9,8 +9,8 @@ export default class EventService {
     static async getEvents(): Promise<AxiosResponse<IEvent[]>> {
         return $api.get('/getEvents')
     }
-    static async deleteEvent(createdAt: number): Promise<AxiosResponse<IEvent>> {
-        return $api.delete('/deleteEvent?createdAt=' + createdAt)
+    static async deleteEvent(_id: string): Promise<AxiosResponse<IEvent>> {
+        return $api.delete('/deleteEvent?_id=' + _id)
     }
     static async editEvent(createdAt: number, editedTodo: string): Promise<AxiosResponse<IEvent>>{
         return $api.put('/editEvent?createdAt=' + createdAt, {editedTodo})
