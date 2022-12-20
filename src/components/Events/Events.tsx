@@ -12,7 +12,7 @@ const Events = () => {
   const { isAuth } = useTypedSelector(state => state.user)
 
   const [name, setName] = useState<string>('')
-  const [startsAt, setStartsAt] = useState(0)
+  const [startsAt, setStartsAt] = useState<number | null>(0)
 
   const dispatch = useTypedDispatch()
 

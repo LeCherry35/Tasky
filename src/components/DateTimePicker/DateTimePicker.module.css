@@ -1,8 +1,9 @@
 .container {
     position: relative;
     width: 100%;
-    text-align: center;
+    min-width: 300px;
     display: inline-block;
+    font-size: inherit;
 }
 .exit {
     position: absolute;
@@ -17,7 +18,7 @@
     color: wheat;
 }
 .text {
-    font-size: 40px;
+    font-size: inherit;
 }
 .clickWord {
     animation: blink 2s infinite;
@@ -69,9 +70,4 @@
 }
 .timeContainer {
     display:inline-block;
-}
-@media (max-width:800px) {
-    .text {
-        font-size: 25px;
-    }
 }

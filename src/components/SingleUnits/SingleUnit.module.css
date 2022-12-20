@@ -12,6 +12,7 @@
 }
 .textarea {
     width: 60%;
+    font-size: 20px;
 }
 .iconsContainer {
     display: flex;
@@ -19,7 +20,7 @@
     align-items: flex-start;
 }
 .textareaText {
-    font-size: 20px;
+    font-size: inherit;
     border: none;
     outline: none;
     font-family: inherit;
@@ -34,6 +35,9 @@
 .textareaText :active {
     color: white;
 }
+.dateInputContainer {
+    display: flex;
+}
 .icon {
     padding: 5px;
     font-size: 20px;
@@ -42,8 +46,19 @@
     border: none;
     background: inherit;
 }
+.dateTimeInputReady {
+    animation: 2s blink infinite alternate;
+}
+@keyframes blink {
+    from {
+        color:white
+    }
+    to {
+        color: red;
+    }
+}
 @media (max-width:800px) {
-    .textareaText {
+    .textarea {
         font-size: 15px;
     }
     .icon {

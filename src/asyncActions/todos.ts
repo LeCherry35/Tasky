@@ -2,7 +2,7 @@ import { TodosAction, TodosActionTypes } from './../types/todos';
 import { Dispatch } from 'redux';
 import TodoService from '../services/TodoServices';
 
-export const addTodoAsync = (todo: string, deadline: number, createdAt:number) => {
+export const addTodoAsync = (todo: string, deadline: number | null, createdAt: number) => {
     return async (dispatch: Dispatch<TodosAction>) => {
         try {
             const response = await TodoService.addTodo(todo, deadline, createdAt)
@@ -34,10 +34,10 @@ export const deleteTodoAsync = (createdAt:number) => {
     }
 
 }
-export const editTodoAsync = (createdAt:number, editTodo: string) => {
+export const editTodoAsync = (createdAt:number, editTodo: string, deadline: number | null) => {
     return async (dispatch: Dispatch<TodosAction>) => {
         try {
-            const response = await TodoService.editTodo(createdAt, editTodo)
+            const response = await TodoService.editTodo(createdAt, editTodo, deadline)
         } catch(e) {
             console.log(e)
         }
@@ -57,7 +57,7 @@ export const setDoneAsync = (createdAt:number) => {
 export const setUndoneAsync = (createdAt:number) => {
     return async (dispatch: Dispatch<TodosAction>) => {
         try {
-            const response = await TodoService.setDone(createdAt)
+            const response = await TodoService.setUndone(createdAt)
         } catch (e) {
             console.log(e)
         }

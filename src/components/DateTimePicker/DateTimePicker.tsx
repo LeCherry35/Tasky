@@ -5,7 +5,7 @@ import TimeInput from '../TimeInput/TimeInput'
 import s from './DateTimePicker.module.css'
 
 interface Props {
-    setDateAndTime: React.Dispatch<React.SetStateAction<number>>
+    setDateAndTime: React.Dispatch<React.SetStateAction<number | null>>
 }
 
 const DateTimePicker:React.FC<Props> = ({ setDateAndTime}) => {

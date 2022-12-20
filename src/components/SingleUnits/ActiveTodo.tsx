@@ -11,6 +11,7 @@ import { Todo } from '../../types/Todo'
 import { editTodoAction, removeTodoAction, setDoneAction } from '../../store/reducers/todoReducer'
 import { deleteTodoAsync, editTodoAsync, setDoneAsync } from '../../asyncActions/todos'
 import { timestampToString } from '../../helpers/timestampToString'
+import DateTimePicker from '../DateTimePicker/DateTimePicker'
 
 interface Props {
   index: number;
@@ -20,11 +21,16 @@ interface Props {
 const ActiveTodo: React.FC<Props> = ({index, todo}) => {  
   
   const [edit, setEdit] = useState<boolean>(false)
+  const [isDateTimeInputShown, setIsDateTimeInputShown] = useState(false)
   const [editedTodo, setEditedTodo] = useState<string>(todo.todo)
   const [expiresIn, setExpiresIn] = useState<number>( todo.deadline ? todo.deadline - Date.now() : Infinity)
+  const [newDeadline, setNewDeadline] = useState<number | null>(todo.deadline || null)
 
   const dispatch = useTypedDispatch()
   const {isAuth} = useTypedSelector(state => state.user)  
+
+  let countdown: NodeJS.Timeout
+  console.log(todo.deadline,'###');
   
   const setDone = (createdAt:number) => {
     if (isAuth) dispatch(setDoneAsync(createdAt))
@@ -36,9 +42,11 @@ const ActiveTodo: React.FC<Props> = ({index, todo}) => {
   }
   const editTodo = (e: React.FormEvent, createdAt: number) => {
     e.preventDefault()
-    if (isAuth) dispatch(editTodoAsync(createdAt, editedTodo))
+    if (isAuth) dispatch(editTodoAsync(createdAt, editedTodo, newDeadline))
     dispatch(editTodoAction(createdAt, editedTodo))
     setEdit(false)
+    countdown && clearTimeout(countdown)
+    setExpiresIn(newDeadline ? newDeadline - Date.now() : Infinity)
   }
   const inputRef = useRef<HTMLTextAreaElement>(null)
 
@@ -47,9 +55,10 @@ const ActiveTodo: React.FC<Props> = ({index, todo}) => {
   }, [edit])
   useEffect(() => {
     if (todo.deadline && expiresIn > 0) {
-      setTimeout(() => setExpiresIn(expiresIn - 1000), 1000)
+      countdown = setTimeout(() => setExpiresIn(expiresIn - 1000), 1000)
     }
   },[expiresIn, todo.deadline])
+
   return (
     <Draggable draggableId={todo.createdAt.toString()} index={index}>
       {(provided) => (
@@ -57,7 +66,7 @@ const ActiveTodo: React.FC<Props> = ({index, todo}) => {
         <div className={expiresIn > 0 ? `${s.container}` : `${s.container} ${s.expired}`} {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
           <div className={s.textarea}>
             {edit 
-            ? (
+            ? <>
               <TextareaAutosize
                 ref={inputRef}
                 value={editedTodo} 
@@ -75,9 +84,15 @@ const ActiveTodo: React.FC<Props> = ({index, todo}) => {
                 }} 
                 className={s.textareaText}
               />
-            ) 
-            :  <span className={s.textareaText}>{todo.todo}</span>}
-            {expiresIn > 0 && expiresIn !== Infinity && <><br />{'deadline: ' + timestampToString(expiresIn)}</>}
+              <div className={s.dateInputContainer}>
+              <div>Deadline: </div>
+              {isDateTimeInputShown || !todo.deadline ? <DateTimePicker setDateAndTime={setNewDeadline}/> : <div onClick={() => setIsDateTimeInputShown(true)} className={s.dateTimeInputReady}>{new Date(todo.deadline).toDateString()}</div>}
+              </div>
+            </> 
+            :  <>
+              <span className={s.textareaText}>{todo.todo}</span>
+              {expiresIn > 0 && expiresIn !== Infinity && <><br />{'deadline: ' + timestampToString(expiresIn)}</>}
+            </>}
           </div>
           <div className={s.iconsContainer}>
             <button className={s.icon} style={edit ? {color: 'red'} : {}} onClick={(e) =>{

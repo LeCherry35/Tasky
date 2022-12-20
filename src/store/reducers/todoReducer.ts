@@ -88,7 +88,7 @@ export const todoReducer = (state = initialState, action: TodosAction): TodosSta
     }
 }
 
-export const addToodoAction = (todo:string, deadline: number, createdAt:number) => {
+export const addToodoAction = (todo:string, deadline: number | null, createdAt:number) => {
     return {type: TodosActionTypes.ADD_TODO, payload: {createdAt: createdAt, deadline, todo: todo, isDone: false}}
 }
 export const setDoneAction = (createdAt:number) => {

@@ -3,7 +3,8 @@ export interface IEvent {
     createdAt?: number,
     startsAt: number,
     endsAt?: number,
-    description?: string
+    description?: string,
+    _id: string
 }
 
 export interface EventsState {
@@ -14,7 +15,7 @@ export enum EventsActionTypes {
     SET_EVENTS = 'SET_EVENTS',
     ADD_EVENT = 'ADD_EVENT',
     EDIT_EVENT = 'EDIT_EVENT',
-    REMOVE_EVENT = 'REMOVE_EVENT',
+    DELETE_EVENT = 'DELETE_EVENT',
     CLEAR_EVENTS = 'CLEAR_EVENTS'
 }
 interface SetEventsActionInterface {
@@ -33,8 +34,8 @@ interface EditEventActionInterface {
     }
 }
 interface RemoveEventActionInterface {
-    type: EventsActionTypes.REMOVE_EVENT
-    payload: number
+    type: EventsActionTypes.DELETE_EVENT
+    payload: string
 }
 
 interface ClearEventsActionInterface {

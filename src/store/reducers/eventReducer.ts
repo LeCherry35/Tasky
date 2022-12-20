@@ -17,7 +17,7 @@ export const eventReducer = (state = initialState, action: EventsAction): Events
     }
 }
 
-export const addEventAction = (name: string, createdAt: number, startsAt: number) => {
+export const addEventAction = (name: string, createdAt: number, startsAt: number | null) => {
     return {type: EventsActionTypes.ADD_EVENT, payload: {name, createdAt, startsAt}}
 }
 

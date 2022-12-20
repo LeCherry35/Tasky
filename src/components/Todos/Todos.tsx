@@ -11,15 +11,16 @@ import TodoList from '../TodoList/TodoList';
 const Todos = () => {
 
   const [newTodo,setNewTodo] = useState('')
-  const [deadline,setDeadline] = useState(0)
+  const [deadline,setDeadline] = useState<number | null>(0)
   const [isDeadlineInputShown, setIsDeadlineInputShown] = useState(false)
   const dispatch = useTypedDispatch()
   const {isAuth} =useTypedSelector(state => state.user)
 
   const addTodo = () => {
     const createdAt = Date.now()
-    if (isAuth) dispatch(addTodoAsync(newTodo, new Date(deadline).valueOf(), createdAt))
-    dispatch(addToodoAction(newTodo, new Date(deadline).valueOf(), createdAt))
+    const dl = deadline ? new Date(deadline).valueOf() : null
+    if (isAuth) dispatch(addTodoAsync(newTodo, dl, createdAt))
+    dispatch(addToodoAction(newTodo, dl, createdAt))
     setNewTodo('')
     setDeadline(0)
     setIsDeadlineInputShown(false)
@@ -35,7 +36,7 @@ const Todos = () => {
         disabled={!newTodo}
       />
       <div className={s.deadlineContainer}>
-        {newTodo && <div className={s.deadlineInfo} onClick={() => setIsDeadlineInputShown(b => !b) }>deadline{isDeadlineInputShown ? ':' : '?'}</div>}
+        {newTodo && <div className={s.deadlineInfo} onClick={() => setIsDeadlineInputShown(b => !b) }>deadline{isDeadlineInputShown ? ':  ' : '?'}</div>}
         {isDeadlineInputShown && <DateTimePicker setDateAndTime={setDeadline}/>}
       </div>
       <TodoList />
