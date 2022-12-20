@@ -5,13 +5,13 @@
 }
 .deadlineContainer {
     display: flex;
+    flex-direction: column;
     font-size: inherit;
 }
 .deadlineInfo {
     font-size: inherit;
     white-space: nowrap;
     cursor: pointer;
-    text-align: center;
     display: inline;
 }
 @media (max-width:800px) {

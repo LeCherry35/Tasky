@@ -4,6 +4,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-size: 40px;
+
 }
 
 .dateAndTime {
@@ -17,4 +19,6 @@
     outline: none;
     background: none;
     font: inherit;
+    font-size: 40px;
+
 }

@@ -3,7 +3,7 @@
     width: 100%;
     min-width: 300px;
     display: inline-block;
-    font-size: inherit;
+    font-size: 40PX;
 }
 .exit {
     position: absolute;
@@ -70,4 +70,10 @@
 }
 .timeContainer {
     display:inline-block;
+}
+
+@media (max-width: 800px) {
+    .container {
+        font-size: 25px;
+    }
 }
