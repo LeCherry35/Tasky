@@ -3,17 +3,23 @@ import s from './TimeInput.module.css'
 
 interface Props {
     setTime: React.Dispatch<React.SetStateAction<string>>
+    time: string 
 }
 
-const TimeInput: React.FC<Props> = ({setTime}) => {
-    const [hrs, setHrs] = useState('12')
-    const [mins, setMins] = useState('00')
+const TimeInput: React.FC<Props> = ({setTime, time}) => {
+    const [hrs, setHrs] = useState(time.split(':')[0])
+    const [mins, setMins] = useState(time.split(':')[1])
 
     useEffect(() => {
       setTime(hrs + ':' + mins)
     }, [hrs, mins, setTime])
+    useEffect(() => {
+        setHrs(handleZero(time.split(':')[0]))
+        setMins(handleZero(time.split(':')[1]))
+    },[time])
     
     const handleZero = (num:string) => {
+        
         if (num.length === 1) return '0' + num
         if (num.length === 2) return num
         

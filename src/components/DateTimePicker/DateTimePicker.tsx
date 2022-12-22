@@ -12,7 +12,7 @@ const DateTimePicker:React.FC<Props> = ({ setDateAndTime}) => {
     const [isDatePickerDisplayed, setIsDatePickerDisplayed] = useState(false)
     const [isTimePickerDisplayed, setIsTimePickerDisplayed] = useState(false)
     const [date,setDate] = useState(0)
-    const [time, setTime] = useState('00:00')
+    const [time, setTime] = useState('12:00')
 
     useEffect(() => {
             setDateAndTime(date + +time.split(':')[0] * MILISECONDS_IN_HOUR + +time.split(':')[1] * MILISECONDS_IN_MINUTE)
@@ -29,7 +29,7 @@ const DateTimePicker:React.FC<Props> = ({ setDateAndTime}) => {
                 {isTimePickerDisplayed ? ',' : ', Select '}
                 <span onClick={() => setIsTimePickerDisplayed(true)}>
                     {isTimePickerDisplayed 
-                        ? <div className={s.timeContainer}><TimeInput setTime={setTime}/></div> 
+                        ? <div className={s.timeContainer}><TimeInput setTime={setTime} time={time}/></div> 
                         : <span className={s.clickWord}>time </span>}
                 </span>
             </div> 
