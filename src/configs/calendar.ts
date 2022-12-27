@@ -57,4 +57,8 @@ export const months: IMonth [] = [
         name: 'December',
         days: 31
     },
+    {
+        name: 'January',
+        days: 31
+    },
 ]

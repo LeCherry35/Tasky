@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { handleZero } from '../../helpers/handleZero'
 import s from './TimeInput.module.css'
 
 interface Props {
@@ -18,14 +19,7 @@ const TimeInput: React.FC<Props> = ({setTime, time}) => {
         setMins(handleZero(time.split(':')[1]))
     },[time])
     
-    const handleZero = (num:string) => {
-        
-        if (num.length === 1) return '0' + num
-        if (num.length === 2) return num
-        
-        while (num[0] === '0' && num.length > 2) num = num.substring(1)  
-        return num
-    }
+
     
     return (
         <div className={s.container}>

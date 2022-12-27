@@ -30,8 +30,6 @@ const ActiveTodo: React.FC<Props> = ({index, todo}) => {
   const {isAuth} = useTypedSelector(state => state.user)  
 
   let countdown: NodeJS.Timeout
-  console.log(todo.deadline,'###');
-  
   const setDone = (createdAt:number) => {
     if (isAuth) dispatch(setDoneAsync(createdAt))
     dispatch(setDoneAction(createdAt))

@@ -8,7 +8,7 @@ import { countWeekdaysBeforeMonth } from '../../helpers/countWeekDaysBeforeMonth
 
 interface Props {
     pickedDate: number,
-    setPickedDate: React.Dispatch<React.SetStateAction<number>>
+    setPickedDate: (date: number) => void
 }
 const DateInput: React.FC<Props> = ({pickedDate, setPickedDate}) => {
     const { todos } = useTypedSelector(state => state.todos)
@@ -88,6 +88,9 @@ const DateInput: React.FC<Props> = ({pickedDate, setPickedDate}) => {
                 {days.map((day, id) => {
                     if(id >= showDaysFrom && id < showDaysFrom + DAYS_IN_WEEK * weeksShown) {
                         const dayDate = new Date(day)
+                        const dayM = dayDate.getMonth()
+                        const daysInM = months[dayM].days
+                        const dayD = dayDate.getDate()
                         let classes 
                         switch(day) {
                             case timestampToday:
@@ -99,6 +102,9 @@ const DateInput: React.FC<Props> = ({pickedDate, setPickedDate}) => {
                             default:
                                 classes = s.day
                         }
+
+                     
+                                
                         const deadlineTodos = todos.filter(todo => {
                             if (todo.deadline !== undefined) {
                                 return todo.deadline >= day && todo.deadline <= day + MILISECONDS_IN_DAY
@@ -113,8 +119,14 @@ const DateInput: React.FC<Props> = ({pickedDate, setPickedDate}) => {
                             <div 
                                 className={classes} 
                                 key={day}
-                                onClick={(e) => setPickedDate(day)}
+                                onClick={(e) => {
+                                    setPickedDate(day)
+                                }}
                             >
+                                {(dayDate.getDay() === 1 && dayD + 7 > daysInM) &&
+                                <div className={s.monthName}>
+                                    {months[dayM + 1].name}
+                                </div>}
                                 <span>{dayDate.getDate()}</span> 
                                 <span>{ months[dayDate.getMonth()].name.substring(0,3)}</span>
                                 <br/>
