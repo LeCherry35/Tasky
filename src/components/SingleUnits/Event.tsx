@@ -27,7 +27,7 @@ const Event: React.FC<Props> = ({ event }) => {
       <div className={s.textarea}>
         <span className={s.textareaText}>{event.name}</span>
         <br/>
-        <span > {'starts in  ' + timestampToString(timeLeftBeforeEvent)}</span>
+        <span className={s.timer}> {'starts in  '} <span className={s.timerDigits}>{timestampToString(timeLeftBeforeEvent)}</span></span>
       </div>
       <div className={s.iconContainer}>
         <button className={s.icon} onClick={() =>{

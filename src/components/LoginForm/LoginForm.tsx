@@ -22,22 +22,24 @@ const LoginForm: FC = () => {
     }, [dispatch])
     
     return (
-        <div className={s.user}>
+        <div className={s.container}>
             {isAuth 
             ? <div className={s.user__box}> 
                 {user.isActivated 
                 ? <>{user.email}</>
-                :<div>
+                :<div className={s.info}>
                     Tasky has sent activation link to {user.email}
                 </div>}
+                <div className={s.buttonContainer}>
                 <NavButton name='Log out!' onClick={() => {
                     dispatch(logout())
                     setEmail('')
                     setPassword('')
                 }}/>
+                </div>
             </div>
             : <>
-            <form className={s.user__box}>
+            <div className={s.user__box}>
                 <div className={s.user__error}>{error}</div>
                 <input
                     className={s.user__input}
@@ -68,7 +70,7 @@ const LoginForm: FC = () => {
                     }}/>
                 </div>
 
-            </form>
+            </div>
             </>}
             {isLoading 
             ? <div className={s.user__loading}>Loading</div>

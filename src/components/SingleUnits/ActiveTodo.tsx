@@ -82,14 +82,15 @@ const ActiveTodo: React.FC<Props> = ({index, todo}) => {
                 }} 
                 className={s.textareaText}
               />
-              <div className={s.dateInputContainer}>
+              {/* <div className={s.dateInputContainer}>
               <div>Deadline: </div>
               {isDateTimeInputShown || !todo.deadline ? <DateTimePicker setDateAndTime={setNewDeadline}/> : <div onClick={() => setIsDateTimeInputShown(true)} className={s.dateTimeInputReady}>{new Date(todo.deadline).toDateString()}</div>}
-              </div>
+              </div> */}
+              {expiresIn > 0 && expiresIn !== Infinity && <span className={s.timer}><br />{'deadline: '}<span className={s.timerDigits}>{timestampToString(expiresIn)}</span></span>}
             </> 
             :  <>
               <span className={s.textareaText}>{todo.todo}</span>
-              {expiresIn > 0 && expiresIn !== Infinity && <><br />{'deadline: ' + timestampToString(expiresIn)}</>}
+              {expiresIn > 0 && expiresIn !== Infinity && <span className={s.timer}><br />{'deadline: '}<span className={s.timerDigits}>{timestampToString(expiresIn)}</span></span>}
             </>}
           </div>
           <div className={s.iconsContainer}>

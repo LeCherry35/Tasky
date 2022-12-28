@@ -32,8 +32,6 @@ const DateTimePicker:React.FC<Props> = ({ setDateAndTime}) => {
         setIsDatePickerDisplayed(b => !b)
         setIsDayViewDisplayed(false)
     }
-    console.log(isDayViewDisplayed);
-    
     return (
         <div className={s.container}> 
             <div className={s.text}>{date === 0 ? 'Select ' : ''}
@@ -48,7 +46,10 @@ const DateTimePicker:React.FC<Props> = ({ setDateAndTime}) => {
                 </span>
             </div> 
             
-            {isDayViewDisplayed && <div className={s.inputContainer}><SingleDay day={date} setStartsAtTime={setTime} startsAtTime={time}/></div>}
+            {isDayViewDisplayed && <div className={s.inputContainer}>
+                <div className={date === 0 ? s.exit : `${s.exit} ${s.exitWhenPicked}`} onClick={() => setIsDayViewDisplayed(false)}>x</div>
+                <SingleDay day={date} setStartsAtTime={setTime} startsAtTime={time}/>
+            </div>}
             {isDatePickerDisplayed && <div className={s.inputContainer}>
                 <div className={date === 0 ? s.exit : `${s.exit} ${s.exitWhenPicked}`} onClick={() => setIsDatePickerDisplayed(false)}>x</div>
                 <DateInput pickedDate={date} setPickedDate={setPickedDate}/>

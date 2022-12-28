@@ -89,8 +89,8 @@ const DateInput: React.FC<Props> = ({pickedDate, setPickedDate}) => {
                     if(id >= showDaysFrom && id < showDaysFrom + DAYS_IN_WEEK * weeksShown) {
                         const dayDate = new Date(day)
                         const dayM = dayDate.getMonth()
-                        const daysInM = months[dayM].days
-                        const dayD = dayDate.getDate()
+                        // const daysInM = months[dayM].days
+                        // const dayD = dayDate.getDate()
                         let classes 
                         switch(day) {
                             case timestampToday:
@@ -123,12 +123,16 @@ const DateInput: React.FC<Props> = ({pickedDate, setPickedDate}) => {
                                     setPickedDate(day)
                                 }}
                             >
-                                {(dayDate.getDay() === 1 && dayD + 7 > daysInM) &&
+                                {/* {(dayDate.getDay() === 1 && dayD + 7 > daysInM) &&
                                 <div className={s.monthName}>
                                     {months[dayM + 1].name}
+                                </div>} */}
+                                <span className={s.dateNumber}>{dayDate.getDate()}</span> 
+                                {(dayDate.getDate() === 1  || dayDate.getDay() === 1) &&
+                                <div className={s.monthName}>
+                                    {months[dayM].name.substring(0,3)}
                                 </div>}
-                                <span>{dayDate.getDate()}</span> 
-                                <span>{ months[dayDate.getMonth()].name.substring(0,3)}</span>
+                                {/* <span>{ months[dayDate.getMonth()].name.substring(0,3)}</span> */}
                                 <br/>
                                 <span className={s.mark}>{deadlineTodos.map((todo, id) => '!')}</span>
                                 <span className={s.mark}>{eventsStart.map((event, id) => 'E')}</span>

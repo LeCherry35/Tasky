@@ -29,7 +29,7 @@ const Events = () => {
   return (
     <div className={s.container}>
       <NameInputField 
-        placeholder='enter the name of the event' 
+        placeholder='Enter the name of the event' 
         setText={setName} 
         text={name} 
         onSubmit={addEvent} 

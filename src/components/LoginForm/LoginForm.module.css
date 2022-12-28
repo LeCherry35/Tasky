@@ -1,4 +1,4 @@
-.user {
+.container {
     font-family: inherit;
     z-index: 4;
     font-family: inherit;
@@ -6,6 +6,7 @@
     transition: 1s;
     font-size: 40px;
     margin-top: 50px ;
+    width: 70%;
 }
 .user__loading {
     width: 200px;
@@ -41,6 +42,9 @@
     z-index: 5;
     margin: 5px;
 }
+.info {
+    text-align: center;
+}
 .buttonContainer {
     display: flex;
     flex-direction: row;
@@ -74,5 +78,10 @@
     }
     100% {
         transform: scale(1);
+    }
+}
+@media (max-width: 800px) {
+    .container {
+        font-size: 20px;
     }
 }

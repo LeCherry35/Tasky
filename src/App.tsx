@@ -42,7 +42,7 @@ const App: React.FC = () => {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="App">
-        <div className="bg">tasky</div>
+        <div className="bg">Tasky</div>
       <BrowserRouter>
         <NavBar />
         <Routes>

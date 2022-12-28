@@ -4,21 +4,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: 40px;
-
+    font-size: 30px;
+}
+@media (max-width:800px) {
+    .container {
+        font-size: 20px;
+    }
 }
 
-.dateAndTime {
-    font-size: 40px;
-    display: flex;
-    justify-content: space-around;
-}
-.timePicker {
-    width: 50px;
-    border: none;
-    outline: none;
-    background: none;
-    font: inherit;
-    font-size: 40px;
-
-}

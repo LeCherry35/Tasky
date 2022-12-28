@@ -1,7 +1,7 @@
 .container {
     width: 70%;
     padding: 10px;
-    font-size: 40px;
+    font-size: 30px;
 }
 .deadlineContainer {
     display: flex;
@@ -13,9 +13,11 @@
     white-space: nowrap;
     cursor: pointer;
     display: inline;
+    font-weight: 100;
+    text-align: center;
 }
 @media (max-width:800px) {
     .container {
-        font-size: 25px;
+        font-size: 20px;
     }
 }

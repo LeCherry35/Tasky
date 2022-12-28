@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { MdOutlineArrowForwardIos } from 'react-icons/md'
-import { MILISECONDS_IN_DAY, MILISECONDS_IN_HOUR, MILISECONDS_IN_MINUTE, MINUTES_IN_DAY } from '../../configs/calendar'
+// import { MdOutlineArrowForwardIos } from 'react-icons/md'
+import { MILISECONDS_IN_HOUR, MILISECONDS_IN_MINUTE, MINUTES_IN_DAY } from '../../configs/calendar'
 import { handleZero } from '../../helpers/handleZero'
 import { stringToTimestamp } from '../../helpers/stringToTimestamp'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
@@ -50,15 +50,15 @@ const SingleDay: React.FC<Props> = ({day, setStartsAtTime, startsAtTime}) => {
                     )
                   } else return <></>
                 })}
-                {minute === stringToTimestamp(day, startsAtTime) && <div className={s.deadline}> New todo deadline</div>}
+                {minute === stringToTimestamp(day, startsAtTime) && <div className={s.deadline}> Selected time</div>}
                 {(minute - Number(day)) % MILISECONDS_IN_HOUR === 0 && 
                 <div className={s.time}>
-                  {(minute - Number(day))/ MILISECONDS_IN_HOUR}
+                  {handleZero(String((minute - Number(day))/ MILISECONDS_IN_HOUR)) + ':00'}
                 </div>}
-                {((minute + 2 * MILISECONDS_IN_HOUR) % MILISECONDS_IN_DAY === 0) && //need to add 2hrs because of timezone?????
+                {/* {((minute + 2 * MILISECONDS_IN_HOUR) % MILISECONDS_IN_DAY === 0) && //need to add 2hrs because of timezone?????
                 <div className={s.day}>
                   {new Date(minute).toDateString()}
-                </div>}
+                </div>} */}
             </div>
           )
         })}

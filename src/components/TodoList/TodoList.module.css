@@ -3,7 +3,7 @@
     justify-content: space-between;
     align-items:flex-start;
     justify-content: center;
-    width: 100%;
+    width: 95%;
 }
 
 .todos {
@@ -12,7 +12,7 @@
     flex-direction: column;
     flex-grow: 1;
     padding: 10px;
-    background-color: #404E7C;
+    background-color: #fff;
     margin: 10px;
     border-radius: 15px;
     width: 50%;
@@ -20,7 +20,7 @@
 
 .heading {
     text-align: center;
-    font-size: 40px;
+    font-size: 30px;
 }
 .arrow {
     position: absolute;
@@ -35,7 +35,7 @@
         flex-direction: column;
     }
     .heading {
-        font-size: 25px;
+        font-size: 20px;
     }
     .todos {
       width: 100%;

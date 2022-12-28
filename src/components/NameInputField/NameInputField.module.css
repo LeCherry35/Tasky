@@ -7,9 +7,8 @@
     min-width: 85%;
     padding: 8px 20px;
     border: none;
-    font-size: 40px;
+    font-size: 30px;
     border-radius: 10px;
-    /* transition: 0.5s; */
     resize: none;
     overflow: hidden;
     font-family:  inherit;
@@ -22,26 +21,14 @@
 
 
 .nameInput:focus {
-    /* box-shadow: 0 0 10px 1000px rgba(0, 0, 0, 0.5); */
     outline: none;
 }
-.button {
-    font-family: inherit;
-    font-size: 40px;
-    padding: 5px 10px;
-    border: none;
-    color: white;
-    background-color: #ffcf56;
-    transition: 0.5s;
-    position:absolute;
-    top: 0;
-    right: 0;
-}
+
 
 @media (max-width:800px) {
     .nameInput {
         min-width: 80%;
-        font-size: 25px;
+        font-size: 20px;
         margin: 5px;
     }
 }

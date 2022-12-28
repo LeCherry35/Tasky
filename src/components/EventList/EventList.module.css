@@ -12,13 +12,14 @@
     flex-direction: column;
     flex-grow: 1;
     padding: 10px;
-    background-color: #404E7C;
+    background-color: #fff;
     margin: 10px;
     border-radius: 15px;
 }
 .heading {
     text-align: center;
-    font-size: 40px;
+    font-size: 30px;
+    font-weight: 700;
 }
 .arrow {
     position: absolute;
@@ -30,10 +31,7 @@
 }
 @media (max-width:800px) {
     .heading {
-        font-size: 25px;
-    }
-    .todos {
-      width: 100%;
+        font-size: 20px;
     }
     .arrow {
         right: -12px

@@ -23,7 +23,7 @@ const NameInputField: React.FC<Props> = ({ placeholder, setText, text, onSubmit,
           setText(e.target.value)
         }}
       />
-      <NavButton disabled={disabled} onClick={onSubmit} name={'add'} />
+      <NavButton disabled={disabled} onClick={onSubmit} name={'Add'} />
       
     </div>
   )

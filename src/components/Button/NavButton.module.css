@@ -1,6 +1,7 @@
 .navButton {
     font-family: inherit;
-    font-size: 40px;
+    font-weight: 700;
+    font-size: 30px;
     padding: 5px 10px;
     border: none;
     color: white;
@@ -21,7 +22,7 @@
 
 @media (max-width:800px) {
     .navButton {
-        font-size: 25px;
+        font-size: 20px;
         border-radius: 7px;
         margin: 5px;
     }

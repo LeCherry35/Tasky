@@ -28,6 +28,17 @@
 }
 .weekdayName {
     text-align: center;
+    font-size: 30px;
+    font-weight: 700;
+}
+.monthName {
+    padding-left: 5px;
+    font-size: 20px;
+    font-weight: 700;
+}
+.dateNumber {
+    padding: 5px 5px;
+    font-size: 15px;
 }
 .month {
     position: absolute;
@@ -57,5 +68,10 @@
     }
     to {
         border: 5px solid red;
+    }
+}
+@media (max-width:800px) {
+    .monthName {
+        font-size: 15px;
     }
 }
