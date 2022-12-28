@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react'
+import { MdOutlineArrowForwardIos } from 'react-icons/md'
 import { MILISECONDS_IN_DAY, MILISECONDS_IN_HOUR, MILISECONDS_IN_MINUTE, MINUTES_IN_DAY } from '../../configs/calendar'
 import { handleZero } from '../../helpers/handleZero'
-// import { useTypedSelector } from '../../hooks/useTypedSelector'
+import { stringToTimestamp } from '../../helpers/stringToTimestamp'
+import { useTypedSelector } from '../../hooks/useTypedSelector'
 import s from './SingleDay.module.css'
 
 interface Props {
   day: number
   setStartsAtTime: React.Dispatch<React.SetStateAction<string>>
+  startsAtTime: string
 }
 
-const SingleDay: React.FC<Props> = ({day, setStartsAtTime}) => {
-  // const { events, todos } = useTypedSelector(state => state)
+const SingleDay: React.FC<Props> = ({day, setStartsAtTime, startsAtTime}) => {
+  const { events, todos } = useTypedSelector(state => state)
   const [minutes, setMinutes] = useState<number[]>([])
 
   const pickTime = (minute: number) => {
@@ -38,7 +41,16 @@ const SingleDay: React.FC<Props> = ({day, setStartsAtTime}) => {
         
           return (
             <div className={classes} key={minute} onClick={() => pickTime(minute)}>
-              
+                {todos.todos.map(todo => {
+                  if(minute === todo.deadline) {
+                    return (
+                      <div className={s.deadline}>
+                        {todo.todo}
+                      </div>
+                    )
+                  } else return <></>
+                })}
+                {minute === stringToTimestamp(day, startsAtTime) && <div className={s.deadline}> New todo deadline</div>}
                 {(minute - Number(day)) % MILISECONDS_IN_HOUR === 0 && 
                 <div className={s.time}>
                   {(minute - Number(day))/ MILISECONDS_IN_HOUR}
