@@ -12,8 +12,8 @@ const Events = () => {
   const { isAuth } = useTypedSelector(state => state.user)
 
   const [name, setName] = useState<string>('')
-  const [startsAt, setStartsAt] = useState<number | null>(0)
-  const [endsAt, setEndsAt] = useState<number | null>(0)
+  const [startsAt, setStartsAt] = useState<number>(0)
+  const [endsAt, setEndsAt] = useState<number>(0)
 
   const dispatch = useTypedDispatch()
 
@@ -37,7 +37,7 @@ const Events = () => {
         setText={setName} 
         text={name} 
         onSubmit={addEvent} 
-        disabled={(!name) || !(startsAt) || startsAt < new Date().valueOf()} 
+        disabled={(!name) || !(startsAt) || startsAt < new Date().valueOf() || startsAt > endsAt} 
       />
       {name && <EventTimePicker setStartsAt={setStartsAt} setEndsAt={setEndsAt} />}
 

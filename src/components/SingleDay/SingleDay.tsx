@@ -50,7 +50,22 @@ const SingleDay: React.FC<Props> = ({day, setStartsAtTime, startsAtTime}) => {
                     )
                   } else return <></>
                 })}
-                {minute === stringToTimestamp(day, startsAtTime) && <div className={s.deadline}> Selected time</div>}
+                {events.events.map(event => {
+                  if (minute === event.startsAt) {
+                    return (
+                      <div className={s.eventName}>{event.name}</div>
+                    )
+                  } else if (minute > event.startsAt && minute <= event.endsAt) {
+                    return (
+                      <div className={s.busyMinute}></div>
+                    )
+                  } else {
+                    return (
+                      <></>
+                    )
+                  }
+                })}
+                {minute === stringToTimestamp(day, startsAtTime) && <div className={`${s.deadline} ${s.pickedDeadline}`}> Selected time</div>}
                 {(minute - Number(day)) % MILISECONDS_IN_HOUR === 0 && 
                 <div className={s.time}>
                   {handleZero(String((minute - Number(day))/ MILISECONDS_IN_HOUR)) + ':00'}

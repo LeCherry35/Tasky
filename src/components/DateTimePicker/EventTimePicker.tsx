@@ -6,8 +6,8 @@ import s from './DateTimePicker.module.css'
 import EventPickerSingleDay from '../SingleDay/EventPickerSingleDay'
 
 interface Props {
-    setStartsAt: React.Dispatch<React.SetStateAction<number | null>>
-    setEndsAt: React.Dispatch<React.SetStateAction<number | null>>
+    setStartsAt: React.Dispatch<React.SetStateAction<number>>
+    setEndsAt: React.Dispatch<React.SetStateAction<number>>
 }
 
 const EventTimePicker:React.FC<Props> = ({ setEndsAt, setStartsAt }) => {

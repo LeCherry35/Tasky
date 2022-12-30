@@ -15,6 +15,8 @@ const TimeInput: React.FC<Props> = ({setTime, time}) => {
       setTime(hrs + ':' + mins)
     }, [hrs, mins, setTime])
     useEffect(() => {
+        console.log(time);
+        
         setHrs(handleZero(time.split(':')[0]))
         setMins(handleZero(time.split(':')[1]))
     },[time])

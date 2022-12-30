@@ -62,7 +62,11 @@ const EventPickerSingleDay: React.FC<Props> = ({day, setStartsAtTime, startsAtTi
                   } else return <></>
                 })}
                 {events.events.map(event => {
-                  if (minute >= event.startsAt && minute <= event.endsAt) {
+                  if (minute === event.startsAt) {
+                    return (
+                      <div className={s.eventName}>{event.name}</div>
+                    )
+                  } else if (minute > event.startsAt && minute <= event.endsAt) {
                     return (
                       <div className={s.busyMinute}></div>
                     )

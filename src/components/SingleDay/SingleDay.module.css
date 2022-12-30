@@ -35,13 +35,20 @@
     font-size: 40px;
     position: absolute;
     right: 0;
-    transform: translateY(-100%) translateX(100%);
+    transform: translateY(-80%) translateX(100%);
 }
 .eventBorderSignBottom {
     font-size: 40px;
     position: absolute;
     right: 0;
     transform: translateX(100%);
+}
+.eventName {
+    position: absolute;
+    bottom: 0;
+    color: #fff;
+    padding-left: 10px;
+    font-size: 20px;
 }
 .hourStart {
     background-color: #fff;
@@ -62,13 +69,16 @@
     padding-bottom: 0;
     box-sizing: border-box;
     transform: translateY(-95%);
-    animation: blinkBorder 1s infinite alternate;
     position: absolute;
     color: #fff;
     padding-left: 10px;
     font-size: 20px;
     width: 100%;
+    border-bottom: 3px solid #FFCF56
 
+}
+.pickedDeadline {
+    animation: blinkBorder 1s infinite alternate;
 }
 .pickedFrom {
     position: absolute;
