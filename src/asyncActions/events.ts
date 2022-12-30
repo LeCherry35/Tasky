@@ -3,10 +3,10 @@ import { Dispatch } from 'redux';
 
 import EventService from '../services/EventServices';
 
-export const addEventAsync = (name: string, createdAt: number, startsAt: number | null) => {
+export const addEventAsync = (name: string, createdAt: number, startsAt: number | null, endsAt: number | null) => {
     return async (dispatch: Dispatch<EventsAction>) => {
         try {
-            const response = await EventService.addEvent(name, createdAt, startsAt)
+            const response = await EventService.addEvent(name, createdAt, startsAt, endsAt)
             dispatch({type: EventsActionTypes.ADD_EVENT, payload: response.data})
         } catch (e) {
             console.log(e);

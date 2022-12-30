@@ -3,8 +3,8 @@ import { AxiosResponse } from "axios";
 import { IEvent } from "../types/events";
 
 export default class EventService {
-    static async addEvent(name: string, createdAt: number, startsAt: number | null): Promise<AxiosResponse<IEvent>>{
-        return $api.post('/addEvent', {name, createdAt, startsAt})
+    static async addEvent(name: string, createdAt: number, startsAt: number | null, endsAt: number | null): Promise<AxiosResponse<IEvent>>{
+        return $api.post('/addEvent', {name, createdAt, startsAt, endsAt})
     }
     static async getEvents(): Promise<AxiosResponse<IEvent[]>> {
         return $api.get('/getEvents')

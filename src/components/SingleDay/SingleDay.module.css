@@ -16,6 +16,33 @@
     position: relative;
     flex-grow: 1;
 }
+.busyMinute {
+    width: 100%;
+    height: 100%;
+    background-color: #FFF;
+    opacity: 0.3;
+}
+.selectedMinute {
+    width: 100%;
+    height: 100%;
+    background-color: #FFCF56;
+    opacity: 0.5;
+}
+.activeMinute {
+    animation: blink 1s infinite alternate;
+}
+.eventBorderSignTop {
+    font-size: 40px;
+    position: absolute;
+    right: 0;
+    transform: translateY(-100%) translateX(100%);
+}
+.eventBorderSignBottom {
+    font-size: 40px;
+    position: absolute;
+    right: 0;
+    transform: translateX(100%);
+}
 .hourStart {
     background-color: #fff;
 }
@@ -35,7 +62,7 @@
     padding-bottom: 0;
     box-sizing: border-box;
     transform: translateY(-95%);
-    animation: blink 1s infinite alternate;
+    animation: blinkBorder 1s infinite alternate;
     position: absolute;
     color: #fff;
     padding-left: 10px;
@@ -47,12 +74,20 @@
     position: absolute;
     transform: translateY(-50%);
 }
-@keyframes blink {
+@keyframes blinkBorder {
     from {
         border-bottom: 3px solid white;
     }
     to {
         border-bottom: 3px solid #FFCF56;
+    }
+}
+@keyframes blink {
+    from {
+        color: white;
+    }
+    to {
+        color: #FFCF56;
     }
 }
 @media (max-width: 800px) {

@@ -2,7 +2,7 @@ export interface IEvent {
     name: string,
     createdAt?: number,
     startsAt: number,
-    endsAt?: number,
+    endsAt: number,
     description?: string,
     _id: string
 }
