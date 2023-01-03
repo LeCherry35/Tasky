@@ -2,15 +2,13 @@ import React, { useState, useEffect, useMemo } from 'react'
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa'
 import { DAYS_IN_WEEK, MILISECONDS_IN_DAY, weekdays } from '../../configs/calendar'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
-import s from './DateInput.module.css'
+import s from './DatePicker.module.css'
 import { months } from '../../configs/calendar'
 import { countWeekdaysBeforeMonth } from '../../helpers/countWeekDaysBeforeMonth'
+import { useNavigate } from 'react-router-dom'
 
-interface Props {
-    pickedDate: number,
-    setPickedDate: (date: number) => void
-}
-const DateInput: React.FC<Props> = ({pickedDate, setPickedDate}) => {
+
+const CalendarView: React.FC = () => {
     const { todos } = useTypedSelector(state => state.todos)
     const { events } = useTypedSelector(state => state.events)
 
@@ -24,6 +22,8 @@ const DateInput: React.FC<Props> = ({pickedDate, setPickedDate}) => {
     const dateToday = now.getDate()
     const timestampToday = new Date(now.getFullYear(), monthToday, dateToday).valueOf()
     const emptyWeekdaysNumber = countWeekdaysBeforeMonth(weekdayToday,dateToday)
+
+const navigate = useNavigate()
 
     useEffect(() => {
         const d: number[] = []
@@ -96,9 +96,6 @@ const DateInput: React.FC<Props> = ({pickedDate, setPickedDate}) => {
                             case timestampToday:
                                 classes = `${s.today} ${s.day}`
                                 break
-                            case pickedDate:
-                                classes = `${s.picked} ${s.day}`
-                                break
                             default:
                                 classes = s.day
                         }
@@ -119,9 +116,7 @@ const DateInput: React.FC<Props> = ({pickedDate, setPickedDate}) => {
                             <div 
                                 className={classes} 
                                 key={day}
-                                onClick={(e) => {
-                                    setPickedDate(day)
-                                }}
+                                onClick={(e) => navigate(`/day/${day}`)}
                             >
                                 {/* {(dayDate.getDay() === 1 && dayD + 7 > daysInM) &&
                                 <div className={s.monthName}>
@@ -150,4 +145,4 @@ const DateInput: React.FC<Props> = ({pickedDate, setPickedDate}) => {
     )
 }
 
-export default DateInput
+export default CalendarView

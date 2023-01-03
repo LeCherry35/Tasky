@@ -12,13 +12,15 @@
     background-color: #5c6784;
     margin: 5px;
     height: 50px;
-    transition: 1s;
+    transition: 0.5s;
     box-sizing:border-box;
     border-radius: 5px;
     font-size: 15px;
 }
 .day:hover {
-    transform: scale(200%);
+    transform: scale(110%);
+    border: 5px solid white;
+    color: white;
 }
 .today {
     border: 5px solid #FFCF56;

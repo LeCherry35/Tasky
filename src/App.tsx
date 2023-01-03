@@ -14,6 +14,7 @@ import Profile from './components/Profile/Profile';
 import Events from './components/Events/Events';
 import { getEventsAsync } from './asyncActions/events';
 import Todos from './components/Todos/Todos';
+import SingleDay from './components/SingleDay/SingleDay';
 // import SingleDay from './components/SingleDay/SingleDay';
 
 
@@ -51,7 +52,7 @@ const App: React.FC = () => {
           <Route path='/auth' element={<LoginForm/>} />
           <Route path='/profile' element={<Profile/>} />
           <Route path='/events' element={<Events/>} />
-          {/* <Route path='/day/' element={<SingleDay day={1672178400000}/>} /> */}
+          <Route path='/day/:day' element={<SingleDay />} />
 
 
 

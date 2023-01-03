@@ -37,7 +37,7 @@ const Todos = () => {
       />
       <div className={s.deadlineContainer}>
         {newTodo && <div className={s.deadlineInfo} onClick={() => setIsDeadlineInputShown(b => !b) }>deadline{isDeadlineInputShown ? ':  ' : '?'}</div>}
-        {isDeadlineInputShown && <DateTimePicker setDateAndTime={setDeadline}/>}
+        {newTodo && isDeadlineInputShown && <DateTimePicker setDateAndTime={setDeadline}/>}
       </div>
       <TodoList />
     </div>

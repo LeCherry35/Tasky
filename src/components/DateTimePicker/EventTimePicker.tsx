@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import DateInput from '../DateInput/DateInput'
+import DateInput from '../DatePicker/DatePicker'
 import TimeInput from '../TimeInput/TimeInput'
 import { stringToTimestamp } from '../../helpers/stringToTimestamp'
 import s from './DateTimePicker.module.css'

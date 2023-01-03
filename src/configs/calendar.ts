@@ -5,6 +5,7 @@ export const MILISECONDS_IN_DAY = 24 * 60 * 60 * 1000
 export const MILISECONDS_IN_HOUR = 60 * 60 * 1000
 export const MILISECONDS_IN_MINUTE = 60 * 1000
 export const MINUTES_IN_DAY = 24 * 60
+export const MINUTES_IN_HOUR = 60
 export const DAYS_IN_WEEK = 7
 export const weekdays: string [] = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 

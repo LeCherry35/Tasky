@@ -1,12 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import s from './Calendar.module.css'
-import DateInput from '../DateInput/DateInput'
+import CalendarView from '../DatePicker/CalendarView'
 
 const Calendar = () => {
-    const [date, setDate] = useState(0)
     return (
         <div className={s.container}>
-        <DateInput pickedDate={date} setPickedDate={setDate}/>
+        <CalendarView/>
         </div>
     )
 }

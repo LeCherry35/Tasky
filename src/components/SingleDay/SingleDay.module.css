@@ -3,6 +3,21 @@
     margin-top: 50px;
     height: 60vh;
     margin: 10px auto;
+    display: flex;
+    flex-direction: column;
+
+}
+.showMoreButton {
+    margin: 10px auto;
+    padding: 0 20px;
+    border: none;
+    background-color: #037171;
+    font-family: inherit;
+    font-size: 20px;
+    line-height: 20px;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
 }
 .minutesContainer {
     display: flex;
