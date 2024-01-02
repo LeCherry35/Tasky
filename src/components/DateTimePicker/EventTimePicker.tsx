@@ -14,15 +14,13 @@ const EventTimePicker:React.FC<Props> = ({ setEndsAt, setStartsAt }) => {
     const [isDatePickerDisplayed, setIsDatePickerDisplayed] = useState(false)
     const [isPickerDisplayed, setIsPickerDisplayed] = useState(false)
     const [isDayViewDisplayed, setIsDayViewDisplayed] = useState(false)
-    const [startsAtDate,setStartsAtDate] = useState(0)
+    const [startsAtDate,setStartsAtDate] = useState(Date.now())
     const [startsAtTime, setStartsAtTime] = useState('12:00')
     const [endsAtTime, setEndsAtTime] = useState('12:00')
 
     useEffect(() => {
             setStartsAt(stringToTimestamp(startsAtDate,startsAtTime))
             setEndsAt(stringToTimestamp(startsAtDate,endsAtTime))
-            
-
     },[startsAtDate,startsAtTime, setStartsAt, endsAtTime, setEndsAt])
     
     const datePickHandler = (date: number) => {
