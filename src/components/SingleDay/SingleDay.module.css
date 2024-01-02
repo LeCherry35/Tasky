@@ -46,7 +46,7 @@
 .activeMinute {
     animation: blink 1s infinite alternate;
 }
-.eventBorderSignTop {
+/* .eventBorderSignTop {
     font-size: 40px;
     position: absolute;
     right: 0;
@@ -57,7 +57,16 @@
     position: absolute;
     right: 0;
     transform: translateX(100%);
+} */
+.eventBorderSign {
+    font-size: 20px;
+    position: absolute;
+    right: 0;
+    transform: translateY(-50%) translateX(100%);
+    font-weight: 700;
 }
+
+
 .eventName {
     position: absolute;
     bottom: 0;

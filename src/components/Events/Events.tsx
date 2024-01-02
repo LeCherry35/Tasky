@@ -19,7 +19,6 @@ const Events = () => {
 
   const addEvent = () => {
     const createdAt = new Date().valueOf()
-    console.log('@@@', endsAt);
     
     if( isAuth) {
       dispatch(addEventAsync(name, createdAt, startsAt, endsAt))
@@ -37,7 +36,7 @@ const Events = () => {
         setText={setName} 
         text={name} 
         onSubmit={addEvent} 
-        disabled={(!name) || !(startsAt) || startsAt < new Date().valueOf() || startsAt > endsAt} 
+        disabled={(!name) || !(startsAt) || startsAt < new Date().valueOf() || startsAt >= endsAt} 
       />
       {name && <EventTimePicker setStartsAt={setStartsAt} setEndsAt={setEndsAt} />}
 

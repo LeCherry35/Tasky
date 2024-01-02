@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { MdOutlineVerticalAlignBottom, MdOutlineVerticalAlignTop } from 'react-icons/md'
+// import { MdOutlineVerticalAlignBottom, MdOutlineVerticalAlignTop } from 'react-icons/md'
 import { MILISECONDS_IN_HOUR, MILISECONDS_IN_MINUTE, MINUTES_IN_DAY } from '../../configs/calendar'
 import { handleZero } from '../../helpers/handleZero'
 import { stringToTimestamp } from '../../helpers/stringToTimestamp'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
 import s from './SingleDay.module.css'
+import { compareStringTime } from '../../helpers/compareStringTime'
 
 interface Props {
   day: number
@@ -25,14 +26,18 @@ const EventPickerSingleDay: React.FC<Props> = ({day, setStartsAtTime, startsAtTi
       const ts = new Date(minute)
       const h = handleZero(String(ts.getHours())) 
       const m = Math.round(ts.getMinutes()/10) * 10 - 10 > 0 ? handleZero(String(Math.round(ts.getMinutes()/10) * 10 - 10 )): '00'
-      setStartsAtTime(h + ':' + m)
-      setIsPickStartsAt(false)
+      if(compareStringTime(h + ':' + m, endsAtTime)) {
+        setStartsAtTime(h + ':' + m)
+        setIsPickStartsAt(false)
+      }
     } else {
       const ts = new Date(minute)
       const h = handleZero(String(ts.getHours())) 
       const m = Math.round(ts.getMinutes()/10) * 10 - 10 > 0 ? handleZero(String(Math.round(ts.getMinutes()/10) * 10 - 10 )): '00'
-      setEndsAtTime(h + ':' + m)
-      setIsPickStartsAt(true)
+      if(compareStringTime(startsAtTime, h + ':' + m)) {
+        setEndsAtTime(h + ':' + m)
+        setIsPickStartsAt(true)
+      }
     }
   }
 
@@ -77,8 +82,24 @@ const EventPickerSingleDay: React.FC<Props> = ({day, setStartsAtTime, startsAtTi
                   }
                 })}
                 {minute >= stringToTimestamp(day, startsAtTime) && minute <=stringToTimestamp(day, endsAtTime) && <div className={s.selectedMinute}></div>}
-                {minute === stringToTimestamp(day, startsAtTime) && <div className={isPickStartsAt ? `${s.activeMinute} ${s.eventBorderSignTop} ` : s.eventBorderSignTop}><MdOutlineVerticalAlignBottom/></div>}
-                {minute === stringToTimestamp(day, endsAtTime) && <div className={!isPickStartsAt ? `${s.activeMinute} ${s.eventBorderSignBottom} ` : s.eventBorderSignBottom}><MdOutlineVerticalAlignTop/></div>}
+                {/* {minute === stringToTimestamp(day, startsAtTime) && <div className={isPickStartsAt ? `${s.activeMinute} ${s.eventBorderSignTop} ` : s.eventBorderSignTop}><MdOutlineVerticalAlignBottom/></div>}
+                {minute === stringToTimestamp(day, endsAtTime) && <div className={!isPickStartsAt ? `${s.activeMinute} ${s.eventBorderSignBottom} ` : s.eventBorderSignBottom}><MdOutlineVerticalAlignTop/></div>} */}
+                {minute === stringToTimestamp(day, startsAtTime) && 
+                  <div className={isPickStartsAt ? `${s.activeMinute} ${s.eventBorderSign} ` : s.eventBorderSign}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setIsPickStartsAt(true)
+                  }}
+                  >starts at</div>
+                }
+                {minute === stringToTimestamp(day, endsAtTime) && 
+                  <div className={!isPickStartsAt ? `${s.activeMinute} ${s.eventBorderSign} ` : s.eventBorderSign}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setIsPickStartsAt(false)
+                  }}
+                  >ends at</div>
+                }
                 {(minute - Number(day)) % MILISECONDS_IN_HOUR === 0 && 
                 <div className={s.time}>
                   {handleZero(String((minute - Number(day))/ MILISECONDS_IN_HOUR)) + ':00'}

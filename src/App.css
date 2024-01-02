@@ -19,7 +19,7 @@
   z-index: -10;
   text-align: center;
   color: white;
-  /* opacity: 0.3; */
+  opacity: 0.3;
   bottom: 0;
   overflow: hidden;
 } 
