@@ -28,7 +28,8 @@ const LoginForm: FC = () => {
                 {user.isActivated 
                 ? <>{user.email}</>
                 :<div className={s.info}>
-                    Tasky has sent activation link to {user.email}
+                    Mail service is temporary unavailable
+                    {/* Tasky has sent activation link to {user.email} */}
                 </div>}
                 <div className={s.buttonContainer}>
                 <NavButton name='Log out!' onClick={() => {
