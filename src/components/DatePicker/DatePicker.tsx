@@ -11,6 +11,8 @@ interface Props {
     setPickedDate: (date: number) => void
 }
 const DatePicker: React.FC<Props> = ({pickedDate, setPickedDate}) => {
+    const monthColors = [ 'aliceblue', 'antiquewhite', 'lightgoldenrodyellow', 'lightgreen', 'lightpink', 'lightblue', 'lightcoral', 'lightcyan', 'lightgray', 'lightgrey', 'lightseagreen', 'lightskyblue']
+
     const { todos } = useTypedSelector(state => state.todos)
     const { events } = useTypedSelector(state => state.events)
 
@@ -119,6 +121,8 @@ const DatePicker: React.FC<Props> = ({pickedDate, setPickedDate}) => {
                             <div 
                                 className={classes} 
                                 key={day}
+                                style={{backgroundColor: monthColors[dayM]}}
+                                title={months[dayM].name}
                                 onClick={(e) => {
                                     setPickedDate(day)
                                 }}
@@ -128,10 +132,10 @@ const DatePicker: React.FC<Props> = ({pickedDate, setPickedDate}) => {
                                     {months[dayM + 1].name}
                                 </div>} */}
                                 <span className={s.dateNumber}>{dayDate.getDate()}</span> 
-                                {(dayDate.getDate() === 1  || dayDate.getDay() === 1) &&
+                                {/* {(dayDate.getDate() === 1  || dayDate.getDay() === 1) &&
                                 <div className={s.monthName}>
                                     {months[dayM].name.substring(0,3)}
-                                </div>}
+                                </div>} */}
                                 {/* <span>{ months[dayDate.getMonth()].name.substring(0,3)}</span> */}
                                 <br/>
                                 <span className={s.mark}>{deadlineTodos.map((todo, id) => '!')}</span>

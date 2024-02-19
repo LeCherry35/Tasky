@@ -21,7 +21,7 @@
     background-color: #6878a1;
 }
 .today {
-    border: 5px solid #FFCF56;
+    box-shadow: 0px 0px 0px 5px #FFCF56;
 }
 .picked {
     animation: 2s blink infinite alternate;
@@ -64,14 +64,24 @@
 }
 @keyframes blink {
     from {
-        border: 5px solid white
+    box-shadow: 0px 0px 0px 5px white;
+
     }
     to {
-        border: 5px solid red;
+    box-shadow: 0px 0px 0px 5px red;
+
     }
 }
 @media (max-width:800px) {
     .monthName {
         font-size: 15px;
+    }
+    .weekdayName {
+        font-size: 15px;
+    }
+}
+@media (max-width:400px) {
+    .dateNumber {
+        font-size: 10px;
     }
 }

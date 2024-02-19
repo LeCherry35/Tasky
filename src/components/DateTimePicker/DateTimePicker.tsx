@@ -18,7 +18,7 @@ const DateTimePicker:React.FC<Props> = ({ setDateAndTime}) => {
 
     useEffect(() => {
             setDateAndTime(date + +time.split(':')[0] * MILISECONDS_IN_HOUR + +time.split(':')[1] * MILISECONDS_IN_MINUTE)
-
+            
     },[date, time, setDateAndTime])
     
     const setPickedDate = (date: number) => {
@@ -34,11 +34,11 @@ const DateTimePicker:React.FC<Props> = ({ setDateAndTime}) => {
     }
     return (
         <div className={s.container}> 
-            <div className={s.text}>{date === 0 ? 'Select ' : ''}
+            <div className={s.text}>{date === 0 ? 'select ' : ''}
                 <span className={date === 0 ? s.clickWord : s.pointer} onClick={dateClickHandler}> 
                     {date === 0 ? ' date' : new Date(date).toDateString()}
                 </span>
-                {isTimePickerDisplayed ? ',' : ', Select '}
+                {isTimePickerDisplayed ? ',' : ', select '}
                 <span onClick={() => setIsTimePickerDisplayed(true)}>
                     {isTimePickerDisplayed 
                         ? <div className={s.timeContainer}><TimeInput setTime={setTime} time={time}/></div> 

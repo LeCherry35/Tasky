@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom'
 
 
 const CalendarView: React.FC = () => {
+    const monthColors = [ 'aliceblue', 'antiquewhite', 'lightgoldenrodyellow', 'lightgreen', 'lightpink', 'lightblue', 'lightcoral', 'lightcyan', 'lightgray', 'lightgrey', 'lightseagreen', 'lightskyblue']
+
     const { todos } = useTypedSelector(state => state.todos)
     const { events } = useTypedSelector(state => state.events)
 
@@ -88,7 +90,7 @@ const navigate = useNavigate()
                 {days.map((day, id) => {
                     if(id >= showDaysFrom && id < showDaysFrom + DAYS_IN_WEEK * weeksShown) {
                         const dayDate = new Date(day)
-                        const dayM = dayDate.getMonth()
+                        const dayM = dayDate.getMonth()                        
                         // const daysInM = months[dayM].days
                         // const dayD = dayDate.getDate()
                         let classes 
@@ -117,20 +119,19 @@ const navigate = useNavigate()
                                 className={classes} 
                                 key={day}
                                 onClick={(e) => navigate(`/day/${day}`)}
+                                style={{backgroundColor: monthColors[dayM]}}
+                                title={months[dayM].name}
+
                             >
-                                {/* {(dayDate.getDay() === 1 && dayD + 7 > daysInM) &&
-                                <div className={s.monthName}>
-                                    {months[dayM + 1].name}
-                                </div>} */}
+                                
                                 <span className={s.dateNumber}>{dayDate.getDate()}</span> 
-                                {(dayDate.getDate() === 1  || dayDate.getDay() === 1) &&
+                                {/* {(dayDate.getDate() === 1  || dayDate.getDay() === 1) &&
                                 <div className={s.monthName}>
                                     {months[dayM].name.substring(0,3)}
-                                </div>}
-                                {/* <span>{ months[dayDate.getMonth()].name.substring(0,3)}</span> */}
+                                </div>} */}
                                 <br/>
                                 <span className={s.mark}>{deadlineTodos.map((todo, id) => '!')}</span>
-                                <span className={s.mark}>{eventsStart.map((event, id) => 'E')}</span>
+                                <span className={s.mark}>{eventsStart.map((event, id) => 'Ev')}</span>
                             </div>
                         )
                     } else return <></>
