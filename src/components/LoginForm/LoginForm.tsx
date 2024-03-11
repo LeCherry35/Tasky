@@ -1,83 +1,92 @@
-import React, {FC, useEffect, useState} from 'react'
-import { login, logout, register } from '../../asyncActions/user';
-import { useTypedDispatch } from '../../hooks/useTypedDispatch';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { clearErrorAction } from '../../store/reducers/userReducer';
-import NavButton from '../Button/NavButton';
-import s from './LoginForm.module.css'
-
-
+import React, { FC, useEffect, useState } from "react";
+import { login, logout, register } from "../../asyncActions/user";
+import { useTypedDispatch } from "../../hooks/useTypedDispatch";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { clearErrorAction } from "../../store/reducers/userReducer";
+import NavButton from "../Button/NavButton";
+import s from "./LoginForm.module.css";
 
 const LoginForm: FC = () => {
-    
-    const dispatch = useTypedDispatch();
-    const [email,setEmail] = useState<string>('')
-    const [password,setPassword] = useState<string>('')
-    const {isAuth, user, error, isLoading} = useTypedSelector(state => state.user)
+  const dispatch = useTypedDispatch();
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const { isAuth, user, error, isLoading } = useTypedSelector(
+    (state) => state.user
+  );
 
-    useEffect(() => {
-        return function cleanup () {
-            dispatch(clearErrorAction())
-        } 
-    }, [dispatch])
-    
-    return (
-        <div className={s.container}>
-            {isAuth 
-            ? <div className={s.user__box}> 
-                {user.isActivated 
-                ? <>{user.email}</>
-                :<div className={s.info}>
-                    Mail service is temporary unavailable
-                    {/* Tasky has sent activation link to {user.email} */}
-                </div>}
-                <div className={s.buttonContainer}>
-                <NavButton name='Log out!' onClick={() => {
-                    dispatch(logout())
-                    setEmail('')
-                    setPassword('')
-                }}/>
-                </div>
-            </div>
-            : <>
-            <div className={s.user__box}>
-                <div className={s.user__error}>{error}</div>
-                <input
-                    className={s.user__input}
-                    placeholder='Email'
-                    onChange={e => setEmail(e.target.value)}    
-                    value={(email)}
-                    type='text'
-                />
-                <input
-                    className={s.user__input}
-                    placeholder='Password'
-                    onChange={e => setPassword(e.target.value)}    
-                    value={(password)}
-                    type='password'
-                />
-                <div className={s.buttonContainer}>
-                    <NavButton name='Register' onClick={(e) => {
-                        e.preventDefault()
-                        dispatch(register(email, password))
-                        if (isAuth) setEmail('')
-                        setPassword('')
-                    }}/> or
-                    <NavButton name='Log in' onClick={(e) => {
-                        e.preventDefault()
-                        dispatch(login(email, password))
-                        if (isAuth) setEmail('')
-                        setPassword('')
-                    }}/>
-                </div>
+  useEffect(() => {
+    return function cleanup() {
+      dispatch(clearErrorAction());
+    };
+  }, [dispatch]);
 
+  return (
+    <div className={s.container}>
+      {isAuth ? (
+        <div className={s.user__box}>
+          {user.isActivated ? (
+            <div className={s.info}>{user.email}</div>
+          ) : (
+            <div className={s.info}>
+              Tasky has sent activation link to {user.email}
             </div>
-            </>}
-            {isLoading 
-            ? <div className={s.user__loading}>Loading</div>
-            : <></>}
+          )}
+          <div className={s.buttonContainer}>
+            <NavButton
+              name="Log out!"
+              onClick={() => {
+                dispatch(logout());
+                setEmail("");
+                setPassword("");
+              }}
+            />
+          </div>
         </div>
-    )
-}
+      ) : (
+        <>
+          <div className={s.user__box}>
+            <div className={s.user__error}>{error}</div>
+            <input
+              className={s.user__input}
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              type="text"
+            />
+            <input
+              className={s.user__input}
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+              type="password"
+            />
+            <div className={s.buttonContainer}>
+              <NavButton
+                name="Register"
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch(register(email, password));
+                  if (isAuth) setEmail("");
+                  setPassword("");
+                }}
+              />{" "}
+              or
+              <NavButton
+                name="Log in"
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch(login(email, password));
+                  if (isAuth) setEmail("");
+                  setPassword("");
+                }}
+              />
+            </div>
+          </div>
+        </>
+      )}
+      {isLoading ? <div className={s.user__loading}>Loading</div> : <></>}
+    </div>
+  );
+};
 
-export default LoginForm
+export default LoginForm;

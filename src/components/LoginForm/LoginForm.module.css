@@ -44,6 +44,7 @@
 }
 .info {
     text-align: center;
+    word-wrap: break-word;
 }
 .buttonContainer {
     display: flex;
